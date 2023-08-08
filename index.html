@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="script.js">
+
+    <title>Verificador de Contraste</title>
+</head>
+
+<body>
+    <h1>Verificador de Contraste</h1>
+    <div class="container">
+        <h2>Seleção de cores:</h2>
+        <label for="background-color">Plano de fundo:</label>
+        <input type="color" id="background-color">
+        <br>
+        <label for="text-color">Primeiro plano:</label>
+        <input type="color" id="text-color">
+        <br>
+        <div class="color-example" id="color-example">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sd diam nonmumy eiusmod rom tempor incidunt ut lsbore et dolore magna aliquam erat volupat.
+        </div>
+    </div>
+
+    <script>
+        const backgroundColorInput = document.getElementById("background-color");
+        const textColorInput = document.getElementById("text-color");
+        const colorExample = document.getElementById("color-example");
+
+        backgroundColorInput.addEventListener("input", updateExampleColors);
+        textColorInput.addEventListener("input", updateExampleColors);
+
+        function updateExampleColors() {
+            const backgroundColor = backgroundColorInput.value;
+            const textColor = textColorInput.value;
+
+            colorExample.style.backgroundColor = backgroundColor;
+            colorExample.style.color = textColor;
+        }
+    </script>
+</body>
+
+</html>
