@@ -1,3 +1,14 @@
+// Função para processar e normalizar o valor hexadecimal
+function normalizeHexValue(hex) {
+    hex = hex.trim();
+    if (hex.startsWith('#')) {
+        hex = hex.substring(1);
+    }
+    hex = hex.toLowerCase();
+    return hex;
+}
+
+// Função para calcular a luminância de uma cor
 function getLuminance(color) {
     const rgb = color.substring(1);
     const r = parseInt(rgb.substring(0, 2), 16) / 255;
@@ -7,6 +18,7 @@ function getLuminance(color) {
     return luminance;
 }
 
+// Função para calcular o ratio de contraste entre duas cores
 function calculateContrastRatio(background, text) {
     const bgLuminance = getLuminance(background);
     const textLuminance = getLuminance(text);
@@ -16,8 +28,17 @@ function calculateContrastRatio(background, text) {
 
 // Função para atualizar o contraste ratio e as cores
 function updateContrastRatio() {
-    const backgroundColor = document.getElementById('background-color').value;
-    const textColor = document.getElementById('text-color').value;
+    const backgroundHexInput = document.getElementById('background-hex');
+    const textHexInput = document.getElementById('text-hex');
+
+    const backgroundColor = backgroundHexInput.value ?
+        `#${normalizeHexValue(backgroundHexInput.value)}` :
+        document.getElementById('background-color').value;
+
+    const textColor = textHexInput.value ?
+        `#${normalizeHexValue(textHexInput.value)}` :
+        document.getElementById('text-color').value;
+
     const sampleText12 = document.getElementById('sample-text-12');
     const sampleText18 = document.getElementById('sample-text-18');
     const contrastRatioDisplay = document.getElementById('contrast-ratio');
@@ -31,6 +52,8 @@ function updateContrastRatio() {
     sampleText18.style.color = textColor;
 }
 
-// Event listener para mudanças nas entradas de cor
+// Event listeners para mudanças nas entradas de cor e hexadecimais
 document.getElementById('background-color').addEventListener('change', updateContrastRatio);
 document.getElementById('text-color').addEventListener('change', updateContrastRatio);
+document.getElementById('background-hex').addEventListener('input', updateContrastRatio);
+document.getElementById('text-hex').addEventListener('input', updateContrastRatio);
