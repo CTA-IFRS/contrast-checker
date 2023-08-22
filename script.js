@@ -57,3 +57,30 @@ document.getElementById('background-color').addEventListener('change', updateCon
 document.getElementById('text-color').addEventListener('change', updateContrastRatio);
 document.getElementById('background-hex').addEventListener('input', updateContrastRatio);
 document.getElementById('text-hex').addEventListener('input', updateContrastRatio);
+
+const backgroundColorPicker = document.getElementById('background-color');
+
+
+const backgroundHexInput = document.getElementById('background-hex');
+
+
+const textColorPicker = document.getElementById('text-color');
+
+
+const textHexInput = document.getElementById('text-hex');
+
+
+backgroundColorPicker.addEventListener('input', function(e) {
+
+    const hexColor = e.target.value;
+    
+
+    backgroundHexInput.value = hexColor;
+});
+
+
+textColorPicker.addEventListener('input', function(e) {
+
+    const hexColor = e.target.value;
+    textHexInput.value = hexColor;
+});
