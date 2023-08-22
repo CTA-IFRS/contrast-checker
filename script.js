@@ -30,6 +30,7 @@ function calculateContrastRatio(background, text) {
 function updateContrastRatio() {
     const backgroundHexInput = document.getElementById('background-hex');
     const textHexInput = document.getElementById('text-hex');
+    const customCardBodies = document.querySelectorAll('.custom-card-body');
 
     const backgroundColor = backgroundHexInput.value ?
         `#${normalizeHexValue(backgroundHexInput.value)}` :
@@ -50,6 +51,11 @@ function updateContrastRatio() {
     sampleText12.style.color = textColor;
     sampleText18.style.backgroundColor = backgroundColor;
     sampleText18.style.color = textColor;
+
+    customCardBodies.forEach(cardBody => {
+        cardBody.style.backgroundColor = backgroundColor;
+        cardBody.style.color = textColor;
+    });
 }
 
 // Event listeners para mudanças nas entradas de cor e hexadecimais
