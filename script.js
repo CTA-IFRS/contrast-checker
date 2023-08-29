@@ -56,6 +56,26 @@ function updateContrastRatio() {
         cardBody.style.backgroundColor = backgroundColor;
         cardBody.style.color = textColor;
     });
+
+    // Verifique os critérios de contraste para AA e AAA
+    const isAAMeeting = contrastRatio >= 4.5;
+    const isAAAMeeting = contrastRatio >= 7;
+
+    const circleAA = document.getElementById('circleAA');
+    const circleAAA = document.getElementById('circleAAA');
+
+    circleAA.style.backgroundColor = isAAMeeting ? 'green' : 'red';
+    circleAAA.style.backgroundColor = isAAAMeeting ? 'green' : 'red';
+
+    // Círculos 18pt refletem o resultado do cálculo de contraste
+    const circleAA18PT = document.getElementById('circleAA18PT');
+    const circleAAA18PT = document.getElementById('circleAAA18PT');
+
+    const isAA18ptMeeting = contrastRatio >= 4.5; // Critério para AA 18pt
+    const isAAA18ptMeeting = contrastRatio >= 7; // Critério para AAA 18pt
+
+    circleAA18PT.style.backgroundColor = isAA18ptMeeting ? 'green' : 'red';
+    circleAAA18PT.style.backgroundColor = isAAA18ptMeeting ? 'green' : 'red';
 }
 
 // Event listeners para mudanças nas entradas de cor e hexadecimais
@@ -65,28 +85,16 @@ document.getElementById('background-hex').addEventListener('input', updateContra
 document.getElementById('text-hex').addEventListener('input', updateContrastRatio);
 
 const backgroundColorPicker = document.getElementById('background-color');
-
-
 const backgroundHexInput = document.getElementById('background-hex');
-
-
 const textColorPicker = document.getElementById('text-color');
-
-
 const textHexInput = document.getElementById('text-hex');
 
-
 backgroundColorPicker.addEventListener('input', function(e) {
-
     const hexColor = e.target.value;
-
-
     backgroundHexInput.value = hexColor;
 });
 
-
 textColorPicker.addEventListener('input', function(e) {
-
     const hexColor = e.target.value;
     textHexInput.value = hexColor;
 });
@@ -104,3 +112,6 @@ document.addEventListener("DOMContentLoaded", function() {
         popup.style.display = "none";
     });
 });
+
+// Chame a função updateContrastRatio quando a página carregar
+window.addEventListener('load', updateContrastRatio);
