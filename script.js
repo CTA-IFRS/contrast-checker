@@ -79,7 +79,7 @@ const textHexInput = document.getElementById('text-hex');
 backgroundColorPicker.addEventListener('input', function(e) {
 
     const hexColor = e.target.value;
-    
+
 
     backgroundHexInput.value = hexColor;
 });
@@ -89,4 +89,18 @@ textColorPicker.addEventListener('input', function(e) {
 
     const hexColor = e.target.value;
     textHexInput.value = hexColor;
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const helpButton = document.getElementById("help-button");
+    const popup = document.getElementById("popup");
+    const popupClose = document.getElementById("popup-close");
+
+    helpButton.addEventListener("click", function() {
+        popup.style.display = "flex";
+    });
+
+    popupClose.addEventListener("click", function() {
+        popup.style.display = "none";
+    });
 });

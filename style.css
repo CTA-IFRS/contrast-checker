@@ -12,15 +12,15 @@ body {
 
 .container {
     display: flex;
-    flex-direction: row; /* Alterado para exibir os elementos em linha */
-    align-items: center; /* Alinhe verticalmente ao centro */
-    justify-content: flex-start; /* Alinhe à esquerda */
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     background-color: white;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    width: 80%; /* Defina uma largura para o container */
-    margin: 0 auto; /* Centralize horizontalmente */
+    width: 80%;
+    margin: 0 auto;
 }
 
 .container-gray {
@@ -42,12 +42,15 @@ body {
     text-align: center;
 }
 
-
 h1 {
     text-align: center;
     margin-top: 0;
     text-transform: uppercase;
     color: white;
+}
+
+.title-container {
+    position: relative;
 }
 
 label {
@@ -58,14 +61,14 @@ label {
 
 input[type="color"] {
     border: none;
-    width: 100px; /* Largura ajustada para os inputs de cor */
+    width: 100px;
     height: 100px;
     margin-top: 5px;
     cursor: pointer;
 }
 
 .color-input {
-    width: 50%; /* Defina a largura para cada .color-input */
+    width: 50%;
 }
 
 .color-example {
@@ -74,14 +77,64 @@ input[type="color"] {
     padding: 10px;
     border-radius: 5px;
     display: flex;
-    flex-direction: column; /* Organize os elementos verticalmente */
-    align-items: center; /* Centralize horizontalmente */
+    flex-direction: column;
+    align-items: center;
 }
 
 .color-preview {
-    margin: 5px; /* Espaçamento entre as frases */
+    margin: 5px;
 }
 
 .card {
     margin-bottom: 20px;
+}
+
+.help-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 360px;
+    margin-bottom: 10px;
+    top: -10px;
+}
+
+.help-button span {
+    font-size: 20px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 25%;
+    position: relative;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
 }

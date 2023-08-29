@@ -10,7 +10,29 @@
 </head>
 
 <body>
-    <h1>Verificador de Contraste</h1>
+    <h1 class="title-container">
+        Verificador de Contraste
+        <span class="help-button" id="help-button">?</span>
+    </h1>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="popup-close" id="popup-close">&times;</span>
+
+            <h2>Sobre o verificador de contraste </h2>
+            <p>
+                Esta ferramenta foi criada para que designers e desenvolvedores possam testar a conformidade do contraste de cores com base nas Diretrizes de acessibilidade de conteúdo da Web (WCAG), conforme estabelecido pelo World Wide Web Consortium (W3C).Esses cálculos
+                são baseados nas fórmulas especificadas pelo W3C.
+            </p>
+            <br>
+            <h2>Como usar?</h2>
+            <p>
+                Para executar seu teste, selecione uma cor de primeiro plano e uma cor de fundo. Os resultados serão gerados automaticamente e você receberá suas pontuações, podendo saber se cada critério foi ou não aprovado. Você pode selecionar 'Adicionar ao histórico'
+                para adicionar sua amostra a uma lista gerada abaixo.
+            </p>
+        </div>
+    </div>
+
     <div class="container mt-5">
         <div class="color-inputs">
             <div class="color-input">
@@ -49,27 +71,27 @@
                         </div>
                     </div>
                 </div>
-            </div>    
-        </div>        
+            </div>
+        </div>
     </div>
 
     <div class="container mt-5 container-gray">
 
-            <div class="circle" id="circleAA">
-                <p>AA</p>
-            </div>
+        <div class="circle" id="circleAA">
+            <p>AA</p>
+        </div>
 
-            <div class="circle" id="circleAAA">
-                <p>AAA</p>
-            </div>
-    
-            <div class="circle" id="circleAA18PT">
-                <p>AA18PT</p>
-            </div>
-    
-            <div class="circle" id="circleAAA18PT">
-                <p>AAA18PT</p>
-            </div>
+        <div class="circle" id="circleAAA">
+            <p>AAA</p>
+        </div>
+
+        <div class="circle" id="circleAA18PT">
+            <p>AA18PT</p>
+        </div>
+
+        <div class="circle" id="circleAAA18PT">
+            <p>AAA18PT</p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
