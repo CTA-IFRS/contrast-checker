@@ -1,4 +1,3 @@
-// Função para processar e normalizar o valor hexadecimal
 function normalizeHexValue(hex) {
     hex = hex.trim();
     if (hex.startsWith('#')) {
@@ -8,7 +7,6 @@ function normalizeHexValue(hex) {
     return hex;
 }
 
-// Função para calcular a luminância de uma cor
 function getLuminance(color) {
     const rgb = color.substring(1);
     const r = parseInt(rgb.substring(0, 2), 16) / 255;
@@ -18,7 +16,6 @@ function getLuminance(color) {
     return luminance;
 }
 
-// Função para calcular o ratio de contraste entre duas cores
 function calculateContrastRatio(background, text) {
     const bgLuminance = getLuminance(background);
     const textLuminance = getLuminance(text);
@@ -26,7 +23,6 @@ function calculateContrastRatio(background, text) {
     return contrastRatio.toFixed(2);
 }
 
-// Função para atualizar o contraste ratio e as cores
 function updateContrastRatio() {
     const backgroundHexInput = document.getElementById('background-hex');
     const textHexInput = document.getElementById('text-hex');
@@ -57,7 +53,6 @@ function updateContrastRatio() {
         cardBody.style.color = textColor;
     });
 
-    // Verifique os critérios de contraste para AA e AAA
     const isAAMeeting = contrastRatio >= 4.5;
     const isAAAMeeting = contrastRatio >= 7;
 
@@ -67,18 +62,16 @@ function updateContrastRatio() {
     circleAA.style.backgroundColor = isAAMeeting ? 'green' : 'red';
     circleAAA.style.backgroundColor = isAAAMeeting ? 'green' : 'red';
 
-    // Círculos 18pt refletem o resultado do cálculo de contraste
     const circleAA18PT = document.getElementById('circleAA18PT');
     const circleAAA18PT = document.getElementById('circleAAA18PT');
 
-    const isAA18ptMeeting = contrastRatio >= 4.5; // Critério para AA 18pt
-    const isAAA18ptMeeting = contrastRatio >= 7; // Critério para AAA 18pt
+    const isAA18ptMeeting = contrastRatio >= 3;
+    const isAAA18ptMeeting = contrastRatio >= 4.5;
 
     circleAA18PT.style.backgroundColor = isAA18ptMeeting ? 'green' : 'red';
     circleAAA18PT.style.backgroundColor = isAAA18ptMeeting ? 'green' : 'red';
 }
 
-// Event listeners para mudanças nas entradas de cor e hexadecimais
 document.getElementById('background-color').addEventListener('change', updateContrastRatio);
 document.getElementById('text-color').addEventListener('change', updateContrastRatio);
 document.getElementById('background-hex').addEventListener('input', updateContrastRatio);
@@ -113,5 +106,4 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Chame a função updateContrastRatio quando a página carregar
 window.addEventListener('load', updateContrastRatio);
