@@ -41,7 +41,7 @@ function updateContrastRatio() {
     const contrastRatioDisplay = document.getElementById('contrast-ratio');
 
     const contrastRatio = calculateContrastRatio(backgroundColor, textColor);
-    contrastRatioDisplay.innerText = `Nível de Contraste RATIO: ${contrastRatio}`;
+    contrastRatioDisplay.innerText = `RATIO: ${contrastRatio}`;
 
     sampleText12.style.backgroundColor = backgroundColor;
     sampleText12.style.color = textColor;
