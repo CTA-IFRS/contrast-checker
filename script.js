@@ -1,4 +1,3 @@
-// Função para processar e normalizar o valor hexadecimal
 function normalizeHexValue(hex) {
     hex = hex.trim();
     if (hex.startsWith('#')) {
@@ -8,7 +7,6 @@ function normalizeHexValue(hex) {
     return hex;
 }
 
-// Função para calcular a luminância de uma cor
 function getLuminance(color) {
     const rgb = color.substring(1);
     const r = parseInt(rgb.substring(0, 2), 16) / 255;
@@ -18,7 +16,6 @@ function getLuminance(color) {
     return luminance;
 }
 
-// Função para calcular o ratio de contraste entre duas cores
 function calculateContrastRatio(background, text) {
     const bgLuminance = getLuminance(background);
     const textLuminance = getLuminance(text);
@@ -26,7 +23,6 @@ function calculateContrastRatio(background, text) {
     return contrastRatio.toFixed(2);
 }
 
-// Função para atualizar o contraste ratio e as cores
 function updateContrastRatio() {
     const backgroundHexInput = document.getElementById('background-hex');
     const textHexInput = document.getElementById('text-hex');
@@ -56,37 +52,39 @@ function updateContrastRatio() {
         cardBody.style.backgroundColor = backgroundColor;
         cardBody.style.color = textColor;
     });
+
+    const isAAMeeting = contrastRatio >= 4.5;
+    const isAAAMeeting = contrastRatio >= 7;
+    const isAA18ptMeeting = contrastRatio >= 3;
+    const isAAA18ptMeeting = contrastRatio >= 4.5;
+
+    const circleAA = document.getElementById('circleAA');
+    const circleAAA = document.getElementById('circleAAA');
+    const circleAA18pt = document.getElementById('circleAA18PT');
+    const circleAAA18pt = document.getElementById('circleAAA18PT');
+
+    circleAA.style.backgroundColor = isAAMeeting ? 'green' : 'red';
+    circleAAA.style.backgroundColor = isAAAMeeting ? 'green' : 'red';
+    circleAA18pt.style.backgroundColor = isAA18ptMeeting ? 'green' : 'red';
+    circleAAA18pt.style.backgroundColor = isAAA18ptMeeting ? 'green' : 'red';
 }
 
-// Event listeners para mudanças nas entradas de cor e hexadecimais
-document.getElementById('background-color').addEventListener('change', updateContrastRatio);
-document.getElementById('text-color').addEventListener('change', updateContrastRatio);
+document.getElementById('background-color').addEventListener('input', updateContrastRatio);
+document.getElementById('text-color').addEventListener('input', updateContrastRatio);
 document.getElementById('background-hex').addEventListener('input', updateContrastRatio);
 document.getElementById('text-hex').addEventListener('input', updateContrastRatio);
 
 const backgroundColorPicker = document.getElementById('background-color');
-
-
 const backgroundHexInput = document.getElementById('background-hex');
-
-
 const textColorPicker = document.getElementById('text-color');
-
-
 const textHexInput = document.getElementById('text-hex');
 
-
 backgroundColorPicker.addEventListener('input', function(e) {
-
     const hexColor = e.target.value;
-
-
     backgroundHexInput.value = hexColor;
 });
 
-
 textColorPicker.addEventListener('input', function(e) {
-
     const hexColor = e.target.value;
     textHexInput.value = hexColor;
 });
@@ -104,3 +102,5 @@ document.addEventListener("DOMContentLoaded", function() {
         popup.style.display = "none";
     });
 });
+
+window.addEventListener('load', updateContrastRatio);
