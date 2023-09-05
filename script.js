@@ -22,11 +22,11 @@ function hexToRgb(hex) {
 }
 
 function luminance(r, g, b) {
-    const a = [r, g, b].map(function (v) {
+    const a = [r, g, b].map(function(v) {
         v /= 255;
-        return v <= 0.03928
-            ? v / 12.92
-            : Math.pow((v + 0.055) / 1.055, 2.4);
+        return v <= 0.03928 ?
+            v / 12.92 :
+            Math.pow((v + 0.055) / 1.055, 2.4);
     });
     return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 }
@@ -66,7 +66,7 @@ function updateContrastRatio() {
 
     const sampleText12 = document.getElementById('sample-text-12');
     const sampleText18 = document.getElementById('sample-text-18');
-    
+
     sampleText12.style.backgroundColor = backgroundColor;
     sampleText12.style.color = textColor;
     sampleText18.style.backgroundColor = backgroundColor;

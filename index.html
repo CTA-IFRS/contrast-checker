@@ -68,6 +68,9 @@
                     <div class="result">
                         <p id="contrast-ratio">RATIO:</p>
                     </div>
+                    <div>
+                        <button id="add-to-history">+ Adicionar ao histórico</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,8 +95,30 @@
             <p>AAA18PT</p>
         </div>
     </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Histórico</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>RATIO</th>
+                    <th>Cor de Fundo</th>
+                    <th>Cor do Texto</th>
+                    <th>Exemplo de Texto</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody id="history-table-body">
+            </tbody>
+        </table>
+    </div>
+
 
     <script src="script.js"></script>
+
+
 </body>
 
 </html>
