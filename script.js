@@ -74,21 +74,28 @@ function updateContrastRatio() {
 
     const isAAMeeting = contrastRatio >= 4.5;
     const isAAAMeeting = contrastRatio >= 7;
-
-    const circleAA = document.getElementById('circleAA');
-    const circleAAA = document.getElementById('circleAAA');
-
-    circleAA.style.backgroundColor = isAAMeeting ? 'green' : 'red';
-    circleAAA.style.backgroundColor = isAAAMeeting ? 'green' : 'red';
-
-    const circleAA18PT = document.getElementById('circleAA18PT');
-    const circleAAA18PT = document.getElementById('circleAAA18PT');
-
     const isAA18ptMeeting = contrastRatio >= 3;
     const isAAA18ptMeeting = contrastRatio >= 4.5;
 
+    const circleAA = document.getElementById('circleAA');
+    const circleAAA = document.getElementById('circleAAA');
+    const circleAA18PT = document.getElementById('circleAA18PT');
+    const circleAAA18PT = document.getElementById('circleAAA18PT');
+
+    const iconAA = document.getElementById('iconAA');
+    const iconAAA = document.getElementById('iconAAA');
+    const iconAA18PT = document.getElementById('iconAA18PT');
+    const iconAAA18PT = document.getElementById('iconAAA18PT');
+
+    circleAA.style.backgroundColor = isAAMeeting ? 'green' : 'red';
+    circleAAA.style.backgroundColor = isAAAMeeting ? 'green' : 'red';
     circleAA18PT.style.backgroundColor = isAA18ptMeeting ? 'green' : 'red';
     circleAAA18PT.style.backgroundColor = isAAA18ptMeeting ? 'green' : 'red';
+
+    iconAA.innerText = isAAMeeting ? '✓' : '✕';
+    iconAAA.innerText = isAAAMeeting ? '✓' : '✕';
+    iconAA18PT.innerText = isAA18ptMeeting ? '✓' : '✕';
+    iconAAA18PT.innerText = isAAA18ptMeeting ? '✓' : '✕';
 }
 
 document.getElementById('background-color').addEventListener('change', updateContrastRatio);
@@ -142,13 +149,13 @@ function addToHistory(status, contrastRatio, backgroundColor, textColor) {
     historyTableBody.appendChild(newRow);
 
     const deleteButton = newRow.querySelector('.delete-button');
-    deleteButton.addEventListener('click', function () {
+    deleteButton.addEventListener('click', function() {
         newRow.remove();
     });
 }
 
 const addToHistoryButton = document.getElementById('add-to-history');
-addToHistoryButton.addEventListener('click', function () {
+addToHistoryButton.addEventListener('click', function() {
     const contrastRatioDisplay = document.getElementById('contrast-ratio');
     const backgroundColorPicker = document.getElementById('background-color');
     const textColorPicker = document.getElementById('text-color');
@@ -161,5 +168,3 @@ addToHistoryButton.addEventListener('click', function () {
 
     addToHistory(status, contrastRatio, backgroundColor, textColor);
 });
-
-
