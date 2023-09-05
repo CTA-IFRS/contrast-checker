@@ -10,6 +10,14 @@ body {
     background-color: #000000;
 }
 
+.title2-container {
+    margin-top: 2%;
+}
+
+.title-container {
+    margin-top: 150px;
+}
+
 .container {
     display: flex;
     flex-direction: row;
