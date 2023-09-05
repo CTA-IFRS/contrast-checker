@@ -92,8 +92,11 @@ function updateContrastRatio() {
 }
 
 document.getElementById('background-color').addEventListener('change', updateContrastRatio);
+
 document.getElementById('text-color').addEventListener('change', updateContrastRatio);
+
 document.getElementById('background-hex').addEventListener('input', updateContrastRatio);
+
 document.getElementById('text-hex').addEventListener('input', updateContrastRatio);
 
 const backgroundColorPicker = document.getElementById('background-color');
@@ -125,4 +128,38 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-window.addEventListener('load', updateContrastRatio);
+function addToHistory(status, contrastRatio, backgroundColor, textColor) {
+    const historyTableBody = document.getElementById('history-table-body');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${status}</td>
+        <td>${contrastRatio}</td>
+        <td>${backgroundColor}</td>
+        <td>${textColor}</td>
+        <td><button class="delete-button">Excluir</button></td>
+    `;
+
+    historyTableBody.appendChild(newRow);
+
+    const deleteButton = newRow.querySelector('.delete-button');
+    deleteButton.addEventListener('click', function () {
+        newRow.remove();
+    });
+}
+
+const addToHistoryButton = document.getElementById('add-to-history');
+addToHistoryButton.addEventListener('click', function () {
+    const contrastRatioDisplay = document.getElementById('contrast-ratio');
+    const backgroundColorPicker = document.getElementById('background-color');
+    const textColorPicker = document.getElementById('text-color');
+
+    const contrastRatio = contrastRatioDisplay.textContent.split(':')[1].trim();
+    const backgroundColor = backgroundColorPicker.value;
+    const textColor = textColorPicker.value;
+
+    const status = parseFloat(contrastRatio) >= 4.5 ? 'Aprovado' : 'Reprovado';
+
+    addToHistory(status, contrastRatio, backgroundColor, textColor);
+});
+
+
