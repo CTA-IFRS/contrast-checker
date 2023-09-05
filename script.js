@@ -7,18 +7,33 @@ function normalizeHexValue(hex) {
     return hex;
 }
 
-function getLuminance(color) {
-    const rgb = color.substring(1);
-    const r = parseInt(rgb.substring(0, 2), 16) / 255;
-    const g = parseInt(rgb.substring(2, 4), 16) / 255;
-    const b = parseInt(rgb.substring(4, 6), 16) / 255;
-    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    return luminance;
+function hexToRgb(hex) {
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+function luminance(r, g, b) {
+    const a = [r, g, b].map(function (v) {
+        v /= 255;
+        return v <= 0.03928
+            ? v / 12.92
+            : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 }
 
 function calculateContrastRatio(background, text) {
-    const bgLuminance = getLuminance(background);
-    const textLuminance = getLuminance(text);
+    const bgLuminance = luminance(background.r, background.g, background.b);
+    const textLuminance = luminance(text.r, text.g, text.b);
     const contrastRatio = (Math.max(bgLuminance, textLuminance) + 0.05) / (Math.min(bgLuminance, textLuminance) + 0.05);
     return contrastRatio.toFixed(2);
 }
@@ -36,22 +51,26 @@ function updateContrastRatio() {
         `#${normalizeHexValue(textHexInput.value)}` :
         document.getElementById('text-color').value;
 
-    const sampleText12 = document.getElementById('sample-text-12');
-    const sampleText18 = document.getElementById('sample-text-18');
-    const contrastRatioDisplay = document.getElementById('contrast-ratio');
-
-    const contrastRatio = calculateContrastRatio(backgroundColor, textColor);
-    contrastRatioDisplay.innerText = `RATIO: ${contrastRatio}`;
-
-    sampleText12.style.backgroundColor = backgroundColor;
-    sampleText12.style.color = textColor;
-    sampleText18.style.backgroundColor = backgroundColor;
-    sampleText18.style.color = textColor;
-
     customCardBodies.forEach(cardBody => {
         cardBody.style.backgroundColor = backgroundColor;
         cardBody.style.color = textColor;
     });
+
+    const backgroundRgb = hexToRgb(backgroundColor);
+    const textRgb = hexToRgb(textColor);
+
+    const contrastRatio = calculateContrastRatio(backgroundRgb, textRgb);
+
+    const contrastRatioDisplay = document.getElementById('contrast-ratio');
+    contrastRatioDisplay.innerText = `RATIO: ${contrastRatio}`;
+
+    const sampleText12 = document.getElementById('sample-text-12');
+    const sampleText18 = document.getElementById('sample-text-18');
+    
+    sampleText12.style.backgroundColor = backgroundColor;
+    sampleText12.style.color = textColor;
+    sampleText18.style.backgroundColor = backgroundColor;
+    sampleText18.style.color = textColor;
 
     const isAAMeeting = contrastRatio >= 4.5;
     const isAAAMeeting = contrastRatio >= 7;
