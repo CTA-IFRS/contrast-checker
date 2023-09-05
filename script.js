@@ -139,10 +139,26 @@ function addToHistory(status, contrastRatio, backgroundColor, textColor) {
     const historyTableBody = document.getElementById('history-table-body');
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
-    <td>${contrastRatio >= 4.5 ? '✓' : '✕'}</td>
-    <td>${contrastRatio >= 7 ? '✓' : '✕'}</td>
-    <td>${contrastRatio >= 3 ? '✓' : '✕'}</td>
-    <td>${contrastRatio >= 4.5 ? '✓' : '✕'}</td>
+    <td>
+      <div class="circle2 ${contrastRatio >= 4.5 ? 'green' : 'red'}">
+        AA <br> ${contrastRatio >= 4.5 ? '✓' : '✕'}
+      </div>
+    </td>
+    <td>
+      <div class="circle2 ${contrastRatio >= 7 ? 'green' : 'red'}">
+      AAA <br> ${contrastRatio >= 7 ? '✓' : '✕'}
+      </div>
+    </td>
+    <td>
+      <div class="circle2 ${contrastRatio >= 3 ? 'green' : 'red'}">
+      AA18+ <br>${contrastRatio >= 3 ? '✓' : '✕'}
+      </div>
+    </td>
+    <td>
+      <div class="circle2 ${contrastRatio >= 4.5 ? 'green' : 'red'}">
+      AAA18+ <br> ${contrastRatio >= 4.5 ? '✓' : '✕'}
+      </div>
+    </td>
         <td>${contrastRatio}</td>
         <td>${backgroundColor}</td>
         <td>${textColor}</td>
