@@ -160,9 +160,11 @@ input[type="color"] {
 .green {
     background-color: green;
     color: white;
+    font-size: 4px;
 }
 
 .red {
     background-color: red;
     color: white;
+    font-size: 4px;
 }
