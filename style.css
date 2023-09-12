@@ -148,23 +148,22 @@ input[type="color"] {
 }
 
 .circle2 {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     text-align: center;
     line-height: 25px;
     font-weight: bold;
-    font-size: 2px;
 }
 
 .green {
     background-color: green;
     color: white;
-    font-size: 4px;
+    font-size: 10px;
 }
 
 .red {
     background-color: red;
     color: white;
-    font-size: 4px;
+    font-size: 10px;
 }
