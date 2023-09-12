@@ -162,26 +162,10 @@ function displayHistoryOnPage() {
     for (const item of history) {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-        <td>
-        <div class="circle2 ${contrastRatio >= 4.5 ? 'green' : 'red'}">
-          AA <br> ${contrastRatio >= 4.5 ? '✓' : '✕'}
-        </div>
-      </td>
-      <td>
-        <div class="circle2 ${contrastRatio >= 7 ? 'green' : 'red'}">
-        AAA <br> ${contrastRatio >= 7 ? '✓' : '✕'}
-        </div>
-      </td>
-      <td>
-        <div class="circle2 ${contrastRatio >= 3 ? 'green' : 'red'}">
-        AA18+ <br>${contrastRatio >= 3 ? '✓' : '✕'}
-        </div>
-      </td>
-      <td>
-        <div class="circle2 ${contrastRatio >= 4.5 ? 'green' : 'red'}">
-        AAA18+ <br> ${contrastRatio >= 4.5 ? '✓' : '✕'}
-        </div>
-      </td>
+            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 4.5)}">AA <br>${getStatusIcon(item.contrastRatio, 4.5)}</div></td>
+            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 7)}">AAA <br>${getStatusIcon(item.contrastRatio, 7)}</div></td>
+            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 3)}">AA18+ <br>${getStatusIcon(item.contrastRatio, 3)}</div></td>
+            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 4.5)}">AAA18+ <br>${getStatusIcon(item.contrastRatio, 4.5)}</div></td>
             <td>${item.contrastRatio}</td>
             <td class="sample"></td>
             <td>${item.backgroundColor}</td>
