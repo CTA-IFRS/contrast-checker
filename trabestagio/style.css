@@ -1,4 +1,3 @@
-
 body {
     margin: 0;
     padding: 0;
@@ -20,17 +19,18 @@ body {
 
 .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Alteração para coluna */
     align-items: center;
     justify-content: flex-start;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(250, 249, 249, 0.2);
+    
     width: 80%;
     margin: 0 auto;
     margin-bottom: 12px;
 }
+
 .cores {
     display: flex;
     justify-content: center;
@@ -82,7 +82,7 @@ button{
 }
 
 
-.container-whith {
+.row-whith {
     background-color: #ffffff;
     display: flex;
     justify-content: space-around;
@@ -197,7 +197,7 @@ input[type="color"] {
 }
 
 .popup-content {
-    background-color: white;
+    background-color: rgb(73, 73, 73);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -253,3 +253,136 @@ input[type="color"] {
 .theme-link {
     color: rgb(238, 255, 0);
 }
+
+/* black mode */
+/* 
+body.contrast div.main {
+    background-color: black;
+}
+body.contrast div.brand a {
+    color: white !important;
+}
+body.contrast div.main textarea {
+    background-color: black !important;
+    border-color: rgb(200,200,200) !important;
+    color: white !important;
+}
+body.contrast div.main button {
+    background-color: rgb(54, 54, 54);
+    color: rgb(200,200,200) !important;
+    border-color: none !important;
+}
+body.contrast div.main .main-col button:hover,
+body.contrast div.main .main-col button:focus,
+body.contrast div.main .main-col button:active {
+    background-color: rgb(200,200,200) !important;
+    color: rgb(54, 54, 54) !important;
+}
+body.contrast div.main .main-col div[data-in-groups].group-selected button,  
+body.contrast div.main .main-col div[data-in-groups] button[data-in-groups].group-selected {
+    background-color: rgb(200,200,200) !important;
+    color: rgb(54, 54, 54) !important;
+}
+body.contrast div[data-in-groups].group-selected-parent button{
+    border-color: rgb(200,200,200) !important;
+    border-style: dashed !important;
+    border-width: 2px !important;
+}
+
+body.contrast div.menu {
+    background-color: rgb(74, 74, 74);
+    color: rgb(240,240,240);
+    border-color: black;
+}
+body.contrast div.cog,
+body.contrast nav.menu-options,
+body.contrast nav.menu-options ul.navbar-nav {
+    background-color: rgb(54, 54, 54) !important;
+}
+body.contrast div.cog button{
+    color: rgb(240,240,240) !important;
+}
+body.contrast div.menu ul.navbar-nav > li:first-child {
+    border-color: rgb(50,50,50);
+}
+
+body.contrast nav.menu-options .nav-item label.btn.btn-secondary {
+    background-color: rgb(54, 54, 54);
+    color: white;
+}
+body.contrast nav.menu-options .nav-item label.btn.btn-secondary.active {
+    background-color: rgb(9, 4, 78);
+    color: white;
+} */
+
+
+
+.high-contrast {
+    color: white !important;
+    background-color: #111111 !important;
+}
+
+
+
+.high-contrast body {
+    color: white !important;
+    background-color: rgb(24, 24, 24) !important;
+}
+
+.high-contrast .bg-info-subtle {
+    background-color: #111111 !important; 
+    color: white !important; 
+}
+
+.high-contrast .text-dark-emphasis {
+    color: white !important;
+}
+
+.high-contrast .footer {
+    background-color:#303030 !important;
+    color: white !important;
+}
+
+.high-contrast .card {
+    background-color: #111111 !important; 
+    color: white !important;
+}
+
+.high-contrast .color-inputs label {
+    color: white !important;
+}
+
+
+
+.high-contrast .title2-container {
+    color: white !important;
+}
+
+.high-contrast .table {
+    color: white !important;
+}
+
+.high-contrast .btn.bg-info-subtle {
+    background-color: #fffdfd  !important; 
+    color: rgb(0, 0, 0) !important;
+}
+.high-contrast .h1{
+    color: white !important;
+}
+
+
+.high-contrast .high-contrast-title {
+    color: white !important; 
+}
+
+.high-contrast .manual{
+    background-color: #111111  !important; 
+    color: white !important;
+} 
+
+.high-contrast .container{
+    background-color: #111111 !important; 
+    color: white !important;
+}
+
+

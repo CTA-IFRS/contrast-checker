@@ -344,3 +344,20 @@ document.getElementById('salvar-pdf').addEventListener('click', function () {
     
     pdf.save('historico.pdf');
 });
+
+document.getElementById('toggle-contrast').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.body.classList.toggle('high-contrast'); 
+    var logoImage = document.getElementById('logo-image');
+
+    
+    if (document.body.classList.contains('high-contrast')) {
+        logoImage.src = 'logo/pinguim2.png';
+    } else {
+        logoImage.src = 'logo/pinguim.png';
+    }
+});
+
+
+   
+

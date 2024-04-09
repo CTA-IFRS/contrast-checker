@@ -18,27 +18,25 @@
 
     <header class="d-flex flex-wrap align-items-center ml-4 bg-info-subtle justify-content-around py-3 border-bottom">
         <div class="d-flex align-items-center">
-          <img class="me-2" src="logo/pinguim.png" alt=""> 
-          <h1 class="text-body-secondary mb-0">Gentoo Vision</h1> 
+            <img class="me-2" src="logo/pinguim.png" alt="" id="logo-image"> 
+            <h1 class="text-body-secondary mb-0 high-contrast-title">Gentoo Vision</h1> 
         </div>
       
         <div class="col-md-3 text-end">
-            <img src="logo/ajuste-de-brilho-e-contraste.png" alt="">
-            <a href=""class=" link-offset-2 link-underline link-underline-opacity-0 text-dark-emphasis me-2">Alto contraste</a>
-          <!-- <button type="button" class=" btn btn-outline-primary me-2">Alto contraste</button> -->
+            <img src="logo/ajuste-de-brilho-e-contraste.png" alt="" id="logo-img">
+           
+            <a href="#" id="toggle-contrast" class="link-offset-2 link-underline link-underline-opacity-0 text-dark-emphasis me-2">Alto contraste</a>
         </div>
     </header>
-      
+    
     <div class="d-flex flex-row-reverse">
         <span class="p-2 mt-3 me-3 help-button justify-content-around" id="help-button">?</span>
     </div>
     
-    
-
     <div class="popup" id="popup">
         <div class="popup-content">
             <span class="popup-close" id="popup-close">&times;</span>
-
+            <div class="manual">
             <h2>Sobre o verificador de contraste </h2>
             <p>
                 Esta ferramenta foi criada para que designers e desenvolvedores possam testar a conformidade do contraste de cores com base nas Diretrizes de acessibilidade de conteúdo da Web (WCAG), conforme estabelecido pelo World Wide Web Consortium (W3C).Esses cálculos
@@ -50,29 +48,29 @@
                 Para executar seu teste, selecione uma cor de primeiro plano e uma cor de fundo. Os resultados serão gerados automaticamente e você receberá suas pontuações, podendo saber se cada critério foi ou não aprovado. Você pode selecionar 'Adicionar ao histórico'
                 para adicionar sua amostra a uma lista gerada abaixo.
             </p>
-        </div>
+        </div></div>
     </div>
-    <div class="cores">
-        <div class="color-inputs">
-             <div class="color-input">
-                    <label for="background-color">Cor de Fundo:</label>
-                    <input type="color" class="form-control" id="background-color" value="#ffffff">
+    <div class="container text-center high-contrast-container">
+        <div class="cores">
+            <div class="color-inputs">
+                <div class="color-input">
+                    <label for="background-color" class="form-label">Cor de Fundo:</label>
+                    <input type="color" class="form-control mb-2" id="background-color" value="#ffffff">
                     <div class="input-group">
-                        
                         <input type="text" class="form-control" id="background-hex" placeholder="#">
                     </div>
-                    
-            </div>
-            <div class="color-input">
-                    <label for="text-color">Cor do Texto:</label>
-                    <input type="color" class="form-control" id="text-color" value="#000000">
+                </div>
+                <div class="color-input">
+                    <label for="text-color" class="form-label">Cor do Texto:</label>
+                    <input type="color" class="form-control mb-2" id="text-color" value="#000000">
                     <div class="input-group">
                         <input type="text" class="form-control" id="text-hex" placeholder="#">
                     </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container mt-5 position-relative">
+        
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mt-5 position-relative">
        
         <div class="row justify-content-center mt-5  mx-auto p-2" style="width: 1000px">
             <div class="col-md-16">
@@ -94,40 +92,51 @@
         </div>
     </div> 
     <div class="result">
-                        <p id="contrast-ratio">RATIO:</p>
-                    </div>
-                    <div style="display: flex;">
-                        <button class="btn bg-info-subtle py-4" id="add-to-history" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; font-size: 0.9rem; letter-spacing: -0.5px; display: flex; align-items: center;">+ Adicionar ao histórico</button>
-                    </div>
+        <p id="contrast-ratio">RATIO:</p>
+        </div>
+        <div style="display: flex;">
+            <button class="btn bg-info-subtle py-4" id="add-to-history" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; font-size: 0.9rem; letter-spacing: -0.5px; display: flex; align-items: center;">+ Adicionar ao histórico</button>
+        </div>
                     
                     
-    <div class="container mt- container-whith">
-        <div class="circle" id="circleAA">
-            <p>AA</p>
-            <span class="icon" id="iconAA"></span>
+        <div class="row mt-5 justify-content-between">
+            <div class="col-auto">
+                <div class="circle mb-4" id="circleAA">
+                    <p>AA</p>
+                    <span class="icon" id="iconAA"></span>
+                </div>
+            </div>
+        
+            <div class="col-auto">
+                <div class="circle mb-4" id="circleAAA">
+                    <p>AAA</p>
+                    <span class="icon" id="iconAAA"></span>
+                </div>
+            </div>
+        
+            <div class="col-auto">
+                <div class="circle mb-4" id="circleAA18PT">
+                    <p>AA18PT</p>
+                    <span class="icon" id="iconAA18PT"></span>
+                </div>
+            </div>
+        
+            <div class="col-auto">
+                <div class="circle mb-4" id="circleAAA18PT">
+                    <p>AAA18PT</p>
+                    <span class="icon" id="iconAAA18PT"></span>
+                </div>
+            </div>
         </div>
-
-        <div class="circle" id="circleAAA">
-            <p>AAA</p>
-            <span class="icon" id="iconAAA"></span>
-        </div>
-
-        <div class="circle" id="circleAA18PT">
-            <p>AA18PT</p>
-            <span class="icon" id="iconAA18PT"></span>
-        </div>
-
-        <div class="circle" id="circleAAA18PT">
-            <p>AAA18PT</p>
-            <span class="icon" id="iconAAA18PT"></span>
-        </div>
-    </div>
-
+        
+        
+        
+        
 
     <h2 class="title2-container">
         Histórico
     </h2>
-    <div class="container mt-5">
+    <div class="row-col mt-5">
         <table class="table">
             <thead>
                 <tr>
@@ -144,7 +153,7 @@
         </table>
     </div>
     <button type="submit" id="salvar-pdf" class="btn bg-info-subtle salvar" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem;">Salvar PDF</button>
-
+    </div>
     <div class="footer">
         <footer>
             <div class="text-center py-5 ">
