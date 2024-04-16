@@ -357,7 +357,37 @@ document.getElementById('toggle-contrast').addEventListener('click', function(ev
         logoImage.src = 'logo/pinguim.png';
     }
 });
+function previewImage(event) {
+    var image = document.getElementById('imagePreview');
+    image.innerHTML = '';
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(){
+      var img = document.createElement("img");
+      img.src = reader.result;
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      image.appendChild(img);
+    }
+    reader.readAsDataURL(file);
+  }
 
+  document.getElementById('colorPicker').addEventListener('input', function() {
+    var bgColor = this.value;
+    var contrastResult = document.getElementById('contrastResult');
+    var textColor = getTextColor(bgColor);
+    contrastResult.innerText = 'Texto em contraste: ' + textColor;
+    contrastResult.style.color = textColor;
+  });
+
+  function getTextColor(bgColor) {
+    var hex = bgColor.replace('#', '');
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#000000' : '#ffffff';
+  }
 
    
 
