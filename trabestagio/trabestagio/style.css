@@ -1,0 +1,388 @@
+body {
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+.title2-container {
+    margin-top: 2%;
+}
+
+.title-container {
+    margin-top: 50px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Alteração para coluna */
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 12px;
+}
+
+.cores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.color-inputs {
+    display: flex;
+   
+    align-items: center;
+}
+
+.color-input {
+    margin-right: 20px; /* Espaçamento entre os elementos */
+}
+
+.input-group {
+    margin-top: 5px; /* Espaçamento entre o input de cor e o input de texto */
+}
+
+/* Estilo para os inputs de cor */
+input[type="color"] {
+    width: 10px; /* Largura do input de cor */
+    height: 30px; /* Altura do input de cor */
+    padding:0; /* Remover padding */
+    border: none; /* Remover borda */
+    border-radius: 5px; /* Adicionar borda arredondada */
+    cursor: pointer; /* Alterar cursor ao passar por cima */
+    margin-right: 5px; /* Espaçamento entre os inputs de cor */
+}
+
+/* Estilo para os inputs de texto */
+input[type="text"] {
+    width: 80px; /* Largura do input de texto */
+    height: 30px; /* Altura do input de texto */
+    padding: 5px; /* Adicionar padding */
+    border-radius: 5px; /* Adicionar borda arredondada */
+    border: 1px solid #ccc; /* Adicionar borda */
+}
+
+button{
+    background-color: #fa3939;
+    border-radius: 50px 20px;
+    color: #fff;
+    border: none;
+    width: 100px;
+    height: 35px;
+}
+
+
+.row-whith {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+h1 {
+  
+    margin-top: 0;
+    text-transform: uppercase;
+    color: rgb(86, 82, 82);
+    margin-right: 10px;
+    font-family: "Belleza", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+   
+}
+
+h2 {
+    text-align: center;
+    margin-top: 0;
+    text-transform: uppercase;
+    color: rgb(86, 82, 82);
+    margin-right: 10px;
+}
+
+.title-container {
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="color"] {
+    border: none;
+    width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.color-input {
+    width: 50%;
+}
+
+.color-example {
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+  
+
+.color-preview {
+    margin: 5px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.help-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #7e7e7e;
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 360px;
+    margin-bottom: 10px;
+    top: -10px;
+}
+
+.help-button span {
+    font-size: 20px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: rgb(73, 73, 73);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 25%;
+    position: relative;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.circle2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+.green {
+    background-color: green;
+    color: white;
+    font-size: 10px;
+}
+
+.red {
+    background-color: red;
+    color: white;
+    font-size: 10px;
+}
+.header {
+    background-color: #94D7E8;
+    padding: 10px;
+  }
+
+.footer {
+    background-color: #94D7E8;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 20px;
+}
+
+.theme-link:hover {
+    color: rgb(247, 255, 136);
+}
+
+.theme-link {
+    color: rgb(238, 255, 0);
+}
+
+/* black mode */
+/* 
+body.contrast div.main {
+    background-color: black;
+}
+body.contrast div.brand a {
+    color: white !important;
+}
+body.contrast div.main textarea {
+    background-color: black !important;
+    border-color: rgb(200,200,200) !important;
+    color: white !important;
+}
+body.contrast div.main button {
+    background-color: rgb(54, 54, 54);
+    color: rgb(200,200,200) !important;
+    border-color: none !important;
+}
+body.contrast div.main .main-col button:hover,
+body.contrast div.main .main-col button:focus,
+body.contrast div.main .main-col button:active {
+    background-color: rgb(200,200,200) !important;
+    color: rgb(54, 54, 54) !important;
+}
+body.contrast div.main .main-col div[data-in-groups].group-selected button,  
+body.contrast div.main .main-col div[data-in-groups] button[data-in-groups].group-selected {
+    background-color: rgb(200,200,200) !important;
+    color: rgb(54, 54, 54) !important;
+}
+body.contrast div[data-in-groups].group-selected-parent button{
+    border-color: rgb(200,200,200) !important;
+    border-style: dashed !important;
+    border-width: 2px !important;
+}
+
+body.contrast div.menu {
+    background-color: rgb(74, 74, 74);
+    color: rgb(240,240,240);
+    border-color: black;
+}
+body.contrast div.cog,
+body.contrast nav.menu-options,
+body.contrast nav.menu-options ul.navbar-nav {
+    background-color: rgb(54, 54, 54) !important;
+}
+body.contrast div.cog button{
+    color: rgb(240,240,240) !important;
+}
+body.contrast div.menu ul.navbar-nav > li:first-child {
+    border-color: rgb(50,50,50);
+}
+
+body.contrast nav.menu-options .nav-item label.btn.btn-secondary {
+    background-color: rgb(54, 54, 54);
+    color: white;
+}
+body.contrast nav.menu-options .nav-item label.btn.btn-secondary.active {
+    background-color: rgb(9, 4, 78);
+    color: white;
+} */
+
+
+
+.high-contrast {
+    color: white !important;
+    background-color: #111111 !important;
+}
+
+
+
+.high-contrast body {
+    color: white !important;
+    background-color: rgb(24, 24, 24) !important;
+}
+
+.high-contrast .bg-info-subtle {
+    background-color: #111111 !important; 
+    color: white !important; 
+}
+
+.high-contrast .text-dark-emphasis {
+    color: white !important;
+}
+
+.high-contrast .footer {
+    background-color:#303030 !important;
+    color: white !important;
+}
+
+.high-contrast .card {
+    background-color: #111111 !important; 
+    color: white !important;
+}
+
+.high-contrast .color-inputs label {
+    color: white !important;
+}
+
+
+
+.high-contrast .title2-container {
+    color: white !important;
+}
+
+.high-contrast .table {
+    color: white !important;
+}
+
+.high-contrast .btn.bg-info-subtle {
+    background-color: #fffdfd  !important; 
+    color: rgb(0, 0, 0) !important;
+}
+.high-contrast .h1{
+    color: white !important;
+}
+
+
+.high-contrast .high-contrast-title {
+    color: white !important; 
+}
+
+.high-contrast .manual{
+    background-color: #111111  !important; 
+    color: white !important;
+} 
+
+.high-contrast .container{
+    background-color: #111111 !important; 
+    color: white !important;
+}
+
+
