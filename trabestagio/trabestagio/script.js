@@ -366,7 +366,7 @@ function previewImage(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
     reader.onload = function(){
-      var img = document.createElement("img"); 
+      var img = document.createElement("img");
       img.src = reader.result;
       img.style.maxWidth = '100%';
       img.style.height = 'auto';
@@ -391,25 +391,70 @@ function previewImage(event) {
     var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
     return (yiq >= 128) ? '#000000' : '#ffffff';
   }
+//conseguir intalar no terminal: npm install node-vibrant
 
-function extractColorsFromImage(file) {
+  const Vibrant = require('node-vibrant');
+
+  function extractColorsFromImage(imageUrl) {
+      Vibrant.from(imageUrl)
+          .getPalette()
+          .then(palette => {
+              const dominantColor = palette.Vibrant.getHex();
+              const textColor = getTextColor(dominantColor);
+  
+              
+              const AA = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AA;
+              const AAA = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AAA;
+              const AA18PT = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AA_18PT;
+              const AAA18PT = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AAA_18PT;
+  
+              
+              document.getElementById('AA-result').innerText = AA ? 'Aprovado' : 'Reprovado';
+              document.getElementById('AAA-result').innerText = AAA ? 'Aprovado' : 'Reprovado';
+              document.getElementById('AA18PT-result').innerText = AA18PT ? 'Aprovado' : 'Reprovado';
+              document.getElementById('AAA18PT-result').innerText = AAA18PT ? 'Aprovado' : 'Reprovado';
+          })
+          .catch(error => {
+              console.error('Erro ao extrair cores da imagem:', error);
+          });
+  }
+  
+  function previewImage(event) {
+    var image = document.getElementById('imagePreview');
+    image.innerHTML = '';
+    var file = event.target.files[0];
     var reader = new FileReader();
-    reader.onload = function(event) {
-        var img = new Image();
-        img.onload = function() {
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            context.drawImage(img, 0, 0);
+    reader.onload = function(){
+        var img = document.createElement("img");
+        img.src = reader.result;
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        image.appendChild(img);
 
-            // Extrair cores dos pixels
-            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            var pixels = imageData.data;
+        
+        extractColorsFromImage(reader.result);
+    }
+    reader.readAsDataURL(file);
+}
 
-            // Aqui você pode fazer o processamento dos pixels para extrair as cores
 
-            // Por exemplo, imprimir as cores RGB dos primeiros 10 pixels
+function getTextColor(bgColor) {
+    var hex = bgColor.replace('#', '');
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#000000' : '#ffffff';
+}
+document.getElementById('colorPicker').addEventListener('input', function() {
+    var bgColor = this.value;
+    var contrastResult = document.getElementById('contrastResult');
+    var textColor = getTextColor(bgColor);
+    contrastResult.innerText = 'Texto em contraste: ' + textColor;
+    contrastResult.style.color = textColor;
+});
+
+
             for (var i = 0; i < 10 * 4; i += 4) {
                 var r = pixels[i];
                 var g = pixels[i + 1];
