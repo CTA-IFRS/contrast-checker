@@ -50,27 +50,42 @@
             </p>
         </div></div>
     </div>
-	 <div class="container">
+	  <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <h2>Adicionar Imagem</h2>
             <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
-            <div id="imagePreview"> </div>
-          </div>
-          <div class="col-md-6">
-            <h2>Testar Contraste</h2>
             <input type="color" id="colorPicker">
             <div id="contrastResult"></div>
-          </div>
-        </div>
-        <div style="display: flex;">
-            <button class="btn bg-info-subtle py-4" 
-            id="add-to-history" 
-            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; font-size: 0.9rem; letter-spacing: -0.5px; display: flex; align-items: center;">
-            + Adicionar ao histórico
-            </button>
+            <div id="imagePreview"></div>
+<table id="contrastTable" class="table">
+    <thead>
+        <tr>
+            <th>Nível de Contraste</th>
+            <th>Resultado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AA</td>
+            <td id="AA-result"></td>
+        </tr>
+        <tr>
+            <td>AAA</td>
+            <td id="AAA-result"></td>
+        </tr>
+        <tr>
+            <td>AA18PT</td>
+            <td id="AA18PT-result"></td>
+        </tr>
+        <tr>
+            <td>AAA18PT</td>
+            <td id="AAA18PT-result"></td>
+        </tr>
+    </tbody>
+</table>
+
         </div>
       </div>
+    
       
              
     
