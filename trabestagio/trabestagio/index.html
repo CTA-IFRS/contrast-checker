@@ -50,65 +50,36 @@
             </p>
         </div></div>
     </div>
-	  <div class="container">
-        <div class="row">
-            <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
-            <input type="color" id="colorPicker">
-            <div id="contrastResult"></div>
+	 <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6">
+            <div class="container text-center high-contrast-container ">
+                <div class="cores">
+                    <div class="color-inputs mx-auto p-2" style="width: 200px;">
+                        <div class="color-input">
+                            <label for="background-color" class="form-label">Cor de Fundo:</label>
+                            <input type="color" class="form-control mb-2" id="background-color" value="#ffffff">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="background-hex" placeholder="#">
+                            </div>
+                        </div>
+                        <div class="color-input">
+                            <label for="text-color" class="form-label">Cor do Texto:</label>
+                            <input type="color" class="form-control mb-2" id="text-color" value="#000000">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="text-hex" placeholder="#">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)" >
             <div id="imagePreview"></div>
-<table id="contrastTable" class="table">
-    <thead>
-        <tr>
-            <th>Nível de Contraste</th>
-            <th>Resultado</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>AA</td>
-            <td id="AA-result"></td>
-        </tr>
-        <tr>
-            <td>AAA</td>
-            <td id="AAA-result"></td>
-        </tr>
-        <tr>
-            <td>AA18PT</td>
-            <td id="AA18PT-result"></td>
-        </tr>
-        <tr>
-            <td>AAA18PT</td>
-            <td id="AAA18PT-result"></td>
-        </tr>
-    </tbody>
-</table>
-
-        </div>
+          </div>
+          
       </div>
     
-      
-             
-    
-    <div class="container text-center high-contrast-container">
-        <div class="cores">
-            <div class="color-inputs">
-                <div class="color-input">
-                    <label for="background-color" class="form-label">Cor de Fundo:</label>
-                    <input type="color" class="form-control mb-2" id="background-color" value="#ffffff">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="background-hex" placeholder="#">
-                    </div>
-                </div>
-                <div class="color-input">
-                    <label for="text-color" class="form-label">Cor do Texto:</label>
-                    <input type="color" class="form-control mb-2" id="text-color" value="#000000">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="text-hex" placeholder="#">
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+   
     <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mt-5 position-relative">
        
         <div class="row justify-content-center mt-5  mx-auto p-2" style="width: 1000px">
@@ -121,7 +92,7 @@
             
                     <div class="card-body custom-card-body">
                         <p>Frase com fonte de 18px:</p>
-                        <div class="color-preview"i d="sample-text-18" style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in felis hendrerit, viverra sapien ac, auctor neque.</div>
+                        <div class="color-preview" id="sample-text-18" style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in felis hendrerit, viverra sapien ac, auctor neque.</div>
                     </div>
                 </div>
                 <div>
