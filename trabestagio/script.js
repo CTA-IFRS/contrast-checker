@@ -345,6 +345,8 @@ document.getElementById('salvar-pdf').addEventListener('click', function () {
     pdf.save('historico.pdf');
 });
 
+//img
+
 document.getElementById('toggle-contrast').addEventListener('click', function(event) {
     event.preventDefault();
     document.body.classList.toggle('high-contrast'); 
@@ -357,6 +359,7 @@ document.getElementById('toggle-contrast').addEventListener('click', function(ev
         logoImage.src = 'logo/pinguim.png';
     }
 });
+
 function previewImage(event) {
     var image = document.getElementById('imagePreview');
     image.innerHTML = '';
@@ -388,6 +391,117 @@ function previewImage(event) {
     var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
     return (yiq >= 128) ? '#000000' : '#ffffff';
   }
+//conseguir intalar no terminal: npm install node-vibrant
 
-   
+  const Vibrant = require('node-vibrant');
 
+  function extractColorsFromImage(imageUrl) {
+      Vibrant.from(imageUrl)
+          .getPalette()
+          .then(palette => {
+              const dominantColor = palette.Vibrant.getHex();
+              const textColor = getTextColor(dominantColor);
+  
+              
+              const AA = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AA;
+              const AAA = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AAA;
+              const AA18PT = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AA_18PT;
+              const AAA18PT = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AAA_18PT;
+  
+              
+              document.getElementById('AA-result').innerText = AA ? 'Aprovado' : 'Reprovado';
+              document.getElementById('AAA-result').innerText = AAA ? 'Aprovado' : 'Reprovado';
+              document.getElementById('AA18PT-result').innerText = AA18PT ? 'Aprovado' : 'Reprovado';
+              document.getElementById('AAA18PT-result').innerText = AAA18PT ? 'Aprovado' : 'Reprovado';
+          })
+          .catch(error => {
+              console.error('Erro ao extrair cores da imagem:', error);
+          });
+  }
+  
+  function previewImage(event) {
+    var image = document.getElementById('imagePreview');
+    image.innerHTML = '';
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(){
+        var img = document.createElement("img");
+        img.src = reader.result;
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        image.appendChild(img);
+
+        
+        extractColorsFromImage(reader.result);
+    }
+    reader.readAsDataURL(file);
+}
+
+
+function getTextColor(bgColor) {
+    var hex = bgColor.replace('#', '');
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#000000' : '#ffffff';
+}
+document.getElementById('colorPicker').addEventListener('input', function() {
+    var bgColor = this.value;
+    var contrastResult = document.getElementById('contrastResult');
+    var textColor = getTextColor(bgColor);
+    contrastResult.innerText = 'Texto em contraste: ' + textColor;
+    contrastResult.style.color = textColor;
+});
+
+
+            for (var i = 0; i < 10 * 4; i += 4) {
+                var r = pixels[i];
+                var g = pixels[i + 1];
+                var b = pixels[i + 2];
+                console.log("Pixel " + (i / 4 + 1) + ": " + r + ", " + g + ", " + b);
+            }
+        img.src = event.target.result;
+        reader.readAsDataURL(file);
+
+
+document.getElementById('inputImage').addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    if (file) {
+        extractColorsFromImage(file);
+    }
+});
+
+
+document.getElementById('salvar-pdf').addEventListener('click', function () {
+    const pdf = new jsPDF();
+    const table = document.getElementById('history-table-body');
+    const rows = table.querySelectorAll('tr');
+    
+    let pdfContent = [];
+    
+    
+    rows.forEach(function(row) {
+        let rowData = [];
+        row.querySelectorAll('td').forEach(function(cell) {
+            rowData.push(cell.textContent.trim());
+        });
+        pdfContent.push(rowData);
+    });
+
+    
+    let posY = 10;
+
+    
+    pdfContent.forEach(function(row) {
+        let posX = 10;
+        row.forEach(function(cell) {
+            pdf.text(posX, posY, cell);
+            posX += 50; 
+        });
+        posY += 10;
+    });
+
+    
+    pdf.save('historico.pdf');
+});
