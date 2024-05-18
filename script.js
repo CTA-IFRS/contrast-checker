@@ -311,3 +311,34 @@ document.getElementById('background-hex').addEventListener('input', calculateCon
 document.getElementById('text-hex').addEventListener('input', calculateContrastWithDefault);
 
 document.addEventListener("DOMContentLoaded", calculateContrastWithDefault);
+
+
+//pdf
+document.getElementById('salvar-pdf').addEventListener('click', function () {
+    const pdf = new jsPDF();
+    const table = document.getElementById('history-table-body');
+    const rows = table.querySelectorAll('tr');
+
+    let pdfContent = [];
+
+    rows.forEach(function(row) {
+        let rowData = [];
+        row.querySelectorAll('td').forEach(function(cell) {
+            rowData.push(cell.textContent.trim());
+        });
+        pdfContent.push(rowData);
+    });
+
+    let posY = 10;
+
+    pdfContent.forEach(function(row) {
+        let posX = 10;
+        row.forEach(function(cell) {
+            pdf.text(posX, posY, cell);
+            posX += 50;
+        });
+        posY += 10;
+    });
+
+    pdf.save('historico.pdf');
+});
