@@ -1,7 +1,185 @@
 const CONTRAST_THRESHOLD_AA = 4.5;
 const CONTRAST_THRESHOLD_AAA = 7;
 const CONTRAST_THRESHOLD_AA_18PT = 3;
-const CONTRAST_THRESHOLD_AAA_18PT = 4.5;
+const CONTRAST_THRESHOLD_AAA_18PT = 4.5
+
+const backgroundColorInput = document.getElementById('background-color');
+const backgroundColorHexInput = document.getElementById('background-hex');
+
+backgroundColorInput.addEventListener('input', function() {
+    backgroundColorHexInput.value = backgroundColorInput.value;
+});
+
+backgroundColorHexInput.addEventListener('input', function() {
+    let hexValue = backgroundColorHexInput.value.trim();
+    if (/^[0-9A-F]{6}$/i.test(hexValue)) {
+        hexValue = '#' + hexValue;
+    }
+    backgroundColorInput.value = hexValue;
+    backgroundColorHexInput.value = hexValue;
+});
+
+backgroundColorHexInput.value = backgroundColorInput.value;
+
+const textColorInput = document.getElementById('text-color');
+const textHexInput = document.getElementById('text-hex');
+
+textColorInput.addEventListener('input', function() {
+    textHexInput.value = textColorInput.value;
+});
+
+textHexInput.addEventListener('input', function() {
+    let hexValue = textHexInput.value.trim();
+    if (/^[0-9A-F]{6}$/i.test(hexValue)) {
+        hexValue = '#' + hexValue;
+    }
+    textColorInput.value = hexValue;
+    textHexInput.value = hexValue;
+});
+
+textHexInput.value = textColorInput.value;
+
+function downloadPDF() {
+    const cabecalho = document.getElementById('cabecalho');
+    const conteudo = document.getElementById('conteudo');
+
+    const cabecalhoClone = cabecalho.cloneNode(true);
+    const conteudoClone = conteudo.cloneNode(true);
+
+    const removerNoPDF = cabecalhoClone.querySelector('#removerNoPDF');
+    if (removerNoPDF) {
+        removerNoPDF.remove();
+    }
+
+    const deleteButtons = conteudoClone.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+        button.remove();
+    });
+
+    const tudo = document.createElement('div');
+
+    tudo.appendChild(cabecalhoClone);
+    tudo.appendChild(conteudoClone);
+
+    var opt = {
+        margin: 0.2,
+        filename: "GentooVision.pdf",
+        html2canvas: { scale: 3, scrollY: 0 },
+        jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
+    };
+
+    html2pdf().set(opt).from(tudo).save();
+}
+
+document.getElementById('imageUpload').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+            document.getElementById('canvas').classList.remove('dNone')
+            document.getElementById('removerImagem').classList.remove('dNone')
+            document.getElementById('labelImagem').classList.add('dNone');
+            document.getElementById('cancelarUploadImagem').classList.add('dNone');
+            document.getElementById('escolherOutraImagem').classList.remove('dNone');
+            document.getElementById('pickColorButton').classList.remove('dNone');
+            document.getElementById('escolherOutraImagem').classList.remove('dNone');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const maxWidth = 600;
+            const maxHeight = 400;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+            }
+            if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+        }
+        img.src = e.target.result;
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('pickColorButton').addEventListener('click', async function () {
+    if (!window.EyeDropper) {
+        alert('Seu navegador não suporta a API EyeDropper');
+        return;
+    }
+
+    const eyeDropper = new EyeDropper();
+    try {
+        const result = await eyeDropper.open();
+        const hexColor = result.sRGBHex;
+        document.getElementById('colorDisplay').style.backgroundColor = hexColor;
+        document.getElementById('colorCode').innerHTML = hexColor;
+        setColorBasedOnBackground(hexColor);
+    } catch (error) {
+        console.error('Erro ao usar o conta-gotas:', error);
+    }
+});
+
+function calculateLuminance(r, g, b) {
+    const a = [r, g, b].map(function(v) {
+        v /= 255;
+        return v <= 0.03928 ?
+            v / 12.92 :
+            Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+function setColorBasedOnBackground(color) {
+    var r = parseInt(color.substr(1, 2), 16);
+    var g = parseInt(color.substr(3, 2), 16);
+    var b = parseInt(color.substr(5, 2), 16);
+
+    var luminance = calculateLuminance(r, g, b);
+    var textColor = luminance > 0.5 ? '#000000' : '#FFFFFF';
+
+    var colorCodeElement = document.getElementById('colorCode');
+    colorCodeElement.style.color = textColor;
+}
+
+function mudarDisplay(mostrar, esconder) {
+    mostrar.forEach(id => document.getElementById(id).classList.remove('dNone'));
+    esconder.forEach(id => document.getElementById(id).classList.add('dNone'));
+}
+
+document.getElementById('selecionarArquivo').addEventListener('click', function() {
+    mudarDisplay(['labelImagem', 'cancelarUploadImagem'], ['selecionarArquivo']);
+});
+
+document.getElementById('cancelarUploadImagem').addEventListener('click', function() {
+    mudarDisplay(['selecionarArquivo'], ['labelImagem', 'cancelarUploadImagem']);
+});
+
+document.getElementById('escolherOutraImagem').addEventListener('click', function() {
+    mudarDisplay(['labelImagem', 'cancelarUploadImagem'], ['escolherOutraImagem', 'canvas', 'removerImagem', 'pickColorButton', 'colorDisplay']);
+    document.getElementById('colorCode').innerHTML = '';
+    document.getElementById('colorDisplay').style.backgroundColor = 'rgb(255, 255, 255)'
+});
+
+document.getElementById('removerImagem').addEventListener('click', function() {
+    mudarDisplay(['selecionarArquivo'], ['removerImagem', 'escolherOutraImagem', 'labelImagem', 'cancelarUploadImagem', 'canvas', 'removerImagem', 'pickColorButton', 'colorDisplay']);
+    document.getElementById('colorCode').innerHTML = '';
+});
+
+document.getElementById('pickColorButton').addEventListener('click', function() {
+    mudarDisplay(['colorDisplay'], []);
+});
 
 function normalizeHexValue(hex) {
     hex = hex.trim();
@@ -27,19 +205,9 @@ function hexToRgb(hex) {
     } : null;
 }
 
-function luminance(r, g, b) {
-    const a = [r, g, b].map(function(v) {
-        v /= 255;
-        return v <= 0.03928 ?
-            v / 12.92 :
-            Math.pow((v + 0.055) / 1.055, 2.4);
-    });
-    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-}
-
 function calculateContrastRatio(background, text) {
-    const bgLuminance = luminance(background.r, background.g, background.b);
-    const textLuminance = luminance(text.r, text.g, text.b);
+    const bgLuminance = calculateLuminance(background.r, background.g, background.b);
+    const textLuminance = calculateLuminance(text.r, text.g, text.b);
     const contrastRatio = (Math.max(bgLuminance, textLuminance) + 0.05) / (Math.min(bgLuminance, textLuminance) + 0.05);
     return contrastRatio.toFixed(2);
 }
@@ -112,8 +280,8 @@ function addToHistory(status, contrastRatio, backgroundColor, textColor) {
         <td><div class="circle2 ${getStatusClass(contrastRatio, 4.5)}">AAA18+ <br>${getStatusIcon(contrastRatio, 4.5)}</div></td>
         <td>${contrastRatio}</td>
         <td class="sample"></td>
-        <td>${backgroundColor}</td>
-        <td>${textColor}</td>
+        <td class='alinharTabela'>${backgroundColor}</td>
+        <td class='alinharTabela'>${textColor}</td>
         <td><button class="delete-button">Excluir</button></td>
     `;
 
@@ -134,8 +302,6 @@ function addToHistory(status, contrastRatio, backgroundColor, textColor) {
         historyTableBody.removeChild(newRow);
         removeFromHistory(newRow);
     });
-
-    addToHistoryCookies(status, contrastRatio, backgroundColor, textColor);
 }
 
 function getStatusClass(contrastRatio, threshold) {
@@ -198,6 +364,7 @@ document.getElementById('text-hex').addEventListener('input', updateContrastRati
 document.getElementById('background-color').addEventListener('input', function(e) {
     document.getElementById('background-hex').value = e.target.value;
 });
+
 document.getElementById('text-color').addEventListener('input', function(e) {
     document.getElementById('text-hex').value = e.target.value;
 });
@@ -312,47 +479,38 @@ document.getElementById('text-hex').addEventListener('input', calculateContrastW
 
 document.addEventListener("DOMContentLoaded", calculateContrastWithDefault);
 
-document.getElementById('salvar-pdf').addEventListener('click', function () {
-    const pdf = new jsPDF();
-    const table = document.getElementById('history-table-body');
-    const rows = table.querySelectorAll('tr');
+document.addEventListener('DOMContentLoaded', function() {
     
-    let pdfContent = [];
-    
-    
-    rows.forEach(function(row) {
-        let rowData = [];
-        row.querySelectorAll('td').forEach(function(cell) {
-            rowData.push(cell.textContent.trim());
-        });
-        pdfContent.push(rowData);
-    });
-
-    
-    let posY = 10;
-
-    
-    pdfContent.forEach(function(row) {
-        let posX = 10;
-        row.forEach(function(cell) {
-            pdf.text(posX, posY, cell);
-            posX += 50; 
-        });
-        posY += 10;
-    });
-
-    
-    pdf.save('historico.pdf');
 });
-
-//img
 
 document.getElementById('toggle-contrast').addEventListener('click', function(event) {
     event.preventDefault();
-    document.body.classList.toggle('high-contrast'); 
-    var logoImage = document.getElementById('logo-image');
+    document.body.classList.toggle('high-contrast');
+    document.getElementById('tabela').classList.toggle('high-contrast-table');
+    document.getElementById('colorSelection').classList.toggle('high-contrast-colorSelection');
+    document.getElementById('divTabela').classList.toggle('high-contrast-container');
+    document.getElementById('testandoContainer').classList.toggle('high-contrast-container');
+    document.getElementById('contrast-ratio').classList.toggle('high-contrast-title');
+    document.getElementById('escolhaCores').classList.toggle('high-contrast-title');
+    document.getElementById('historico').classList.toggle('high-contrast-title');
+    document.getElementById('logo-text').classList.toggle('high-contrast-title');
+    document.getElementById('labelTC').classList.toggle('high-contrast-title');
+    document.getElementById('labelBC').classList.toggle('high-contrast-title');
+    document.getElementById('hr').classList.toggle('high-contrast-hr');
+    document.getElementById('footer').classList.toggle('high-contrast-header-footer');
+    document.getElementById('cabecalho').classList.toggle('high-contrast-header-footer');
+    document.getElementById('help-button').classList.toggle('high-contrast-buttons');
+    document.getElementById('add-to-history').classList.toggle('high-contrast-buttons');
+    document.getElementById('selecionarArquivo').classList.toggle('high-contrast-buttons');
+    document.getElementById('escolherOutraImagem').classList.toggle('high-contrast-buttons');
+    document.getElementById('pickColorButton').classList.toggle('high-contrast-buttons');
+    document.getElementById('save-pdf').classList.toggle('high-contrast-buttons');
+    document.getElementById('labelImagem').classList.toggle('high-contrast-labelImg');
+    document.getElementById('popup-content').classList.toggle('high-contrast-popup');
+    document.getElementById('text1-popup').classList.toggle('high-contrast-popup-text');
+    document.getElementById('text2-popup').classList.toggle('high-contrast-popup-text');
 
-    
+    var logoImage = document.getElementById('logo-image');
     if (document.body.classList.contains('high-contrast')) {
         logoImage.src = 'logo/pinguim2.png';
     } else {
@@ -360,148 +518,25 @@ document.getElementById('toggle-contrast').addEventListener('click', function(ev
     }
 });
 
-function previewImage(event) {
-    var image = document.getElementById('imagePreview');
-    image.innerHTML = '';
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    reader.onload = function(){
-      var img = document.createElement("img");
-      img.src = reader.result;
-      img.style.maxWidth = '100%';
-      img.style.height = 'auto';
-      image.appendChild(img);
-    }
-    reader.readAsDataURL(file);
-  }
-
-  document.getElementById('colorPicker').addEventListener('input', function() {
-    var bgColor = this.value;
-    var contrastResult = document.getElementById('contrastResult');
-    var textColor = getTextColor(bgColor);
-    contrastResult.innerText = 'Texto em contraste: ' + textColor;
-    contrastResult.style.color = textColor;
-  });
-
-  function getTextColor(bgColor) {
-    var hex = bgColor.replace('#', '');
-    var r = parseInt(hex.substring(0, 2), 16);
-    var g = parseInt(hex.substring(2, 4), 16);
-    var b = parseInt(hex.substring(4, 6), 16);
-    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-    return (yiq >= 128) ? '#000000' : '#ffffff';
-  }
-//conseguir intalar no terminal: npm install node-vibrant
-
-  const Vibrant = require('node-vibrant');
-
-  function extractColorsFromImage(imageUrl) {
-      Vibrant.from(imageUrl)
-          .getPalette()
-          .then(palette => {
-              const dominantColor = palette.Vibrant.getHex();
-              const textColor = getTextColor(dominantColor);
-  
-              
-              const AA = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AA;
-              const AAA = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AAA;
-              const AA18PT = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AA_18PT;
-              const AAA18PT = calculateContrastRatio(dominantColor, textColor) >= CONTRAST_THRESHOLD_AAA_18PT;
-  
-              
-              document.getElementById('AA-result').innerText = AA ? 'Aprovado' : 'Reprovado';
-              document.getElementById('AAA-result').innerText = AAA ? 'Aprovado' : 'Reprovado';
-              document.getElementById('AA18PT-result').innerText = AA18PT ? 'Aprovado' : 'Reprovado';
-              document.getElementById('AAA18PT-result').innerText = AAA18PT ? 'Aprovado' : 'Reprovado';
-          })
-          .catch(error => {
-              console.error('Erro ao extrair cores da imagem:', error);
-          });
-  }
-  
-  function previewImage(event) {
-    var image = document.getElementById('imagePreview');
-    image.innerHTML = '';
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    reader.onload = function(){
-        var img = document.createElement("img");
-        img.src = reader.result;
-        img.style.maxWidth = '100%';
-        img.style.height = 'auto';
-        image.appendChild(img);
-
-        
-        extractColorsFromImage(reader.result);
-    }
-    reader.readAsDataURL(file);
-}
-
-
 function getTextColor(bgColor) {
-    var hex = bgColor.replace('#', '');
-    var r = parseInt(hex.substring(0, 2), 16);
-    var g = parseInt(hex.substring(2, 4), 16);
-    var b = parseInt(hex.substring(4, 6), 16);
-    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-    return (yiq >= 128) ? '#000000' : '#ffffff';
+var hex = bgColor.replace('#', '');
+var r = parseInt(hex.substring(0, 2), 16);
+var g = parseInt(hex.substring(2, 4), 16);
+var b = parseInt(hex.substring(4, 6), 16);
+var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+return (yiq >= 128) ? '#000000' : '#ffffff';
 }
-document.getElementById('colorPicker').addEventListener('input', function() {
-    var bgColor = this.value;
-    var contrastResult = document.getElementById('contrastResult');
-    var textColor = getTextColor(bgColor);
-    contrastResult.innerText = 'Texto em contraste: ' + textColor;
-    contrastResult.style.color = textColor;
-});
 
+function applyColors() {
+var backgroundColor = document.getElementById('background-color').value;
+var textColor = document.getElementById('text-color').value;
 
-            for (var i = 0; i < 10 * 4; i += 4) {
-                var r = pixels[i];
-                var g = pixels[i + 1];
-                var b = pixels[i + 2];
-                console.log("Pixel " + (i / 4 + 1) + ": " + r + ", " + g + ", " + b);
-            }
-        img.src = event.target.result;
-        reader.readAsDataURL(file);
-
-
-document.getElementById('inputImage').addEventListener('change', function(event) {
-    var file = event.target.files[0];
-    if (file) {
-        extractColorsFromImage(file);
-    }
-});
-
-
-document.getElementById('salvar-pdf').addEventListener('click', function () {
-    const pdf = new jsPDF();
-    const table = document.getElementById('history-table-body');
-    const rows = table.querySelectorAll('tr');
-    
-    let pdfContent = [];
-    
-    
-    rows.forEach(function(row) {
-        let rowData = [];
-        row.querySelectorAll('td').forEach(function(cell) {
-            rowData.push(cell.textContent.trim());
-        });
-        pdfContent.push(rowData);
+var customCardBodies = document.querySelectorAll('.custom-card-body');
+    customCardBodies.forEach(cardBody => {
+        cardBody.style.backgroundColor = backgroundColor;
+        cardBody.style.color = textColor;
     });
+}
 
-    
-    let posY = 10;
-
-    
-    pdfContent.forEach(function(row) {
-        let posX = 10;
-        row.forEach(function(cell) {
-            pdf.text(posX, posY, cell);
-            posX += 50; 
-        });
-        posY += 10;
-    });
-
-    
-    pdf.save('historico.pdf');
-});
+document.getElementById('background-color').addEventListener('input', applyColors);
+document.getElementById('text-color').addEventListener('input', applyColors);
