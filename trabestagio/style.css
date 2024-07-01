@@ -1,86 +1,321 @@
-body {
-    margin: 0;
-    padding: 0;
+#colorSelection {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f8f9fa; 
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #343a40; 
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
 }
 
-.title2-container {
-    margin-top: 2%;
+body{
+    background-color: white;
 }
 
-.title-container {
-    margin-top: 50px;
+#bolas {
+    max-width: 500px;
 }
 
-.container {
+#text-hex, #background-hex {
+    text-transform: uppercase;
+}
+
+#colorSelection h1 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#escolherCor {
     display: flex;
-    flex-direction: column; /* Alteração para coluna */
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+#escolherCor .form-label {
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+#escolherCor .form-group {
+    flex: 1 1 50%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#escolherCor .form-control {
+    width: calc(100% - 42px);
+    height: 40px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#escolherCor input[type="color"] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+#escolherArquivo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px 0;
+}
+
+#escolherArquivo button {
+    background-color: #545a61;
+    border: solid 3px #3f4348;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#escolherArquivo button:hover {
+    background-color: #3d4146;
+    border: solid 3px #2f3235;
+}
+
+#save-pdf {
+    background-color: #545a61;
+    border: solid 3px #3f4348;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#save-pdf:hover {
+    background-color: #3d4146;
+    border: solid 3px #2f3235;
+}
+
+#cabecalho{
+    background-color: #CFF4FC;
+}
+
+#logo-text{
+    color: #636363;
+}
+
+#resultadosEscolhas {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+ 
+#contCards {
+    max-width: 700px;
+}
+
+#resultadosEscolhas .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+#resultadosEscolhas .card-body {
+    padding: 20px;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa; 
+}
+
+.card1{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card2{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#resultadosEscolhas .custom-card-body p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#resultadosEscolhas .color-preview {
+    padding: 10px;
+    border-radius: 4px;
+} 
+
+#ratio {
+    text-align: center;
+}
+
+#ratio #contrast-ratio {
+    font-size: 18px;
+    color: #343a40;
+    font-weight: bold;
+}
+
+#btnAdicionarHistorico {
+    text-align: center;
+}
+
+#btnAdicionarHistorico .btn {
+    background-color: #545a61;
+    color: #fff;
+    border: solid 3px #3f4348;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#btnAdicionarHistorico .btn:hover {
+    background-color: #3d4146;
+    border: solid 3px #2f3235;
+}
+
+#hr {
+    margin-top: 20px;
+    width: 100%;
+    border: solid 1px #c1c1c1;
+}
+
+#labelImagem {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+    background-color: #dedada;
+    text-align: center;
+    width: 350px;
+    height: 300px;
+    border: dashed #7c7c7c 4px;
+    font-size: 22px;
+}
+
+#labelImagem:hover {
+    background-color: #cecece;
+}
+
+#mostrarCampoEnvioArquivo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#imagemIconeRemover{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 35px;
+}
+
+#removerImagem{
+    cursor: pointer;
+    font-size: 35px;
+    color: rgb(191, 52, 52);
+    margin-top: 30px;
+}
+
+#canvas {
+    margin: 30px;
+}
+
+
+.dNone{
+    display: none !important;
+}
+
+#cancelarUploadImagem{
+    border: none !important;
+    margin-top: 30px;
+    background-color: rgb(191, 52, 52) !important;
+}
+
+#cancelarUploadImagem:hover{
+    background-color: rgb(129, 36, 36) !important;
+}
+
+#colorCode{
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.testeTD{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: row !important;
+}
+
+#colorDisplay{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 105px;
+    height: 60px;
+    border: solid 2px #303030;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-button{
+    margin-top: 38px;
+    background-color: rgb(197, 40, 40);
+    color: white;
+    border: solid 2px rgb(132, 26, 26);
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.delete-button:hover{
+    background-color: rgb(132, 26, 26);
+    border: solid 2px rgb(97, 19, 19);
+}
+
+.containerr {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background-color: white;
-    padding: 20px;
     border-radius: 10px;
-    
-    width: 80%;
-    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa; 
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #343a40;
     margin-bottom: 12px;
+    margin-top: 20px;
 }
 
-.cores {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+th{
+    text-align: center !important;
 }
 
-
-.color-inputs {
-    display: flex;
-   
-    align-items: center;
+tr{
+    
+    background-color: #f8f9fa !important; 
 }
 
-.color-input {
-    margin-right: 20px; /* Espaçamento entre os elementos */
+.alinharTabela{
+    text-transform: uppercase;
 }
-
-.input-group {
-    margin-top: 5px; /* Espaçamento entre o input de cor e o input de texto */
-}
-
-/* Estilo para os inputs de cor */
-input[type="color"] {
-    width: 10px; /* Largura do input de cor */
-    height: 30px; /* Altura do input de cor */
-    padding:0; /* Remover padding */
-    border: none; /* Remover borda */
-    border-radius: 5px; /* Adicionar borda arredondada */
-    cursor: pointer; /* Alterar cursor ao passar por cima */
-    margin-right: 5px; /* Espaçamento entre os inputs de cor */
-}
-
-/* Estilo para os inputs de texto */
-input[type="text"] {
-    width: 80px; /* Largura do input de texto */
-    height: 30px; /* Altura do input de texto */
-    padding: 5px; /* Adicionar padding */
-    border-radius: 5px; /* Adicionar borda arredondada */
-    border: 1px solid #ccc; /* Adicionar borda */
-}
-
-button{
-    background-color: #fa3939;
-    border-radius: 50px 20px;
-    color: #fff;
-    border: none;
-    width: 100px;
-    height: 35px;
-}
-
 
 .row-whith {
     background-color: #ffffff;
@@ -100,67 +335,25 @@ button{
     justify-content: center;
     text-align: center;
 }
+
 h1 {
-  
     margin-top: 0;
     text-transform: uppercase;
-    color: rgb(86, 82, 82);
-    margin-right: 10px;
     font-family: "Belleza", sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     font-style: normal;
-   
+    font-size: 34px !important;
 }
 
 h2 {
-    text-align: center;
-    margin-top: 0;
     text-transform: uppercase;
     color: rgb(86, 82, 82);
-    margin-right: 10px;
-}
-
-.title-container {
-    position: relative;
-}
-
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-input[type="color"] {
-    border: none;
-    width: 100px;
-    height: 100px;
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-.color-input {
-    width: 50%;
-}
-
-.color-example {
-    margin-top: 20px;
+    font-family: "Belleza", sans-serif;
+    font-weight: 300;
+    font-style: normal;
     text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-  
-
-.color-preview {
-    margin: 5px;
-}
-
-.card {
-    margin-bottom: 20px;
+    color: #303030 !important;
+    margin-top: 15px !important;
 }
 
 .help-button {
@@ -197,7 +390,7 @@ input[type="color"] {
 }
 
 .popup-content {
-    background-color: rgb(73, 73, 73);
+    background-color: rgb(200, 200, 200);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -234,12 +427,17 @@ input[type="color"] {
     color: white;
     font-size: 10px;
 }
+
 .header {
     background-color: #94D7E8;
     padding: 10px;
-  }
+}
 
-.footer {
+#td{
+    text-transform: uppercase;
+}
+
+footer {
     background-color: #94D7E8;
     color: rgb(0, 0, 0);
     text-align: center;
@@ -247,142 +445,103 @@ input[type="color"] {
 }
 
 .theme-link:hover {
-    color: rgb(247, 255, 136);
+    color: rgb(94, 96, 19);
 }
 
 .theme-link {
-    color: rgb(238, 255, 0);
+    font-weight: bold;
+    color: rgb(124, 125, 22);
 }
-
-/* black mode */
-/* 
-body.contrast div.main {
-    background-color: black;
-}
-body.contrast div.brand a {
-    color: white !important;
-}
-body.contrast div.main textarea {
-    background-color: black !important;
-    border-color: rgb(200,200,200) !important;
-    color: white !important;
-}
-body.contrast div.main button {
-    background-color: rgb(54, 54, 54);
-    color: rgb(200,200,200) !important;
-    border-color: none !important;
-}
-body.contrast div.main .main-col button:hover,
-body.contrast div.main .main-col button:focus,
-body.contrast div.main .main-col button:active {
-    background-color: rgb(200,200,200) !important;
-    color: rgb(54, 54, 54) !important;
-}
-body.contrast div.main .main-col div[data-in-groups].group-selected button,  
-body.contrast div.main .main-col div[data-in-groups] button[data-in-groups].group-selected {
-    background-color: rgb(200,200,200) !important;
-    color: rgb(54, 54, 54) !important;
-}
-body.contrast div[data-in-groups].group-selected-parent button{
-    border-color: rgb(200,200,200) !important;
-    border-style: dashed !important;
-    border-width: 2px !important;
-}
-
-body.contrast div.menu {
-    background-color: rgb(74, 74, 74);
-    color: rgb(240,240,240);
-    border-color: black;
-}
-body.contrast div.cog,
-body.contrast nav.menu-options,
-body.contrast nav.menu-options ul.navbar-nav {
-    background-color: rgb(54, 54, 54) !important;
-}
-body.contrast div.cog button{
-    color: rgb(240,240,240) !important;
-}
-body.contrast div.menu ul.navbar-nav > li:first-child {
-    border-color: rgb(50,50,50);
-}
-
-body.contrast nav.menu-options .nav-item label.btn.btn-secondary {
-    background-color: rgb(54, 54, 54);
-    color: white;
-}
-body.contrast nav.menu-options .nav-item label.btn.btn-secondary.active {
-    background-color: rgb(9, 4, 78);
-    color: white;
-} */
-
-
 
 .high-contrast {
-    color: white !important;
-    background-color: #111111 !important;
+    background-color: #121212 !important;
+    color: #ffffff !important;
 }
 
-
-
-.high-contrast body {
-    color: white !important;
-    background-color: rgb(24, 24, 24) !important;
+.high-contrast a {
+    color: #ffffff !important;
 }
 
-.high-contrast .bg-info-subtle {
-    background-color: #111111 !important; 
-    color: white !important; 
+/* Tabela */
+.high-contrast-table {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
 }
 
-.high-contrast .text-dark-emphasis {
-    color: white !important;
+.high-contrast-table th,
+.high-contrast-table td {
+    border-color: #ffffff !important;
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
 }
 
-.high-contrast .footer {
+/* Seção de Seleção de Cores */
+.high-contrast-colorSelection {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+}
+
+.high-contrast-colorSelection input {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+.high-contrast-colorSelection input:hover {
+    background-color: #282727 !important;
+}
+
+.high-contrast-buttons {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+.high-contrast-buttons:hover {
+    background-color: #282727 !important;
+}
+
+.high-contrast-popup {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+.high-contrast-popup-text {
+    color: #fff !important;
+}
+
+.high-contrast-labelImg {
+    background-color: #4a4a4a !important;
+    color: #ffffff !important;
+    border: dashed #7e7e7e 4px !important;
+}
+
+.high-contrast-labelImg:hover {
+    background-color: #363636 !important;
+}
+
+/* Outros elementos */
+.high-contrast-title {
+    color: #ffffff !important;
+}
+
+.high-contrast-container {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+}
+
+.high-contrast-cards {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+.high-contrast-hr {
+    border: solid 1px #464646 !important;
+}
+
+.high-contrast-header-footer {
     background-color:#303030 !important;
     color: white !important;
 }
-
-.high-contrast .card {
-    background-color: #111111 !important; 
-    color: white !important;
-}
-
-.high-contrast .color-inputs label {
-    color: white !important;
-}
-
-
-
-.high-contrast .title2-container {
-    color: white !important;
-}
-
-.high-contrast .table {
-    color: white !important;
-}
-
-.high-contrast .btn.bg-info-subtle {
-    background-color: #fffdfd  !important; 
-    color: rgb(0, 0, 0) !important;
-}
-.high-contrast .h1{
-    color: white !important;
-}
-
-
-.high-contrast .high-contrast-title {
-    color: white !important; 
-}
-
-.high-contrast .manual{
-    background-color: #111111  !important; 
-    color: white !important;
-} 
-
-.high-contrast .container{
-    background-color: #111111 !important; 
-    color: white !important;
-}
-
-
