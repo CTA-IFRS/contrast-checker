@@ -18,12 +18,12 @@
             <img class="me-2" src="logo/pinguim.png" id="logo-image">
             <h1 class="mb-0" id="logo-text">Gentoo Vision</h1>
         </div>
-
-        <div class="col-md-3 text-end" id="removerNoPDF">
-            <img src="logo/ajuste-de-brilho-e-contraste.png" id="logo-img">
-
-            <a href="#" id="toggle-contrast" class="link-offset-2 link-underline link-underline-opacity-0 text-dark-emphasis me-2">Alto contraste</a>
-        </div>
+        <a href="#" id="toggle-contrast" class="link-offset-2 link-underline link-underline-opacity-0 text-dark-emphasis me-2">
+            <div class="text-end" id="removerNoPDF" title="Auto contraste">
+                <img src="logo/ajuste-de-brilho-e-contraste.png" id="logo-img">
+                <span class="esconder">Alto contraste</span>
+            </div>
+        </a>
     </header>
 
     <div class="d-flex flex-row-reverse" id="iconAjuda">
@@ -46,7 +46,7 @@
                 <p>
                     Para executar seu teste, selecione uma cor de primeiro plano e uma cor de fundo. Os resultados serão
                     gerados automaticamente e você receberá suas pontuações, podendo saber se cada critério foi ou não
-                    aprovado. Você pode selecionar 'Adicionar ao histórico'
+                    aprovado. Você pode selecionar 'Adicionar no histórico'
                     para adicionar sua amostra a uma lista gerada abaixo.
                 </p>
             </div>
@@ -97,28 +97,28 @@
         </div>
 
         <div class="row mt-3 mb-3 justify-content-between" id="bolas">
-            <div class="col-auto">
+            <div class="col-auto divCirculos">
                 <div class="circle mb-4" id="circleAA">
                     <p>AA</p>
                     <span class="icon" id="iconAA"></span>
                 </div>
             </div>
 
-            <div class="col-auto">
+            <div class="col-auto divCirculos">
                 <div class="circle mb-4" id="circleAAA">
                     <p>AAA</p>
                     <span class="icon" id="iconAAA"></span>
                 </div>
             </div>
 
-            <div class="col-auto">
+            <div class="col-auto divCirculos">
                 <div class="circle mb-4" id="circleAA18PT">
                     <p>AA18PT</p>
                     <span class="icon" id="iconAA18PT"></span>
                 </div>
             </div>
 
-            <div class="col-auto">
+            <div class="col-auto divCirculos">
                 <div class="circle mb-4" id="circleAAA18PT">
                     <p>AAA18PT</p>
                     <span class="icon" id="iconAAA18PT"></span>
@@ -150,30 +150,16 @@
     </div>
 
     <div class="containerr" id="testandoContainer">
-        <div id="divTabela">
-            <h2 class="title2-container" id="historico">Histórico</h2>
-            <div class="row-col mt-3" id="conteudo">
-                <table class="table" id="tabela">
-                    <thead>
-                        <tr>
-                            <th colspan="4">Status</th>
-                            <th>RATIO</th>
-                            <th>Amostra</th>
-                            <th>Cor de Fundo</th>
-                            <th>Cor do Texto</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-table-body"></tbody>
-                </table>
-            </div>
+        <h2 class="title2-container" id="historico">Histórico</h2>
+        <div class="row-col mt-3" id="conteudo">
+            
         </div>
         <button onclick="downloadPDF()" type="button" id="save-pdf" class="btn salvar">Salvar PDF</button>
     </div>
 
     <footer id="footer">
         <div class="text-center py-5">
-            <small class="copyright ">Desenvolvido pelo <a target="_blank" class="theme-link " href="http://cta.ifrs.edu.br ">Centro Tecnológico de Acessibilidade</a> do IFRS</small>
+            <small class="copyright ">Desenvolvido pelo <a target="_blank" class="theme-link " href="http://cta.ifrs.edu.br "><b>Centro Tecnológico de Acessibilidade</b></a> do IFRS</small>
         </div>
     </footer>
 
