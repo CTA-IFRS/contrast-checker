@@ -62,7 +62,7 @@ function downloadPDF() {
     tudo.appendChild(conteudoClone);
 
     var opt = {
-        margin: 0.2,
+        margin: 0.1,
         filename: "GentooVision.pdf",
         html2canvas: { scale: 3, scrollY: 0 },
         jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
@@ -113,11 +113,30 @@ document.getElementById('imageUpload').addEventListener('change', function (even
     }
 });
 
-document.getElementById('pickColorButton').addEventListener('click', async function () {
-    if (!window.EyeDropper) {
-        alert('Seu navegador não suporta a API EyeDropper');
-        return;
+document.addEventListener("DOMContentLoaded", function() {
+    var conteudo = document.getElementById("conteudo");
+    var testandoContainer = document.getElementById("testandoContainer");
+
+    function checkConteudo() {
+        if (conteudo.children.length === 0) {
+            testandoContainer.style.display = 'none';
+        } else {
+            testandoContainer.style.display = 'flex';
+        }
     }
+
+    var observer = new MutationObserver(checkConteudo);
+    observer.observe(conteudo, { childList: true });
+    checkConteudo();
+});
+
+document.getElementById('pickColorButton').addEventListener('click', async function () {
+
+    // var userAgent = navigator.userAgent;
+    // if (userAgent.includes("Firefox") && userAgent.includes("Linux") || userAgent.includes("Chrome") && userAgent.includes("Linux")) {
+    //     alert('Infelizmente seu navegador não permite essa funcionalidade!');
+    //     return;
+    // }
 
     const eyeDropper = new EyeDropper();
     try {
@@ -159,6 +178,11 @@ function mudarDisplay(mostrar, esconder) {
 }
 
 document.getElementById('selecionarArquivo').addEventListener('click', function() {
+    // var userAgent = navigator.userAgent;
+    // if (userAgent.includes("Firefox") && userAgent.includes("Linux") || userAgent.includes("Chrome") && userAgent.includes("Linux")) {
+    //     alert('Infelizmente seu navegador não permite essa funcionalidade!');
+    //     return;
+    // }
     mudarDisplay(['labelImagem', 'cancelarUploadImagem'], ['selecionarArquivo']);
 });
 
@@ -271,45 +295,46 @@ function updateIcon(icon, status) {
 }
 
 function addToHistory(status, contrastRatio, backgroundColor, textColor) {
-    const historyTableBody = document.getElementById('history-table-body');
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td><div class="circle2 ${getStatusClass(contrastRatio, 4.5)}">AA <br>${getStatusIcon(contrastRatio, 4.5)}</div></td>
-        <td><div class="circle2 ${getStatusClass(contrastRatio, 7)}">AAA <br>${getStatusIcon(contrastRatio, 7)}</div></td>
-        <td><div class="circle2 ${getStatusClass(contrastRatio, 3)}">AA18+ <br>${getStatusIcon(contrastRatio, 3)}</div></td>
-        <td><div class="circle2 ${getStatusClass(contrastRatio, 4.5)}">AAA18+ <br>${getStatusIcon(contrastRatio, 4.5)}</div></td>
-        <td>${contrastRatio}</td>
-        <td class="sample"></td>
-        <td class='alinharTabela'>${backgroundColor}</td>
-        <td class='alinharTabela'>${textColor}</td>
-        <td><button class="delete-button">Excluir</button></td>
-    `;
+    const historyBody = document.getElementById('conteudo');
+    const newDiv = document.createElement('div');
+    newDiv.innerHTML = `
+            <div class='cardsHistorico'>
+            <div class='divCirculosHistorico'>
+                    <span class="circle2 ${getStatusClass(contrastRatio, 4.5)}">AA</span>
+                    <span class="circle2 ${getStatusClass(contrastRatio, 7)}">AAA</span>
+                    <span class="circle2 ${getStatusClass(contrastRatio, 3)}">AA18+</span>
+                    <span class="circle2 ${getStatusClass(contrastRatio, 4.5)}">AAA18+</span>
+                </div>
+                <span class="sample divExemplosHistorico"></span>
+                
+                <span><b>RATIO</b></span><span class='divPadraoHistorico ratioHistorico'>${contrastRatio}</span>
+                <span><b>COR DO FUNDO</b></span><span class='divPadraoHistorico hexHistorico'>${backgroundColor}</span>
+                <span><b>COR DO FUNDO</b></span><span class='divPadraoHistorico hexHistorico'>${textColor}</span>
+                <span><button class="delete-button">Excluir</button></span>
+            </div>
+        `;
 
     const fontSize12 = '12px';
     const fontSize18 = '18px';
 
-    const sampleContainer = newRow.querySelector('.sample');
+    const sampleContainer = newDiv.querySelector('.sample');
     const sample12 = createContrastSample(backgroundColor, textColor, fontSize12);
     const sample18 = createContrastSample(backgroundColor, textColor, fontSize18);
 
     sampleContainer.appendChild(sample12);
     sampleContainer.appendChild(sample18);
 
-    historyTableBody.appendChild(newRow);
+    historyBody.appendChild(newDiv);
 
-    const deleteButton = newRow.querySelector('.delete-button');
+    const deleteButton = newDiv.querySelector('.delete-button');
     deleteButton.addEventListener('click', function() {
-        historyTableBody.removeChild(newRow);
-        removeFromHistory(newRow);
+        historyBody.removeChild(newDiv);
+        removeFromHistory(newDiv);
     });
 }
 
 function getStatusClass(contrastRatio, threshold) {
     return contrastRatio >= threshold ? 'green' : 'red';
-}
-
-function getStatusIcon(contrastRatio, threshold) {
-    return contrastRatio >= threshold ? '✓' : '✕';
 }
 
 function saveHistoryToCookies(history) {
@@ -324,34 +349,40 @@ function retrieveHistoryFromCookies() {
 
 function displayHistoryOnPage() {
     const history = retrieveHistoryFromCookies();
-    const historyTableBody = document.getElementById('history-table-body');
+    const historyBody = document.getElementById('conteudo');
+
     for (const item of history) {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 4.5)}">AA <br>${getStatusIcon(item.contrastRatio, 4.5)}</div></td>
-            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 7)}">AAA <br>${getStatusIcon(item.contrastRatio, 7)}</div></td>
-            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 3)}">AA18+ <br>${getStatusIcon(item.contrastRatio, 3)}</div></td>
-            <td><div class="circle2 ${getStatusClass(item.contrastRatio, 4.5)}">AAA18+ <br>${getStatusIcon(item.contrastRatio, 4.5)}</div></td>
-            <td>${item.contrastRatio}</td>
-            <td class="sample"></td>
-            <td>${item.backgroundColor}</td>
-            <td>${item.textColor}</td>
-            <td><button class="delete-button">Excluir</button></td>
+        const newDiv = document.createElement('div');
+
+        newDiv.innerHTML = `
+            <div class='cardsHistorico'>
+            <div class='divCirculosHistorico'>
+                    <span class="circle2 ${getStatusClass(item.contrastRatio, 4.5)}">AA</span>
+                    <span class="circle2 ${getStatusClass(item.contrastRatio, 7)}">AAA</span>
+                    <span class="circle2 ${getStatusClass(item.contrastRatio, 3)}">AA18+</span>
+                    <span class="circle2 ${getStatusClass(item.contrastRatio, 4.5)}">AAA18+</span>
+                </div>
+                <span class="sample divExemplosHistorico"></span>
+                <span><b>RATIO</b></span><span class='divPadraoHistorico ratioHistorico'>${item.contrastRatio}</span>
+                <span><b>COR DO FUNDO</b></span><span class='divPadraoHistorico hexHistorico'>${item.backgroundColor}</span>
+                <span><b>COR DO FUNDO</b></span><span class='divPadraoHistorico hexHistorico'>${item.textColor}</span>
+                <span><button class="delete-button">Excluir</button></span>
+            </div>
         `;
 
-        const sampleContainer = newRow.querySelector('.sample');
-        sampleContainer.innerHTML = item.sample12 + '<br>' + item.sample18;
+        const sampleContainer = newDiv.querySelector('.sample');
+        sampleContainer.innerHTML = item.sample12 + item.sample18;
 
-        historyTableBody.appendChild(newRow);
+        historyBody.appendChild(newDiv);
 
-        const deleteButton = newRow.querySelector('.delete-button');
+        const deleteButton = newDiv.querySelector('.delete-button');
         deleteButton.addEventListener('click', function() {
             const index = history.indexOf(item);
             if (index !== -1) {
                 history.splice(index, 1);
                 saveHistoryToCookies(history);
             }
-            newRow.remove();
+            newDiv.remove();
         });
     }
 }
@@ -410,12 +441,23 @@ addToHistoryButton.addEventListener('click', function() {
 });
 
 function createContrastSample(background, text, fontSize) {
-    const sample = document.createElement('div');
-    sample.style.backgroundColor = background;
-    sample.style.color = text;
-    sample.style.fontSize = fontSize;
-    sample.innerHTML = 'exemplo de texto<br>EXEMPLO DE TEXTO';
-    return sample;
+    const sample1 = document.createElement('div');
+    sample1.classList.add('exemplos12px')
+    sample1.style.backgroundColor = background;
+    sample1.style.color = text;
+    sample1.style.fontSize = fontSize;
+    sample1.style.padding = '5px';
+    sample1.innerHTML = 'exemplo de texto';
+
+    const sample2 = document.createElement('div');
+    sample2.classList.add('exemplos18px')
+    sample2.style.backgroundColor = background;
+    sample2.style.color = text;
+    sample2.style.fontSize = fontSize;
+    sample2.style.padding = '5px';
+    sample2.innerHTML = 'exemplo de texto';
+
+    return sample1, sample2;
 }
 
 function getSampleHTML(background, text, fontSize) {
@@ -486,10 +528,12 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('toggle-contrast').addEventListener('click', function(event) {
     event.preventDefault();
     document.body.classList.toggle('high-contrast');
-    document.getElementById('tabela').classList.toggle('high-contrast-table');
     document.getElementById('colorSelection').classList.toggle('high-contrast-colorSelection');
-    document.getElementById('divTabela').classList.toggle('high-contrast-container');
     document.getElementById('testandoContainer').classList.toggle('high-contrast-container');
+    var todosCards = document.querySelectorAll('.cardsHistorico');
+    todosCards.forEach(card => {
+        card.classList.toggle('high-contrast-cards');
+    });
     document.getElementById('contrast-ratio').classList.toggle('high-contrast-title');
     document.getElementById('escolhaCores').classList.toggle('high-contrast-title');
     document.getElementById('historico').classList.toggle('high-contrast-title');
@@ -518,24 +562,15 @@ document.getElementById('toggle-contrast').addEventListener('click', function(ev
     }
 });
 
-function getTextColor(bgColor) {
-var hex = bgColor.replace('#', '');
-var r = parseInt(hex.substring(0, 2), 16);
-var g = parseInt(hex.substring(2, 4), 16);
-var b = parseInt(hex.substring(4, 6), 16);
-var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-return (yiq >= 128) ? '#000000' : '#ffffff';
-}
-
 function applyColors() {
-var backgroundColor = document.getElementById('background-color').value;
-var textColor = document.getElementById('text-color').value;
+    var backgroundColor = document.getElementById('background-color').value;
+    var textColor = document.getElementById('text-color').value;
 
-var customCardBodies = document.querySelectorAll('.custom-card-body');
-    customCardBodies.forEach(cardBody => {
-        cardBody.style.backgroundColor = backgroundColor;
-        cardBody.style.color = textColor;
-    });
+    var customCardBodies = document.querySelectorAll('.custom-card-body');
+        customCardBodies.forEach(cardBody => {
+            cardBody.style.backgroundColor = backgroundColor;
+            cardBody.style.color = textColor;
+        });
 }
 
 document.getElementById('background-color').addEventListener('input', applyColors);
