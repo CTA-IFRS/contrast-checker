@@ -1,18 +1,20 @@
 #colorSelection {
     border-radius: 10px;
     padding: 20px;
-    background-color: #f8f9fa; 
+    background-color: rgb(255, 255, 255);
     max-width: 900px;
     margin: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: #343a40; 
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+    color: #ffffff; 
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 body{
-    background-color: white;
+    background-color: rgb(255, 255, 255) !important;
+    line-height: 1 !important;
 }
 
 #bolas {
@@ -100,6 +102,7 @@ body{
     padding: 15px 20px;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 35px;
     transition: background-color 0.3s;
 }
 
@@ -114,6 +117,84 @@ body{
 
 #logo-text{
     color: #636363;
+}
+
+.cardsHistorico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: solid 2px rgb(45, 45, 45);
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.divCirculosHistorico {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.circle2 {
+    margin-right: 10px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid rgb(45, 45, 45);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divPadraoHistorico {
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.divExemplosHistorico {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.ratioHistorico {
+    margin-bottom: 20px;
+}
+
+.hexHistorico{
+    margin-top: 5px;
+}
+
+.delete-button {
+    background-color: rgb(197, 40, 40);
+    color: #fff;
+    border: solid 2px rgb(132, 26, 26);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.delete-button:hover {
+    background-color: rgb(132, 26, 26);
+    border: solid 2px rgb(97, 19, 19);
+}
+
+#conteudo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
 }
 
 #resultadosEscolhas {
@@ -256,13 +337,6 @@ body{
     margin: 0;
 }
 
-.testeTD{
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-direction: row !important;
-}
-
 #colorDisplay{
     margin-top: 20px;
     margin-bottom: 10px;
@@ -272,20 +346,6 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.delete-button{
-    margin-top: 38px;
-    background-color: rgb(197, 40, 40);
-    color: white;
-    border: solid 2px rgb(132, 26, 26);
-    padding: 8px;
-    border-radius: 5px;
-}
-
-.delete-button:hover{
-    background-color: rgb(132, 26, 26);
-    border: solid 2px rgb(97, 19, 19);
 }
 
 .containerr {
@@ -301,26 +361,6 @@ body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #343a40;
     margin-bottom: 12px;
-    margin-top: 20px;
-}
-
-th{
-    text-align: center !important;
-}
-
-tr{
-    
-    background-color: #f8f9fa !important; 
-}
-
-.alinharTabela{
-    text-transform: uppercase;
-}
-
-.row-whith {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-around;
 }
 
 .circle {
@@ -347,9 +387,9 @@ h1 {
 
 h2 {
     text-transform: uppercase;
-    color: rgb(86, 82, 82);
     font-family: "Belleza", sans-serif;
     font-weight: 300;
+    font-size: 35px !important;
     font-style: normal;
     text-align: center;
     color: #303030 !important;
@@ -395,7 +435,7 @@ h2 {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    max-width: 25%;
+    width: calc(100% - 200px);
     position: relative;
 }
 
@@ -407,7 +447,12 @@ h2 {
     cursor: pointer;
 }
 
+#text1-popup {
+    margin-top: 30px !important;
+}
+
 .circle2 {
+    margin: 3px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -433,8 +478,13 @@ h2 {
     padding: 10px;
 }
 
-#td{
+td {
     text-transform: uppercase;
+}
+
+tr {
+    height: 2px !important;
+    width: 2px !important;
 }
 
 footer {
@@ -444,13 +494,9 @@ footer {
     font-size: 20px;
 }
 
-.theme-link:hover {
-    color: rgb(94, 96, 19);
-}
 
 .theme-link {
-    font-weight: bold;
-    color: rgb(124, 125, 22);
+    color: black;
 }
 
 .high-contrast {
@@ -476,7 +522,6 @@ footer {
     color: #ffffff !important;
 }
 
-/* Seção de Seleção de Cores */
 .high-contrast-colorSelection {
     background-color: #1f1f1f !important;
     color: #ffffff !important;
@@ -533,8 +578,9 @@ footer {
 }
 
 .high-contrast-cards {
-    background-color: #1f1f1f;
+    background-color: #1b1b1b;
     color: #ffffff;
+    border: solid 2px #8a8a8a;
 }
 
 .high-contrast-hr {
@@ -544,4 +590,235 @@ footer {
 .high-contrast-header-footer {
     background-color:#303030 !important;
     color: white !important;
+}
+
+@media (max-width: 954px) {
+    #colorSelection {
+        max-width: 800px;
+    }
+
+    .containerr {
+        max-width: 800px;
+    }
+
+    .help-button {
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+
+    #logo-text {
+        font-size: 32px !important;
+    }
+
+    #logo-image {
+        width: 50px;
+    }
+
+    #toggle-contrast {
+        font-size: 15px;
+    }
+
+    .circle {
+        width: 85px;
+        height: 85px;
+        font-size: 12px;
+    }
+
+    .circle2 {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 17px;
+        padding-top: 5px;
+        font-size: 8px !important;
+    }
+
+    #btnAdicionarHistorico .btn {
+        padding: 7px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    #escolherArquivo button {
+        padding: 12px 15px;
+    }
+
+    #save-pdf {
+        padding: 9px 15px;
+    }
+}
+
+@media (max-width: 759px) {
+    #colorSelection {
+        max-width: 700px;
+    }
+
+    .containerr {
+        max-width: 700px;
+    }
+
+    .help-button {
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
+
+    #logo-text {
+        font-size: 30px !important;
+    }
+
+    #logo-image {
+        width: 45px;
+    }
+
+    #toggle-contrast {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 700px) {
+    #colorSelection {
+        max-width: 650px;
+    }
+
+    .containerr {
+        max-width: 650px;
+    }
+
+    #logo-text {
+        font-size: 28px !important;
+    }
+
+    #logo-image {
+        width: 40px;
+    }
+
+    #toggle-contrast {
+        font-size: 13px;
+    }
+
+    #footer {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 650px) {
+    #colorSelection {
+        max-width: 600px;
+    }
+
+    .containerr {
+        max-width: 600px;
+    }
+
+    #labelImagem {
+        width: 300px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 600px) {
+    #colorSelection {
+        max-width: 550px;
+    }
+
+    .containerr {
+        max-width: 550px;
+    }
+
+    .circle {
+        width: 70px;
+        height: 70px;
+        font-size: 12px;
+    }
+
+    .circle2 {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 17px;
+        padding-top: 5px;
+        font-size: 8px !important;
+    }
+}
+
+@media (max-width: 550px) {
+    #colorSelection {
+        max-width: 500px;
+    }
+
+    .containerr {
+        max-width: 500px;
+    }
+
+    #add-to-history {
+        padding: 12px 15px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    #colorSelection {
+        max-width: 450px;
+    }
+
+    .containerr {
+        max-width: 450px;
+    }
+
+    h1, h2 {
+        font-size: 28px !important;
+    }
+
+    .popup-content {
+        width: calc(100% - 100px);
+    }
+}
+
+@media (max-width: 450px) {
+    #colorSelection {
+        max-width: 400px;
+    }
+
+    .containerr {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 415px) {
+    .esconder {
+        display: none !important;
+    }
+
+    #cabecalho{
+        justify-content: space-between !important;
+        padding-left: 5px !important;
+    }
+
+    .popup-content {
+        width: calc(100% - 50px);
+    }
+}
+
+@media (max-width: 395px) {
+    .divCirculos{
+        padding: 5px !important;
+    }
+
+    .popup-content {
+        width: calc(100% - 20px);
+    }
+
+    #labelImagem {
+        width: 250px;
+        height: 235px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 339px) {
+    .divCirculos{
+        padding: 3px !important;
+    }
 }
