@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --font-primary: "Atkinson Hyperlegible", sans-serif;
+  --font-secondary: "Nunito", sans-serif;
+  
+  --color-success: #28A745;
+  --color-danger: #DC3545;
+  --color-warning: #FFC107;
+  --color-info: #17A2B8;
+  --color-gray100: #F8F9FA;
+  --color-gray200: #E9ECEF;
+  --color-gray300: #DEE2E6;
+  --color-gray400: #CED4DA;
+  --color-gray500: #ADB5BD;
+  --color-gray600: #6C757D;
+  --color-gray700: #495057;
+  --color-gray800: #343A40;
+  --color-gray900: #212529;
+  --color-white: #ffffff;
+  --color-black: #000;
+  --color-co1: #FEF1E4;
+  --color-co2: #FEA001;
+  --color-co3: #FF7100;
+  --color-co4: #FF5700;
+  --color-co5: #AE3B00;
+  --color-co6: #84340A;
+  --color-co7: #913708;
+  --color-dark-color: #54595E;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 700;
+}
+
+.h1 {
+  font-size: 40px;
+}
+
+.h2 {
+  font-size: 32px;
+}
+
+.h3 {
+  font-size: 28px;
+}
+
+.h4 {
+  font-size: 24px;
+}
+
+.h5 {
+  font-size: 20px;
+}
+
+.h6 {
+  font-size: 16px;
+}
+
+.base-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.lead-text {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 34px;
+}
+
+.lead-text2 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 34px;
+}
+
+.strong-text {
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 28px;
+}
+
+.bgGauge {
+    background: linear-gradient(90deg, #FF0000 0%, #FFA500 30%, #BFFF00 45%, #28A745 70%);
+}
