@@ -96,9 +96,10 @@ function App() {
 
   const addToHistory = () => {
     const status = contrastRatio >= 4.5 ? 'Aprovado' : 'Reprovado';
+    const data = new Date().toLocaleDateString('pt-BR');
 
     const badges = (
-      <div className="flex flex-col gap-1.5">
+      <div className='flex flex-col gap-1.5'>
         <span className={`font-secondary font-bold text-[10px] text-white px-2.5 py-1 rounded-sm w-full flex justify-between ${getStatusClass(contrastRatio, CONTRAST_THRESHOLD_AA)}`}>
           <p>AA</p> {getStatusIcon(contrastRatio, CONTRAST_THRESHOLD_AA)}
         </span>
@@ -109,17 +110,33 @@ function App() {
     );
 
     const newItem = {
+      id: crypto.randomUUID?.() ?? String(Date.now()) + Math.random(),
       status,
       contrastRatio,
       backgroundColor,
       textColor,
       badges,
+      date: data,
     };
     setHistory((prev) => [...prev, newItem]);
   };
 
-  const removeFromHistory = (index) => {
-    setHistory((prev) => prev.filter((_, i) => i !== index));
+  const groupedHistory = history.reduce((groups, item) => {
+    if (!groups[item.date]) groups[item.date] = [];
+    groups[item.date].push(item);
+    return groups;
+  }, {});
+
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  useEffect(() => {
+    if (!selectedDate && Object.keys(groupedHistory).length > 0) {
+      setSelectedDate(Object.keys(groupedHistory)[0]);
+    }
+  }, [groupedHistory, selectedDate]);
+  
+  const removeFromHistory = (id) => {
+    setHistory((prev) => prev.filter((item) => item.id !== id));
   };
 
   const limpar = () => {
@@ -192,14 +209,14 @@ function App() {
                     <div className='grid grid-cols-[1fr_90px] gap-3 mt-4.5 items-end'>
                       <div className='result'>
                         {/* ajustar gauge */}
-                        <div className="gauge bg-gray400 h-5 w-[200px] rounded-full">
-                          <div style={{ width: `${calculoGauge(contrastRatio).toFixed(2)}%` }} className="flex h-5 rounded-full overflow-hidden">
+                        <div className='gauge bg-gray400 h-5 w-[200px] rounded-full'>
+                          <div style={{ width: `${calculoGauge(contrastRatio).toFixed(2)}%` }} className='flex h-5 rounded-full overflow-hidden'>
                             <span className='flex bgGauge h-5 rounded-full min-w-[200px]'></span>
                           </div>
                         </div>
                         <p id='contrast-ratio' className='h6 text-gray900 flex flex-col-reverse items-center'>Relação de contraste <span className='font-primary font-bold text-[40px]/[34px]'>{contrastRatio}</span></p>
                       </div>
-                      <div className="flex flex-col gap-1.5">
+                      <div className='flex flex-col gap-1.5'>
                         <span className={`font-secondary font-bold text-[10px] text-white px-2.5 py-1 rounded-sm w-full flex justify-between ${getStatusClass(contrastRatio, CONTRAST_THRESHOLD_AA)}`}>
                           <p>AA</p> {getStatusIcon(contrastRatio, CONTRAST_THRESHOLD_AA)}
                         </span>
@@ -209,13 +226,13 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-lg border border-gray500 overflow-hidden">
-                    <ul style={{ backgroundColor, color: textColor }} className="p-4">
+                  <div className='rounded-lg border border-gray500 overflow-hidden'>
+                    <ul style={{ backgroundColor, color: textColor }} className='p-4'>
                       {/* ver se indicadores de contraste estão certos */}
                       <li className='flex justify-between items-center gap-4 border-b border-gray500 pb-2.5'>
                         <p className='font-primary font-normal text-xs/5'>Essa é uma frase de exemplo utilizando fonte tamanho 12 px.</p>
                         <div className='rounded-sm p-1 bg-white'>
-                          <span className="indicador">
+                          <span className='indicador'>
                             {getIndicador(contrastRatio, CONTRAST_THRESHOLD_AAA)}
                           </span>
                         </div>
@@ -223,7 +240,7 @@ function App() {
                       <li className='flex justify-between items-center gap-4 border-b border-gray500 py-2.5'>
                         <p className='font-primary font-bold text-[14pt]/7'>Essa é uma frase de exemplo em negrito utilizando fonte tamanho 14 pt.</p>
                         <div className='rounded-sm p-1 bg-white'>
-                          <span className="indicador">
+                          <span className='indicador'>
                             {getIndicador(contrastRatio, CONTRAST_THRESHOLD_AA_18PT)}
                           </span>
                         </div>
@@ -231,7 +248,7 @@ function App() {
                       <li className='flex justify-between items-center gap-4 pt-2.5'>
                         <p className='font-primary font-normal text-[18pt]/7'>Essa é uma frase de exemplo utilizando fonte tamanho 18 pt.</p>
                         <div className='rounded-sm p-1 bg-white'>
-                          <span className="indicador">
+                          <span className='indicador'>
                             {getIndicador(contrastRatio, CONTRAST_THRESHOLD_AA_18PT)}
                           </span>
                         </div>
@@ -246,14 +263,27 @@ function App() {
               </form>
             </section>
             <section className='bg-white my-6 rounded-xl shadow-md px-6 py-8'>
-              <div className="flex justify-between">
+              <div className='flex justify-between'>
                 <h2 className='h4 text-gray900'>Histórico</h2>
                 {/* falta a função */}
-                <CustomBtn tamanho="sm" estado="outlineDanger">Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
+                <CustomBtn tamanho='sm' estado='outlineDanger'>Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
               </div>
-              {/* fazer abas separadas por data */}
-              <div id="historico">
-                <div className="font-primary font-bold text-base text-gray800 px-6 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center gap-8">
+              <div id='historico'>
+                <ul className='flex items-end border-b border-gray500 mt-6 mb-3'>
+                  {Object.keys(groupedHistory).map((date) => (
+                    <li key={date} className={`flex h-fit font-semibold -mb-[1px] border-gray500 border rounded-t-sm -mr-[1px]  ${ selectedDate === date ? 'text-gray900 border-b-white' : 'text-gray700'}`}>
+                      <a href='#'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setSelectedDate(date);
+                        }}
+                        className={`px-4.5 pb-2.5 ${ selectedDate === date ? 'pt-2.5' : 'pt-1.5'}`}>
+                        {date}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div className='font-primary font-bold text-base text-gray800 px-6 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center gap-8 mb-1.5'>
                   <div>Cor do Texto</div>
                   <div>Cor de Fundo</div>
                   <div>Amostra</div>
@@ -261,9 +291,10 @@ function App() {
                   <div>Status</div>
                   <div></div>
                 </div>
-                <div className="rounded-2xl overflow-hidden">
-                  {history.map((item, index) => (
-                    <div key={index} className="odd:bg-gray100 border-b border-gray500 last:border-0 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center px-6 gap-8">
+                <div className='rounded-2xl overflow-hidden'>
+                {selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0 ? (
+                  groupedHistory[selectedDate].map((item, index) => (
+                    <div key={index} className='odd:bg-gray100 border-b border-gray500 last:border-0 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center px-6 gap-8'>
                       <div>{item.textColor}
                         <button title='Copiar cor do texto'
                           onClick={() => {
@@ -284,12 +315,12 @@ function App() {
                           <FontAwesomeIcon icon={faCopy} />
                         </button>
                       </div>
-                      <div className="flex flex-col gap-2 py-3">
-                        <div className="font-primary text-xs/4.5 w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600" style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
+                      <div className='flex flex-col gap-2 py-3'>
+                        <div className='font-primary text-xs/4.5 w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                           <p>exemplo de texto</p>
                           <p>EXEMPLO DE TEXTO</p>
                         </div>
-                        <div className="font-primary text-lg/6.5 w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600" style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
+                        <div className='font-primary text-lg/6.5 w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                           <p>exemplo de texto</p>
                           <p>EXEMPLO DE TEXTO</p>
                         </div>
@@ -310,14 +341,17 @@ function App() {
                             <span className='sr-only'>Reavaliar</span>
                             <FontAwesomeIcon icon={faRotate} />
                           </CustomBtn>
-                          <CustomBtn title='Excluir' onClick={() => removeFromHistory(index)} estado='outlineDanger' tamanho='iconOnly'>
+                          <CustomBtn title='Excluir' onClick={() => removeFromHistory(item.id)} estado='outlineDanger' tamanho='iconOnly'>
                             <span className='sr-only'>Excluir</span>
                             <FontAwesomeIcon icon={faTrashCan} />
                           </CustomBtn>
                         </div>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <p className='text-gray-500 px-6 py-3'>Nenhum item salvo neste dia.</p>
+                )}
                 </div>
               </div>
               <div className='border-t border-gray500 mt-6 pt-6 flex justify-end'>
