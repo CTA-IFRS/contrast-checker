@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faSquareCheck, faSquareXmark, faTrashCan, faRotate, faLink, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSquareCheck, faSquareXmark, faTrashCan, faRotate, faLink, faPrint, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import Header from './components/Header';
 import { CustomBtn } from './components/botoes';
@@ -68,6 +68,9 @@ function App() {
   const [textColor, setTextColor] = useState('#000000');
   const [contrastRatio, setContrastRatio] = useState('0');
   const [history, setHistory] = useState([]);
+  const [dateTitles, setDateTitles] = useState({});
+  const [editingDate, setEditingDate] = useState(null);
+  const [editedTitle, setEditedTitle] = useState("");
 
   useEffect(() => {
     const bg = hexToRgb(backgroundColor);
@@ -137,6 +140,14 @@ function App() {
   
   const removeFromHistory = (id) => {
     setHistory((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const removeDateFromHistory = (date) => {
+    setHistory((prev) => prev.filter((item) => item.date !== date));
+
+    if (selectedDate === date) {
+      setSelectedDate(null);
+    }
   };
 
   const limpar = () => {
@@ -265,21 +276,65 @@ function App() {
             <section className='bg-white my-6 rounded-xl shadow-md px-6 py-8'>
               <div className='flex justify-between'>
                 <h2 className='h4 text-gray900'>Histórico</h2>
-                {/* falta a função */}
-                <CustomBtn tamanho='sm' estado='outlineDanger'>Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
+                <CustomBtn onClick={() => { if (window.confirm("Tem certeza de que deseja excluir todo o histórico? Esta ação é irreversível.")) { setHistory([]); } }} tamanho='sm' estado='outlineDanger'>Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
               </div>
               <div id='historico'>
                 <ul className='flex items-end border-b border-gray500 mt-6 mb-3'>
                   {Object.keys(groupedHistory).map((date) => (
                     <li key={date} className={`flex h-fit font-semibold -mb-[1px] border-gray500 border rounded-t-sm -mr-[1px]  ${ selectedDate === date ? 'text-gray900 border-b-white' : 'text-gray700'}`}>
+                      {editingDate === date ? (
+                        <form className='bg-white -mr-12 z-5 flex items-center gap-2'
+                          onSubmit={(e) => e.preventDefault()}
+                          onBlur={(e) => {
+                            if (!e.currentTarget.contains(e.relatedTarget)) {
+                              setEditingDate(null);
+                            }
+                          }}
+                        >
+                          <input type="text" value={editedTitle} className="px-4.5 pb-2.5 pt-2.5 border rounded-l"
+                            onChange={(e) => setEditedTitle(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                setDateTitles((prev) => ({ ...prev, [date]: editedTitle }));
+                                setEditingDate(null);
+                              }
+                            }}
+                          />
+                          <CustomBtn onClick={() => {
+                            setDateTitles((prev) => ({ ...prev, [date]: editedTitle }));
+                            setEditingDate(null);
+                          }} estado='primaryGray' tamanho='sm'>
+                            Ok
+                          </CustomBtn>
+                          <CustomBtn onClick={() => { setEditingDate(null); }} estado='outlineGray' tamanho='sm'>Cancelar</CustomBtn>
+                        </form>
+                      ) : (
                       <a href='#'
                         onClick={(e) => {
                           e.preventDefault();
                           setSelectedDate(date);
                         }}
                         className={`px-4.5 pb-2.5 ${ selectedDate === date ? 'pt-2.5' : 'pt-1.5'}`}>
-                        {date}
+                        {dateTitles[date] || date}
                       </a>
+                      )}
+                      <div className={`${selectedDate === date ? 'flex gap-2 pr-3 -ml-1' : 'hidden'}`}>
+                        <button
+                          onClick={() => {
+                            setEditedTitle(dateTitles[date] || date);
+                            setEditingDate(date);
+                          }}
+                          title='Editar título'
+                          className='cursor-pointer'
+                        >
+                          <span className="sr-only">Editar título</span>
+                          <FontAwesomeIcon icon={faPencil} />
+                        </button>
+                        <button onClick={() => removeDateFromHistory(date)} title='Excluir aba do histórico' className='cursor-pointer'>
+                          <span className="sr-only">Excluir aba do histórico</span>
+                          <FontAwesomeIcon icon={faTrashCan} />
+                        </button>
+                      </div>
                     </li>
                   ))}
                 </ul>
