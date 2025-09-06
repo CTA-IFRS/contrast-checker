@@ -92,3 +92,14 @@
 .bgGauge {
     background: linear-gradient(90deg, #FF0000 0%, #FFA500 30%, #BFFF00 45%, #28A745 70%);
 }
+
+.formato {
+  background: url(../src/assets/moldeGauge.png) center no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}

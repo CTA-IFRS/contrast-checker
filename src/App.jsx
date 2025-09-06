@@ -168,6 +168,10 @@ function App() {
     return ((contrastRatio - 1) * 100) / 20;
   };
 
+  const percent = calculoGauge(contrastRatio).toFixed(2);
+  
+  const turn = (1 - percent / 100) / 2;
+
   return (
     <>
       <div className='bg-gray100 min-h-[100vh]'>
@@ -217,15 +221,17 @@ function App() {
                         </div>
                       </div>
                     </div>
-                    <div className='grid grid-cols-[1fr_90px] gap-3 mt-4.5 items-end'>
+                    <div className='grid grid-cols-[1fr_90px] gap-3 mt-4.5 items-end pb-4'>
                       <div className='result'>
-                        {/* ajustar gauge */}
-                        <div className='gauge bg-gray400 h-5 w-[200px] rounded-full'>
-                          <div style={{ width: `${calculoGauge(contrastRatio).toFixed(2)}%` }} className='flex h-5 rounded-full overflow-hidden'>
-                            <span className='flex bgGauge h-5 rounded-full min-w-[200px]'></span>
+                        <div className='w-full max-w-[250px] relative'>
+                          <div className='bgGauge w-full h-0 pb-[50.98%] relative overflow-hidden '>
+                            <span className="formato"></span>
+                            <div className='bg-gray400 absolute top-full right-0 w-[inherit] h-full origin-top transition-transform duration-200 ease-out overflow-hidden' style={{ transform: `rotate(-${turn}turn)` }}></div>
+                          </div>
+                          <div className='absolute z-100 w-[81%] h-[50%] -bottom-[15%] left-[50%] -translate-x-[50%] flex items-center justify-center'>
+                            <p id='contrast-ratio' className='h6 text-gray900 flex flex-col-reverse items-center gap-2'>Relação de contraste <span className='font-primary font-bold text-[40px]/[34px]'>{contrastRatio}</span></p>
                           </div>
                         </div>
-                        <p id='contrast-ratio' className='h6 text-gray900 flex flex-col-reverse items-center'>Relação de contraste <span className='font-primary font-bold text-[40px]/[34px]'>{contrastRatio}</span></p>
                       </div>
                       <div className='flex flex-col gap-1.5'>
                         <span className={`font-secondary font-bold text-[10px] text-white px-2.5 py-1 rounded-sm w-full flex justify-between ${getStatusClass(contrastRatio, CONTRAST_THRESHOLD_AA)}`}>
