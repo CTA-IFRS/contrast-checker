@@ -28,6 +28,7 @@
   --color-co7: #913708;
   --color-dark-color: #54595E;
   --color-sepia: #E0C074;
+  --color-fundo-modal: rgba(33, 37, 41, 0.5);
 }
 
 .h1,
@@ -89,8 +90,15 @@
   line-height: 28px;
 }
 
+.input-text {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
 .bgGauge {
-    background: linear-gradient(90deg, #FF0000 0%, #FFA500 30%, #BFFF00 45%, #28A745 70%);
+  background: linear-gradient(90deg, #FF0000 0%, #FFA500 30%, #BFFF00 45%, #28A745 70%);
 }
 
 .formato {
@@ -101,5 +109,25 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 15;
+}
+
+.tooltip-top {
+  background: url(../src/assets/tooltip_top.png) center bottom no-repeat;
+  background-size: 16px;
+}
+
+.tooltip-bottom {
+  background: url(../src/assets/tooltip_bottom.png) center top no-repeat;
+  background-size: 16px;
+}
+
+.tooltip-left {
+  background: url(../src/assets/tooltip_left.png) center right no-repeat;
+  background-size: 16px;
+}
+
+.tooltip-right {
+  background: url(../src/assets/tooltip_right.png) center left no-repeat;
+  background-size: 16px;
 }

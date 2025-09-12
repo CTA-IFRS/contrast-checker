@@ -2,12 +2,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear, faBars, faXmark, faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import logo from '.././assets/logo.png';
 import logoCTA from '.././assets/logo-cta.png';
+import logoIFRS from '.././assets/logo-ifrs.png';
 import { useState, useEffect, useRef } from 'react';
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 const Header = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConfigOpen, setIsConfigOpen] = useState(false);
+  const [modalSobre, setModalSobre] = useState(false);
 
   const menuRef = useRef(null);
   const configRef = useRef(null);
@@ -24,9 +28,21 @@ const Header = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const startTour = () => {
+    const driverObj = driver({
+      showProgress: true,
+      steps: [
+        { element: '.page-header', popover: { title: 'Este é o cabeçalho da página', description: 'Contém o nome e logotipo do aplicativo e botões para menu e configurações.' } },
+        { element: '.result', popover: { title: 'Aqui calcula o contraste', description: 'Description' } },
+      ],
+    });
+
+    driverObj.drive();
+  };
   
   return (
-    <header className='bg-white shadow-md'>
+    <header className='bg-white shadow-md print:hidden page-header'>
       <div className='px-6 py-3 flex items-center justify-between'>
         <div className='flex items-center gap-6'>
           <img src={logo} alt='Logotipo Contrast Checker' className='w-20' />
@@ -80,10 +96,33 @@ const Header = () => {
                     </button>
                   </div>
                   <div className='flex flex-col gap-3 mt-4.5'>
-                    <a href='#' className='text-gray800 py-2 -mx-4 px-4 border-l-2 border-transparent hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'>
+                    <a href='#' onClick={() => setModalSobre(true)} className='text-gray800 py-2 -mx-4 px-4 border-l-2 border-transparent hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'>
                       Sobre
                     </a>
-                    <a href='#' className='text-gray800 py-2 -mx-4 px-4 border-l-2 border-transparent hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'>
+                    {modalSobre && (
+                      <div className='fixed inset-0 w-full h-full bg-fundo-modal z-999 flex items-center justify-center'>
+                        <div className='bg-white w-[588px] p-6 rounded-xl'>
+                          <div className='flex justify-between items-center pb-6'>
+                            <h2 className='h4 text-gray800'>Sobre o Contrast Checker</h2>
+                            <button type='button' aria-label='Fechar' onClick={() => setModalSobre(false)}>
+                              <FontAwesomeIcon icon={faXmark} className='text-[19px] text-dark-color p-1 cursor-pointer' />
+                            </button>
+                          </div>
+                          <div className='border-y border-gray400 py-4'>
+                            <p className='lead-text text-gray700'>Esta ferramenta foi criada para que designers e desenvolvedores possam testar a conformidade do contraste de cores com base nas Diretrizes de acessibilidade de conteúdo da Web (WCAG), conforme estabelecido pelo World Wide Web Consortium (W3C). Esses cálculos são baseados nas fórmulas especificadas pelo W3C.</p>
+                          </div>
+                          <div className='flex justify-center gap-8 mt-6 pb-2'>
+                            <a href='https://cta.ifrs.edu.br'>
+                              <img src={logoCTA} className='h-[55px]' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
+                            </a>
+                            <a href='https://ifrs.edu.br'>
+                              <img src={logoIFRS} className='h-[55px]' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <a href='#' onClick={startTour} className='text-gray800 py-2 -mx-4 px-4 border-l-2 border-transparent hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'>
                       Como usar
                     </a>
                   </div>
@@ -102,4 +141,4 @@ const Header = () => {
 
 export default Header;
 
-{/* FALTA CONFIGURAR CONTRASTES E MODALS */}
+{/* FALTA CONFIGURAR CONTRASTES */}

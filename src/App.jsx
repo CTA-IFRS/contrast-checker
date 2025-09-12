@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faSquareCheck, faSquareXmark, faTrashCan, faRotate, faLink, faPrint, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSquareCheck, faSquareXmark, faTrashCan, faRotate, faLink, faPrint, faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import Header from './components/Header';
 import { CustomBtn } from './components/botoes';
+import { CustomTooltip } from './components/tooltips';
+import logo from './assets/logo.png';
 
 const CONTRAST_THRESHOLD_AA = 4.5;
 const CONTRAST_THRESHOLD_AAA = 7;
@@ -71,6 +73,7 @@ function App() {
   const [dateTitles, setDateTitles] = useState({});
   const [editingDate, setEditingDate] = useState(null);
   const [editedTitle, setEditedTitle] = useState("");
+  const [modalImprimir, setModalImprimir] = useState(false);
 
   useEffect(() => {
     const bg = hexToRgb(backgroundColor);
@@ -178,12 +181,13 @@ function App() {
         <Header />
         <main>
           <div className='max-w-[930px] mx-auto'>
-            <section className='bg-white my-6 rounded-xl shadow-md p-6 pb-8'>
+            <section className='bg-white my-6 rounded-xl shadow-md p-6 pb-8 print:hidden'>
               <div className='flex justify-between pb-6'>
                 <h2 className='h4 text-gray900'>Verificar Contraste</h2>
-                <button title='Compartilhar'
+                <button 
                   onClick={() => { }}
-                  className='cursor-pointer p-1 text-gray900 text-lg'>
+                  className='cursor-pointer p-1 text-gray900 text-lg relative group'>
+                  <CustomTooltip orientacao='left'>Compartilhar</CustomTooltip>
                   <span className='sr-only'>Compartilhar avaliação de contraste</span>
                   <FontAwesomeIcon icon={faLink} />
                 </button> {/* falta função */}
@@ -228,7 +232,7 @@ function App() {
                             <span className="formato"></span>
                             <div className='bg-gray400 absolute top-full right-0 w-[inherit] h-full origin-top transition-transform duration-200 ease-out overflow-hidden' style={{ transform: `rotate(-${turn}turn)` }}></div>
                           </div>
-                          <div className='absolute z-100 w-[81%] h-[50%] -bottom-[15%] left-[50%] -translate-x-[50%] flex items-center justify-center'>
+                          <div className='absolute z-20 w-[81%] h-[50%] -bottom-[15%] left-[50%] -translate-x-[50%] flex items-center justify-center'>
                             <p id='contrast-ratio' className='h6 text-gray900 flex flex-col-reverse items-center gap-2'>Relação de contraste <span className='font-primary font-bold text-[40px]/[34px]'>{contrastRatio}</span></p>
                           </div>
                         </div>
@@ -284,6 +288,12 @@ function App() {
                 <h2 className='h4 text-gray900'>Histórico</h2>
                 <CustomBtn onClick={() => { if (window.confirm("Tem certeza de que deseja excluir todo o histórico? Esta ação é irreversível.")) { setHistory([]); } }} tamanho='sm' estado='outlineDanger'>Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
               </div>
+              <div className='print:flex justify-center gap-4 hidden'>
+                <img src={logo} alt='Logotipo Contrast Checker' className='w-16' />
+                <h1 className='text-gray-900 font-atkinson h5'>
+                  Contrast Checker
+                </h1>
+              </div>
               <div id='historico'>
                 <ul className='flex items-end border-b border-gray500 mt-6 mb-3'>
                   {Object.keys(groupedHistory).map((date) => (
@@ -330,13 +340,14 @@ function App() {
                             setEditedTitle(dateTitles[date] || date);
                             setEditingDate(date);
                           }}
-                          title='Editar título'
-                          className='cursor-pointer'
+                          className='cursor-pointer group relative'
                         >
+                          <CustomTooltip orientacao='bottom'>Editar título</CustomTooltip>
                           <span className="sr-only">Editar título</span>
                           <FontAwesomeIcon icon={faPencil} />
                         </button>
-                        <button onClick={() => removeDateFromHistory(date)} title='Excluir aba do histórico' className='cursor-pointer'>
+                        <button onClick={() => removeDateFromHistory(date)} className='cursor-pointer group relative'>
+                          <CustomTooltip orientacao='bottom'>Excluir aba do histórico</CustomTooltip>
                           <span className="sr-only">Excluir aba do histórico</span>
                           <FontAwesomeIcon icon={faTrashCan} />
                         </button>
@@ -357,21 +368,23 @@ function App() {
                   groupedHistory[selectedDate].map((item, index) => (
                     <div key={index} className='odd:bg-gray100 border-b border-gray500 last:border-0 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center px-6 gap-8'>
                       <div>{item.textColor}
-                        <button title='Copiar cor do texto'
+                        <button
                           onClick={() => {
                             navigator.clipboard.writeText(item.textColor)
                           }}
-                          className='cursor-pointer p-1'>
+                          className='cursor-pointer p-1 relative group'>
+                          <CustomTooltip orientacao='bottom'>Copiar cor do texto</CustomTooltip>
                           <span className='sr-only'>Copiar cor do texto</span>
                           <FontAwesomeIcon icon={faCopy} />
                         </button>
                       </div>
                       <div>{item.backgroundColor}
-                        <button title='Copiar cor do fundo'
+                        <button 
                           onClick={() => {
                             navigator.clipboard.writeText(item.backgroundColor)
                           }}
-                          className='cursor-pointer p-1'>
+                          className='cursor-pointer p-1 relative group'>
+                          <CustomTooltip orientacao='bottom'>Copiar cor do fundo</CustomTooltip>
                           <span className='sr-only'>Copiar cor do fundo</span>
                           <FontAwesomeIcon icon={faCopy} />
                         </button>
@@ -391,18 +404,20 @@ function App() {
                         <p className='sr-only'>{item.status}</p>
                         {item.badges}
                       </div>
-                      <div>
+                      <div className='print:hidden'>
                         <div className='flex gap-3'>
-                          <CustomBtn title='Reavaliar'
+                          <CustomBtn 
                             onClick={() => {
                               setBackgroundColor(item.backgroundColor);
                               setTextColor(item.textColor);
                             }}
                             estado='outlineGray' tamanho='iconOnly'>
+                            <CustomTooltip orientacao='left'>Reavaliar</CustomTooltip>
                             <span className='sr-only'>Reavaliar</span>
                             <FontAwesomeIcon icon={faRotate} />
                           </CustomBtn>
-                          <CustomBtn title='Excluir' onClick={() => removeFromHistory(item.id)} estado='outlineDanger' tamanho='iconOnly'>
+                          <CustomBtn onClick={() => removeFromHistory(item.id)} estado='outlineDanger' tamanho='iconOnly'>
+                            <CustomTooltip orientacao='left'>Excluir</CustomTooltip>
                             <span className='sr-only'>Excluir</span>
                             <FontAwesomeIcon icon={faTrashCan} />
                           </CustomBtn>
@@ -416,8 +431,38 @@ function App() {
                 </div>
               </div>
               <div className='border-t border-gray500 mt-6 pt-6 flex justify-end'>
-                <CustomBtn estado='outlineGray'>IMPRIMIR RELATÓRIO<FontAwesomeIcon icon={faPrint} className='ml-2' /></CustomBtn>
-                {/* fazer modal e função */}
+                <CustomBtn onClick={() => setModalImprimir(true)} estado='outlineGray'>IMPRIMIR RELATÓRIO<FontAwesomeIcon icon={faPrint} className='ml-2' /></CustomBtn>
+                  {modalImprimir && (
+                    <div className='fixed inset-0 w-full h-full bg-fundo-modal z-999 flex items-center justify-center print:hidden'>
+                      <div className='bg-white w-[588px] p-6 rounded-xl'>
+                        <div className='flex justify-between items-center pb-6'>
+                          <h2 className='h4 text-gray800'>Imprimir relatório</h2>
+                          <button type='button' aria-label='Fechar' onClick={() => setModalImprimir(false)}>
+                            <FontAwesomeIcon icon={faXmark} className='text-[19px] text-dark-color p-1 cursor-pointer' />
+                          </button>
+                        </div>
+                        <form>
+                          <div className='border-y border-gray400 py-4 flex flex-col gap-5'>
+                            <div className='flex flex-col gap-1.5'>
+                              <label htmlFor='tituloRelatorio' className='h6 text-gray800'>Título:</label>
+                              <input type='text' id='tituloRelatorio' className='border-1 border-gray500 rounded-lg bg-gray100 px-4 h-[48px] input-text text-gray700 placeholder:text-gray700'></input>
+                            </div>
+                            <div className='flex flex-col gap-1.5'>
+                              <label htmlFor='observacoesRelatorio' className='h6 text-gray800'>Observações:</label>
+                              <textarea id='observacoesRelatorio' className='border-1 border-gray500 rounded-lg bg-gray100 px-4 h-[114px] pt-3 input-text text-gray700'></textarea>
+                            </div>
+                          </div>
+                          <div className='flex justify-end gap-3 mt-6'>
+                            <CustomBtn onClick={() => setModalImprimir(false)} estado='outlineGray' tamanho='md'>CANCELAR</CustomBtn>
+                            <CustomBtn onClick={() => {window.print()}} estado='primary' tamanho='md'>
+                              IMPRIMIR
+                              <FontAwesomeIcon icon={faPrint} className='ml-2'/>
+                            </CustomBtn>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  )}
               </div>
             </section>
           </div>

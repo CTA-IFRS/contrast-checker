@@ -25,7 +25,7 @@ export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tam
             className={`
                 ${tamanhoBotao[tamanho]} 
                 ${estadoBotao[estado]} 
-                font-secondary font-bold rounded-full transition-colors duration-200 disabled:opacity-65 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer relative box-border
+                font-secondary font-bold rounded-full transition-colors duration-200 disabled:opacity-65 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer relative box-border group
             `}
             >
                 {children}
