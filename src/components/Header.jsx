@@ -33,8 +33,24 @@ const Header = () => {
     const driverObj = driver({
       showProgress: true,
       steps: [
-        { element: '.page-header', popover: { title: 'Este é o cabeçalho da página', description: 'Contém o nome e logotipo do aplicativo e botões para menu e configurações.' } },
-        { element: '.result', popover: { title: 'Aqui calcula o contraste', description: 'Description' } },
+        { element: '.cor-texto', popover: { title: 'Cor do texto', description: 'Neste campo deve ser inserida a cor do texto.' } },
+        { element: '.cor-fundo', popover: { title: 'Cor do fundo', description: 'E neste, a cor do fundo.' } },
+        { element: '.result', popover: { title: 'Resultado do cálculo', description: 'Aqui é exibido a relação de contraste entre as cores analisadas.' } },
+        { element: '.exemplos', popover: { description: 'Neste bloco são exibidos exemplos em diferentes tamanhos e pesos de fonte.' } },
+        { element: '.compartilhar', popover: { title: 'Botão de compartilhar', description: 'Aqui será gerado um link com as cores que estão sendo analisadas no momento.' } },
+        { element: '.limpar', popover: { description: 'Retorna as cores para o padrão (preto para o texto e branco para o fundo).' } },
+        { element: '.addHistorico', popover: { description: 'Adiciona as cores analisadas ao histórico abaixo.' } },
+        { element: '.historico', popover: { title: 'Histórico', description: 'Aqui são exibidas as cores que foram salvas no histórico, separadas em abas por data.' } },
+        { element: '.excluirHistorico', popover: { description: 'Este botão é para excluir todo o histórico.' } },
+        //{selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0 && ()}
+        { element: '.abaSelecionada', popover: { description: 'Este é o título da aba, que por padrão é a data em que foi salvo, mas pode ser alterado.' } },
+        { element: '.editarTitulo', popover: { title: 'Botão de editar título', description: 'O título pode ser alterado clicando neste botão.' } },
+        { element: '.excluirAba', popover: { title: 'Botão de excluir aba', description: 'Este botão é para excluir a aba inteira do histórico.' } },
+        { element: '.copiarCorTexto', popover: { description: 'Este botão serve para copiar a cor do texto.' } },
+        { element: '.copiarCorFundo', popover: { description: 'E este, para copiar a cor do fundo.' } },
+        { element: '.reavaliar', popover: { description: 'Aqui é possível enviar as cores de volta para o avaliador.' } },
+        { element: '.excluirAvaliacao', popover: { description: 'E aqui, excluir esta analise do histórico.' } },
+        { element: '.imprimirRelatorio', popover: { description: 'Também é possível gerar um relatório para imprimir da aba que está selecionada, nele é possível alterar o título e adicionar uma descrição.' } },
       ],
     });
 
@@ -42,7 +58,7 @@ const Header = () => {
   };
   
   return (
-    <header className='bg-white shadow-md print:hidden page-header'>
+    <header className='bg-white shadow-md print:hidden'>
       <div className='px-6 py-3 flex items-center justify-between'>
         <div className='flex items-center gap-6'>
           <img src={logo} alt='Logotipo Contrast Checker' className='w-20' />
