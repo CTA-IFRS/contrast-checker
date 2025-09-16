@@ -3,7 +3,7 @@
 @theme {
   --font-primary: "Atkinson Hyperlegible", sans-serif;
   --font-secondary: "Nunito", sans-serif;
-  
+
   --color-success: #28A745;
   --color-danger: #DC3545;
   --color-warning: #FFC107;
@@ -28,6 +28,7 @@
   --color-co7: #913708;
   --color-dark-color: #54595E;
   --color-sepia: #E0C074;
+  --color-sepia2: #f4ecd8;
   --color-fundo-modal: rgba(33, 37, 41, 0.5);
 }
 
@@ -103,13 +104,21 @@
 
 .formato {
   background: url(../src/assets/moldeGauge.png) center no-repeat;
-  background-size: cover;
+  background-size: cover !important;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   z-index: 15;
+}
+
+.modo_sepia .formato {
+  background: url(../src/assets/moldeGaugeSepia.png) center no-repeat;
+}
+
+.modo_altoContraste .formato {
+  background: url(../src/assets/moldeGaugeAltoContraste.png) center no-repeat;
 }
 
 .tooltip-top {

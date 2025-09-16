@@ -7,6 +7,8 @@ export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tam
         primaryGray: 'bg-gray700 text-white hover:bg-gray800 active:bg-gray800',
         secondaryGray: 'bg-gray200 text-gray900 hover:bg-gray800 hover:text-white active:bg-gray800 active:text-white',
         outlineGray: 'bg-transparent text-gray800 border-2 border-gray800 hover:bg-gray800 hover:text-white hover:border-gray800 active:bg-gray800 active:text-white active:border-0',
+        fillWhite: 'bg-white text-gray900 hover:bg-gray200 active:bg-gray200',
+        outlineWhite: 'bg-transparent text-white border-2 border-white hover:bg-white hover:text-gray900 hover:border-white active:bg-white active:text-white active:border-0',
     }
 
     const tamanhoBotao = {
@@ -28,8 +30,8 @@ export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tam
                 ${estadoBotao[estado]} 
                 font-secondary font-bold rounded-full transition-colors duration-200 disabled:opacity-65 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer relative box-border group
             `}
-            >
-                {children}
+        >
+            {children}
         </button>
     );
 };
