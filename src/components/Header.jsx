@@ -40,7 +40,7 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
         { element: '.exemplos', popover: { description: 'Neste bloco são exibidos exemplos em diferentes tamanhos e pesos de fonte.' } },
         { element: '.compartilhar', popover: { title: 'Botão de compartilhar', description: 'Aqui será gerado um link com as cores que estão sendo analisadas no momento.' } },
         { element: '.limpar', popover: { description: 'Retorna as cores para o padrão (preto para o texto e branco para o fundo).' } },
-        { element: '.addHistorico', popover: { description: 'Adiciona as cores analisadas ao histórico abaixo. Clique para vizualizar!' } },
+        { element: '.addHistorico', popover: { description: 'Adiciona as cores analisadas ao histórico abaixo. Clique para visualizar!' } },
         { element: '.historico', popover: { title: 'Histórico', description: 'Aqui são exibidas as cores que foram salvas no histórico, separadas em abas por data.' } },
         { element: '.excluirHistorico', popover: { description: 'Este botão é para excluir todo o histórico.' } },
         ...(selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0
