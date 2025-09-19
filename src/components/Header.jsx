@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 
-const Header = ({ modo, setModo }) => {
+const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConfigOpen, setIsConfigOpen] = useState(false);
@@ -40,18 +40,21 @@ const Header = ({ modo, setModo }) => {
         { element: '.exemplos', popover: { description: 'Neste bloco são exibidos exemplos em diferentes tamanhos e pesos de fonte.' } },
         { element: '.compartilhar', popover: { title: 'Botão de compartilhar', description: 'Aqui será gerado um link com as cores que estão sendo analisadas no momento.' } },
         { element: '.limpar', popover: { description: 'Retorna as cores para o padrão (preto para o texto e branco para o fundo).' } },
-        { element: '.addHistorico', popover: { description: 'Adiciona as cores analisadas ao histórico abaixo.' } },
+        { element: '.addHistorico', popover: { description: 'Adiciona as cores analisadas ao histórico abaixo. Clique para vizualizar!' } },
         { element: '.historico', popover: { title: 'Histórico', description: 'Aqui são exibidas as cores que foram salvas no histórico, separadas em abas por data.' } },
         { element: '.excluirHistorico', popover: { description: 'Este botão é para excluir todo o histórico.' } },
-        //{selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0 && ()}
-        { element: '.abaSelecionada', popover: { description: 'Este é o título da aba, que por padrão é a data em que foi salvo, mas pode ser alterado.' } },
-        { element: '.editarTitulo', popover: { title: 'Botão de editar título', description: 'O título pode ser alterado clicando neste botão.' } },
-        { element: '.excluirAba', popover: { title: 'Botão de excluir aba', description: 'Este botão é para excluir a aba inteira do histórico.' } },
-        { element: '.copiarCorTexto', popover: { description: 'Este botão serve para copiar a cor do texto.' } },
-        { element: '.copiarCorFundo', popover: { description: 'E este, para copiar a cor do fundo.' } },
-        { element: '.reavaliar', popover: { description: 'Aqui é possível enviar as cores de volta para o avaliador.' } },
-        { element: '.excluirAvaliacao', popover: { description: 'E aqui, excluir esta analise do histórico.' } },
-        { element: '.imprimirRelatorio', popover: { description: 'Também é possível gerar um relatório para imprimir da aba que está selecionada, nele é possível alterar o título e adicionar uma descrição.' } },
+        ...(selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0
+          ? [
+              { element: '.abaSelecionada', popover: { description: 'Este é o título da aba, que por padrão é a data em que foi salvo, mas pode ser alterado.' } },
+              { element: '.editarTitulo', popover: { title: 'Botão de editar título', description: 'O título pode ser alterado clicando neste botão.' } },
+              { element: '.excluirAba', popover: { title: 'Botão de excluir aba', description: 'Este botão é para excluir a aba inteira do histórico.' } },
+              { element: '.copiarCorTexto', popover: { description: 'Este botão serve para copiar a cor do texto.' } },
+              { element: '.copiarCorFundo', popover: { description: 'E este, para copiar a cor do fundo.' } },
+              { element: '.reavaliar', popover: { description: 'Aqui é possível enviar as cores de volta para o avaliador.' } },
+              { element: '.excluirAvaliacao', popover: { description: 'E aqui, excluir esta analise do histórico.' } },
+            ]
+          : []),
+          { element: '.imprimirRelatorio', popover: { description: 'Também é possível gerar um relatório para imprimir da aba que está selecionada, nele é possível alterar o título e adicionar uma descrição.' } },
       ],
     });
 

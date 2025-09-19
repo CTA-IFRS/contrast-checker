@@ -7,6 +7,7 @@ import Header from './components/Header';
 import { CustomBtn } from './components/botoes';
 import { CustomTooltip } from './components/tooltips';
 import logo from './assets/logo.png';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const CONTRAST_THRESHOLD_AA = 4.5;
 const CONTRAST_THRESHOLD_AAA = 7;
@@ -65,9 +66,11 @@ function retrieveHistoryFromCookies() {
 }
 
 function App() {
-
-  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
-  const [textColor, setTextColor] = useState('#000000');
+  
+  const navigate = useNavigate();
+  const params = useParams();
+  const [backgroundColor, setBackgroundColor] = useState(params.backgroundColor ? `#${params.backgroundColor}` : '#ffffff');
+  const [textColor, setTextColor] = useState(params.textColor ? `#${params.textColor}` : '#000000');
   const [contrastRatio, setContrastRatio] = useState('0');
   const [history, setHistory] = useState([]);
   const [dateTitles, setDateTitles] = useState({});
@@ -177,6 +180,10 @@ function App() {
 
   const [tituloRelatorio, setTituloRelatorio] = React.useState(dateTitles[selectedDate] || selectedDate || '');
 
+  React.useEffect(() => {
+    setTituloRelatorio(dateTitles[selectedDate] || selectedDate || '');
+  }, [selectedDate, dateTitles]);
+
   const [observacoesRelatorio, setObservacoesRelatorio] = React.useState('');
 
   const [modo, setModo] = React.useState('contrasteNormal'); //contrasteNormal sepia altoContraste
@@ -186,17 +193,26 @@ function App() {
     document.body.classList.add(`modo_${modo}`);
   }, [modo]);
 
+  useEffect(() => {
+    const text = textColor.replace('#', '');
+    const bg = backgroundColor.replace('#', '');
+    navigate(`/${text}/${bg}`, { replace: true });
+  }, [textColor, backgroundColor]);
+
   return (
     <>
       <div className={`min-h-[100vh] body print:bg-white ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
-        <Header modo={modo} setModo={setModo} />
+        <Header modo={modo} setModo={setModo} selectedDate={selectedDate} groupedHistory={groupedHistory}/>
         <main className={`pb-6 ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
           <div className='max-w-[930px] mx-auto'>
             <section className={`my-6 rounded-xl shadow-md p-6 pb-8 print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
               <div className='flex justify-between pb-6'>
                 <h2 className={`h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Verificar Contraste</h2>
                 <button
-                  onClick={() => { }}
+                  onClick={() => { 
+                    navigator.clipboard.writeText(window.location.href)
+                    alert('O link foi copiado!');
+                  }}
                   className={`compartilhar cursor-pointer p-1 text-lg relative group ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
                   <CustomTooltip orientacao='left'>Compartilhar</CustomTooltip>
                   <span className='sr-only'>Compartilhar avaliação de contraste</span>
@@ -306,7 +322,7 @@ function App() {
                 </h1>
               </div>
               <div id='historico'>
-                <ul className='flex items-end border-b border-gray500 mt-6 mb-3 print:flex-col print:items-start print:border-t print:mt-7.5 print:pt-1 print:pb-5'>
+                <ul className='flex flex-wrap items-end border-b border-gray500 mt-6 mb-3 print:flex-col print:items-start print:border-t print:mt-7.5 print:pt-1 print:pb-5'>
                   {Object.keys(groupedHistory).map((date) => (
                     <li key={date} className={`flex h-fit font-semibold -mb-[1px] border-gray500 border rounded-t-sm -mr-[1px]  ${selectedDate === date ? `text-gray900 ${{ sepia: 'border-b-sepia2', altoContraste: 'border-b-gray900', }[modo] || 'border-b-white'}` : 'text-gray700'} print:border-none`}>
                       {editingDate === date ? (
@@ -451,7 +467,7 @@ function App() {
                     <div className={`w-[588px] p-6 rounded-xl ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-white'}`}>
                       <div className='flex justify-between items-center pb-6'>
                         <h2 className={`h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Imprimir relatório</h2>
-                        <button type='button' aria-label='Fechar' onClick={() => setModalImprimir(false)}>
+                        <button type='button' aria-label='Fechar' onClick={() => {setModalImprimir(false); setTituloRelatorio(''); setObservacoesRelatorio('');}}>
                           <FontAwesomeIcon icon={faXmark} className='text-[19px] text-dark-color p-1 cursor-pointer' />
                         </button>
                       </div>
@@ -460,18 +476,18 @@ function App() {
                           <div className='flex flex-col gap-1.5'>
                             <label htmlFor='tituloRelatorio' className={`h6 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Título:</label>
                             <input type='text' id='tituloRelatorio' className={`border-1 rounded-lg px-4 h-[48px] input-text ${{ altoContraste: 'text-white', }[modo] || 'border-gray500 bg-gray100 text-gray700 placeholder:text-gray700'}`}
-                              defaultValue={dateTitles[selectedDate] || selectedDate || ''}
+                              value={tituloRelatorio}
                               onChange={(e) => setTituloRelatorio(e.target.value)}
                             >
                             </input>
                           </div>
                           <div className='flex flex-col gap-1.5'>
                             <label htmlFor='observacoesRelatorio' className={`h6 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Observações:</label>
-                            <textarea id='observacoesRelatorio' onChange={(e) => setObservacoesRelatorio(e.target.value)} className={`border-1 rounded-lg px-4 h-[114px] pt-3 input-text ${{ altoContraste: 'text-white', }[modo] || 'border-gray500 bg-gray100 text-gray700'}`}></textarea>
+                            <textarea id='observacoesRelatorio' value={observacoesRelatorio} onChange={(e) => setObservacoesRelatorio(e.target.value)} className={`border-1 rounded-lg px-4 h-[114px] pt-3 input-text ${{ altoContraste: 'text-white', }[modo] || 'border-gray500 bg-gray100 text-gray700'}`}></textarea>
                           </div>
                         </div>
                         <div className='flex justify-end gap-3 mt-6'>
-                          <CustomBtn onClick={() => setModalImprimir(false)} estado={modo === 'altoContraste' ? 'outlineWhite' : 'outlineGray'} tamanho='md'>CANCELAR</CustomBtn>
+                          <CustomBtn onClick={() => {setModalImprimir(false); setTituloRelatorio(''); setObservacoesRelatorio('');}} estado={modo === 'altoContraste' ? 'outlineWhite' : 'outlineGray'} tamanho='md'>CANCELAR</CustomBtn>
                           <CustomBtn type='submit'
                             onClick={() => {
                               const modoAtual = modo;
@@ -500,5 +516,3 @@ function App() {
 }
 
 export default App
-
-{/* Falta configurar botão de compartilhar */ }
