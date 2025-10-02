@@ -127,7 +127,7 @@ function App() {
       badges,
       date: data,
     };
-    setHistory((prev) => [...prev, newItem]);
+    setHistory((prev) => [newItem, ...prev]);
   };
 
   const groupedHistory = history.reduce((groups, item) => {
@@ -203,11 +203,11 @@ function App() {
     <>
       <div className={`min-h-[100vh] body print:bg-white ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
         <Header modo={modo} setModo={setModo} selectedDate={selectedDate} groupedHistory={groupedHistory}/>
-        <main className={`pb-6 ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
-          <div className='max-w-[930px] mx-auto'>
-            <section className={`my-6 rounded-xl shadow-md p-6 pb-8 print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
-              <div className='flex justify-between pb-6'>
-                <h2 className={`h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Verificar Contraste</h2>
+        <main className={`sm:pb-6 ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
+          <div className='max-w-full sm:max-w-[calc(100%-40px)] md:max-w-[calc(100%-80px)] lg:max-w-[930px] mx-auto'>
+            <section className={`sm:my-6 sm:rounded-xl shadow-md p-6 pb-8 print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+              <div className='flex justify-between pb-4 sm:pb-6'>
+                <h2 className={`h5 sm:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Verificar Contraste</h2>
                 <button
                   onClick={() => { 
                     navigator.clipboard.writeText(window.location.href)
@@ -217,14 +217,14 @@ function App() {
                   <CustomTooltip orientacao='left'>Compartilhar</CustomTooltip>
                   <span className='sr-only'>Compartilhar avaliação de contraste</span>
                   <FontAwesomeIcon icon={faLink} />
-                </button> {/* falta função */}
+                </button>
               </div>
               <form>
-                <div className='flex gap-9 border-y border-gray-400 py-5'>
+                <div className='flex flex-col md:flex-row gap-9 border-y border-gray-400 py-5'>
                   <div>
                     <div className='flex gap-3'>
-                      <div className='flex flex-col relative gap-3 cor-texto'>
-                        <label htmlFor='text-color' className={`h5 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Cor do Texto</label>
+                      <div className='flex flex-col relative gap-3 cor-texto w-full'>
+                        <label htmlFor='text-color' className={`h6 sm:h5 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Cor do Texto</label>
                         <input id='text-color' type='color' value={textColor} onChange={(e) => setTextColor(e.target.value)} className='absolute left-[6px] bottom-[6px] w-8 h-8 border border-gray500 rounded-sm'></input>
                         <div>
                           <input type='text' value={textColor}
@@ -233,12 +233,12 @@ function App() {
                               if (!value.startsWith('#')) value = '#' + value;
                               setTextColor(value);
                             }}
-                            className='bg-gray100 border border-gray500 w-[154px] rounded-lg p-[9px] font-primary text-gray700 pl-11' placeholder='#'>
+                            className='bg-gray100 border border-gray500 w-full md:w-[154px] rounded-lg p-[9px] font-primary text-gray700 pl-11' placeholder='#'>
                           </input>
                         </div>
                       </div>
-                      <div className='flex flex-col relative gap-3 cor-fundo'>
-                        <label htmlFor='background-color' className={`h5 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Cor do Fundo</label>
+                      <div className='flex flex-col relative gap-3 cor-fundo w-full'>
+                        <label htmlFor='background-color' className={`h6 sm:h5 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Cor do Fundo</label>
                         <input id='background-color' type='color' value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className='absolute left-[6px] bottom-[6px] w-8 h-8 border border-gray500 rounded-sm'></input>
                         <div>
                           <input type='text'
@@ -248,12 +248,12 @@ function App() {
                               if (!value.startsWith('#')) value = '#' + value;
                               setBackgroundColor(value);
                             }}
-                            className='bg-gray100 border border-gray500 w-[154px] rounded-lg p-[9px] font-primary text-gray700 pl-11' placeholder='#'></input>
+                            className='bg-gray100 border border-gray500 w-full md:w-[154px] rounded-lg p-[9px] font-primary text-gray700 pl-11' placeholder='#'></input>
                         </div>
                       </div>
                     </div>
-                    <div className='grid grid-cols-[1fr_90px] gap-3 mt-4.5 items-end'>
-                      <div className='result pb-4'>
+                    <div className='flex flex-col md:grid md:grid-cols-[1fr_90px] gap-3 mt-4.5 md:items-end'>
+                      <div className='result md:pb-4 flex justify-center pb-6'>
                         <div className='w-full max-w-[250px] relative'>
                           <div className='bgGauge w-full h-0 pb-[50.98%] relative overflow-hidden '>
                             <span className='formato'></span>
@@ -264,7 +264,7 @@ function App() {
                           </div>
                         </div>
                       </div>
-                      <div className='flex flex-col gap-1.5'>
+                      <div className='flex md:flex-col gap-1.5'>
                         <span className={`font-secondary font-bold text-[10px] text-white px-2.5 py-1 rounded-sm w-full flex justify-between ${getStatusClass(contrastRatio, CONTRAST_THRESHOLD_AA)}`}>
                           <p>AA</p> {getStatusIcon(contrastRatio, CONTRAST_THRESHOLD_AA)}
                         </span>
@@ -310,9 +310,9 @@ function App() {
                 </div>
               </form>
             </section>
-            <section className={`mt-6 rounded-xl shadow-md px-6 py-8 historico print:shadow-none print:w-[755px] print:mx-auto ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+            <section className={`border-t border-gray-400 sm:border-0 sm:mt-6 sm:rounded-xl shadow-md px-6 py-8 historico print:shadow-none print:w-[755px] print:mx-auto ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
               <div className='flex justify-between print:hidden'>
-                <h2 className={`h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Histórico</h2>
+                <h2 className={`h5 sm:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Histórico</h2>
                 <CustomBtn className='excluirHistorico' onClick={() => { if (window.confirm('Tem certeza de que deseja excluir todo o histórico? Esta ação é irreversível.')) { setHistory([]); } }} tamanho='sm' estado={modo === 'altoContraste' ? 'outlineWhite' : 'outlineDanger'}>Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
               </div>
               <div className='print:flex justify-center gap-4 pt-9 hidden'>
@@ -383,7 +383,7 @@ function App() {
                   <h2 className='hidden print:block h5 pt-2.5 pb-1.5'>{tituloRelatorio}</h2>
                   <p className='hidden print:block font-secondary font-normal text-[13px]'>{observacoesRelatorio}</p>
                 </ul>
-                <div className={`font-primary font-bold text-base px-6 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center gap-8 mb-1.5 print:grid-cols-[84px_88px_1fr_140px_68px] print:text-[13px] print:pt-4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+                <div className={`font-primary font-bold text-base px-6 hidden lg:grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center gap-8 mb-1.5 print:grid-cols-[84px_88px_1fr_140px_68px] print:text-[13px] print:pt-4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
                   <div>Cor do Texto</div>
                   <div>Cor de Fundo</div>
                   <div>Amostra</div>
@@ -394,47 +394,56 @@ function App() {
                 <div className='rounded-2xl overflow-hidden print:mt-[13px]'>
                   {selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0 ? (
                     groupedHistory[selectedDate].map((item, index) => (
-                      <div key={index} className={`border-b border-gray500 last:border-0 grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center px-6 gap-8 print:grid-cols-[84px_88px_1fr_140px_68px] ${{ sepia: 'odd:bg-sepia2', altoContraste: 'odd:bg-gray900', }[modo] || 'odd:bg-gray100'}`}>
-                        <div className={`font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}
-                        >{item.textColor}
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(item.textColor)
-                            }}
-                            className='cursor-pointer p-1 relative group copiarCorTexto print:hidden'>
-                            <CustomTooltip orientacao='bottom'>Copiar cor do texto</CustomTooltip>
-                            <span className='sr-only'>Copiar cor do texto</span>
-                            <FontAwesomeIcon icon={faCopy} />
-                          </button>
+                      <div key={index} className={`border-b border-gray500 last:border-0 grid grid-cols-4 sm:grid-cols-[1fr_1fr_1fr_1fr_34px] lg:grid-cols-[100px_105px_1fr_90px_90px_80px] pt-4 lg:pt-0 items-baseline lg:items-center px-6 gap-x-4 sm:gap-x-8 gap-y-4 print:grid-cols-[84px_88px_1fr_140px_68px] ${{ sepia: 'odd:bg-sepia2', altoContraste: 'odd:bg-gray900', }[modo] || 'odd:bg-gray100'}`}>
+                        <div className={`col-span-2 sm:col-span-1  font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
+                          <strong className='font-primary text-gray800 lg:hidden'>Cor do Texto</strong>
+                          <div>
+                            {item.textColor}
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(item.textColor)
+                              }}
+                              className='cursor-pointer p-1 relative group copiarCorTexto print:hidden'>
+                              <CustomTooltip orientacao='bottom'>Copiar cor do texto</CustomTooltip>
+                              <span className='sr-only'>Copiar cor do texto</span>
+                              <FontAwesomeIcon icon={faCopy} />
+                            </button>
+                          </div>
                         </div>
-                        <div className={`font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>{item.backgroundColor}
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(item.backgroundColor)
-                            }}
-                            className='cursor-pointer p-1 relative group copiarCorFundo print:hidden'>
-                            <CustomTooltip orientacao='bottom'>Copiar cor do fundo</CustomTooltip>
-                            <span className='sr-only'>Copiar cor do fundo</span>
-                            <FontAwesomeIcon icon={faCopy} />
-                          </button>
+                        <div className={`col-span-2 sm:col-span-1  font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
+                          <strong className='font-primary text-gray800 lg:hidden'>Cor do Texto</strong>
+                          <div>
+                            {item.backgroundColor}
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(item.backgroundColor)
+                              }}
+                              className='cursor-pointer p-1 relative group copiarCorFundo print:hidden'>
+                              <CustomTooltip orientacao='bottom'>Copiar cor do fundo</CustomTooltip>
+                              <span className='sr-only'>Copiar cor do fundo</span>
+                              <FontAwesomeIcon icon={faCopy} />
+                            </button>
+                          </div>
                         </div>
-                        <div className='flex flex-col gap-2 py-3'>
-                          <div className='font-primary text-xs/4.5 w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[10px]/3.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
+                        <div className='flex flex-col gap-2 pb-5 lg:py-3 col-span-3 sm:col-span-5 row-3 sm:row-2 lg:col-span-1 lg:row-auto'>
+                          <strong className='font-primary text-gray800 lg:hidden'>Amostra</strong>
+                          <div className='w-full font-primary text-xs/4.5 lg:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[10px]/3.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                             <p>exemplo de texto</p>
                             <p>EXEMPLO DE TEXTO</p>
                           </div>
-                          <div className='font-primary text-lg/6.5 w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[13px]/5 print:pt-0.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
+                          <div className='w-full font-primary text-lg/6.5 lg:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[13px]/5 print:pt-0.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                             <p>exemplo de texto</p>
                             <p>EXEMPLO DE TEXTO</p>
                           </div>
                         </div>
-                        <div className={`font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>{item.contrastRatio}</div>
-                        <div>
+                        <div className={`col-span-2 sm:col-span-1 flex flex-col font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong className='font-primary text-gray800 lg:hidden'>Relação de Contraste</strong>{item.contrastRatio}</div>
+                        <div className='col-span-2 sm:col-span-1'>
+                          <strong className='font-primary text-gray800 lg:hidden'>Status</strong>
                           <p className='sr-only'>{item.status}</p>
                           {item.badges}
                         </div>
-                        <div className='print:hidden'>
-                          <div className='flex gap-3'>
+                        <div className='print:hidden my-auto ml-auto sm:mt-auto sm:ml-0 lg:mb-auto'>
+                          <div className='flex flex-col lg:flex-row gap-2 lg:gap-3 max-w-[34px]'>
                             <CustomBtn
                               onClick={() => {
                                 setBackgroundColor(item.backgroundColor);
@@ -464,7 +473,7 @@ function App() {
                 <CustomBtn onClick={() => setModalImprimir(true)} estado={modo === 'altoContraste' ? 'outlineWhite' : 'outlineGray'} className='imprimirRelatorio'>IMPRIMIR RELATÓRIO<FontAwesomeIcon icon={faPrint} className='ml-2' /></CustomBtn>
                 {modalImprimir && (
                   <div className='fixed inset-0 w-full h-full bg-fundo-modal z-999 flex items-center justify-center'>
-                    <div className={`w-[588px] p-6 rounded-xl ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-white'}`}>
+                    <div className={`max-w-[calc(100%-40px)] w-full sm:w-[588px] p-6 rounded-xl ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-white'}`}>
                       <div className='flex justify-between items-center pb-6'>
                         <h2 className={`h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Imprimir relatório</h2>
                         <button type='button' aria-label='Fechar' onClick={() => {setModalImprimir(false); setTituloRelatorio(''); setObservacoesRelatorio('');}}>

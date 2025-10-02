@@ -62,18 +62,18 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
   };
 
   return (
-    <header className={`shadow-md print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+    <header className={`relative z-999 shadow-md print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
       <div className='px-6 py-3 flex items-center justify-between'>
-        <div className='flex items-center gap-6'>
-          <img src={modo === 'altoContraste' ? logoAltoContraste : logo} alt='Logotipo Contrast Checker' className='w-20' />
-          <h1 className={`font-atkinson h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
+        <div className='flex items-center gap-3 md:gap-6'>
+          <img src={modo === 'altoContraste' ? logoAltoContraste : logo} alt='Logotipo Contrast Checker' className='w-16 md:w-20' />
+          <h1 className={`font-atkinson h6 sm:h5 md:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
             Contrast Checker
           </h1>
         </div>
         <div className='botoes flex gap-3'>
-          <button onClick={() => setIsConfigOpen(!isConfigOpen)} type='button' aria-expanded={isConfigOpen} className={`text-dark-color border border-gray-400 flex items-center justify-center w-[60px] h-[60px] rounded-md cursor-pointer ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+          <button onClick={() => setIsConfigOpen(!isConfigOpen)} type='button' aria-expanded={isConfigOpen} className={`text-dark-color border border-gray-400 flex items-center justify-center w-[48px] md:w-[60px] h-[48px] md:h-[60px] rounded-md cursor-pointer ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
             <span className='sr-only'>Configurações</span>
-            <FontAwesomeIcon icon={faGear} className={`text-2xl ${{ altoContraste: 'text-white', }[modo] || 'text-dark-color'}`} />
+            <FontAwesomeIcon icon={faGear} className={`text-[22px] md:text-2xl ${{ altoContraste: 'text-white', }[modo] || 'text-dark-color'}`} />
           </button>
           {isConfigOpen && (
             <div ref={menuRef} className={`shadow rounded-l-lg p-4 fixed top-0 right-0 h-screen max-w-[212px] w-full z-50 flex flex-col ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
@@ -85,15 +85,15 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
                   </button>
                 </div>
                 <div className='flex flex-col gap-3 mt-4.5'>
-                  <button onClick={() => setModo('contrasteNormal')} type='button' class={`py-2 flex items-center gap-2 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+                  <button onClick={() => setModo('contrasteNormal')} type='button' className={`py-2 flex items-center gap-2 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
                     <FontAwesomeIcon icon={faCircleHalfStroke} className='bg-white rounded-full border-2 border-white m-w-[18.6px] text-[17px] text-gray800' />
                     Contraste normal
                   </button>
-                  <button onClick={() => setModo('sepia')} type='button' class={`py-2 flex items-center gap-2 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+                  <button onClick={() => setModo('sepia')} type='button' className={`py-2 flex items-center gap-2 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
                     <FontAwesomeIcon icon={faCircleHalfStroke} className='bg-white rounded-full border-2 border-white m-w-[18.6px] text-[17px] text-sepia' />
                     Sépia
                   </button>
-                  <button onClick={() => setModo('altoContraste')} type='button' class={`py-2 flex items-center gap-2 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+                  <button onClick={() => setModo('altoContraste')} type='button' className={`py-2 flex items-center gap-2 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
                     <FontAwesomeIcon icon={faCircleHalfStroke} className='bg-white rounded-full border-2 border-white m-w-[18.6px] text-[17px] text-gray900' />
                     Alto contraste
                   </button>
@@ -101,58 +101,56 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
               </div>
             </div>
           )}
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} type='button' aria-expanded={isMenuOpen} className={`text-dark-color border border-gray-400 flex items-center justify-center w-[60px] h-[60px] rounded-md cursor-pointer ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} type='button' aria-expanded={isMenuOpen} className={`text-dark-color border border-gray-400 flex items-center justify-center w-[48px] md:w-[60px] h-[48px] md:h-[60px] rounded-md cursor-pointer ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
             <span className='sr-only'>Menu</span>
-            <FontAwesomeIcon icon={faBars} className={`text-2xl ${{ altoContraste: 'text-white', }[modo] || 'text-dark-color'}`} />
+            <FontAwesomeIcon icon={faBars} className={`text-[22px] md:text-2xl ${{ altoContraste: 'text-white', }[modo] || 'text-dark-color'}`} />
           </button>
-          <div>
-            {isMenuOpen && (
-              <div ref={menuRef} className={`shadow rounded-l-lg p-4 fixed top-0 right-0 h-screen max-w-[212px] w-full z-50 flex flex-col ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
-                <div className='flex flex-col h-full'>
-                  <div className='flex justify-between items-center mb-1'>
-                    <h2 className={`h5 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Menu</h2>
-                    <button type='button' aria-label='Fechar' onClick={() => setIsMenuOpen(false)}>
-                      <FontAwesomeIcon icon={faXmark} className={`text-base p-1 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`} />
-                    </button>
-                  </div>
-                  <div className='flex flex-col gap-3 mt-4.5'>
-                    <a href='#' onClick={() => setModalSobre(true)} className={`py-2 -mx-4 px-4 border-l-2 border-transparent ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
-                      Sobre
-                    </a>
-                    {modalSobre && (
-                      <div className='fixed inset-0 w-full h-full bg-fundo-modal z-999 flex items-center justify-center'>
-                        <div className={`w-[588px] p-5.5 rounded-xl ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
-                          <div className='flex justify-between items-center pb-6'>
-                            <h2 className={`h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Sobre o Contrast Checker</h2>
-                            <button type='button' aria-label='Fechar' onClick={() => setModalSobre(false)}>
-                              <FontAwesomeIcon icon={faXmark} className={`text-[19px] p-1 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-dark-color'}`} />
-                            </button>
-                          </div>
-                          <div className='border-y border-gray400 py-4'>
-                            <p className={`lead-text ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Esta ferramenta foi criada para que designers e desenvolvedores possam testar a conformidade do contraste de cores com base nas Diretrizes de acessibilidade de conteúdo da Web (WCAG), conforme estabelecido pelo World Wide Web Consortium (W3C). Esses cálculos são baseados nas fórmulas especificadas pelo W3C.</p>
-                          </div>
-                          <div className='flex justify-center gap-8 mt-3.5'>
-                            <a href='https://cta.ifrs.edu.br'>
-                              <img src={logoCTA} className='h-[75px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
-                            </a>
-                            <a href='https://ifrs.edu.br'>
-                              <img src={logoIFRS} className='h-[75px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
-                            </a>
-                          </div>
+          {isMenuOpen && (
+            <div ref={menuRef} className={`shadow rounded-l-lg p-4 fixed top-0 right-0 h-screen max-w-[212px] w-full z-50 flex flex-col ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+              <div className='flex flex-col h-full'>
+                <div className='flex justify-between items-center mb-1'>
+                  <h2 className={`h5 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Menu</h2>
+                  <button type='button' aria-label='Fechar' onClick={() => setIsMenuOpen(false)}>
+                    <FontAwesomeIcon icon={faXmark} className={`text-base p-1 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`} />
+                  </button>
+                </div>
+                <div className='flex flex-col gap-3 mt-4.5'>
+                  <a href='#' onClick={() => setModalSobre(true)} className={`py-2 -mx-4 px-4 border-l-2 border-transparent ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
+                    Sobre
+                  </a>
+                  {modalSobre && (
+                    <div className='fixed inset-0 w-full h-full bg-fundo-modal z-999 flex items-center justify-center'>
+                      <div className={`w-[588px] p-5.5 rounded-xl ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+                        <div className='flex justify-between items-center pb-6'>
+                          <h2 className={`h5 md:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Sobre o Contrast Checker</h2>
+                          <button type='button' aria-label='Fechar' onClick={() => setModalSobre(false)}>
+                            <FontAwesomeIcon icon={faXmark} className={`text-[19px] p-1 cursor-pointer ${{ altoContraste: 'text-white', }[modo] || 'text-dark-color'}`} />
+                          </button>
+                        </div>
+                        <div className='border-y border-gray400 py-4'>
+                          <p className={`lead-text ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Esta ferramenta foi criada para que designers e desenvolvedores possam testar a conformidade do contraste de cores com base nas Diretrizes de acessibilidade de conteúdo da Web (WCAG), conforme estabelecido pelo World Wide Web Consortium (W3C). Esses cálculos são baseados nas fórmulas especificadas pelo W3C.</p>
+                        </div>
+                        <div className='flex justify-center gap-8 mt-3.5'>
+                          <a href='https://cta.ifrs.edu.br'>
+                            <img src={logoCTA} className='h-[75px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
+                          </a>
+                          <a href='https://ifrs.edu.br'>
+                            <img src={logoIFRS} className='h-[75px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
+                          </a>
                         </div>
                       </div>
-                    )}
-                    <a href='#' onClick={startTour} className={`py-2 -mx-4 px-4 border-l-2 border-transparent ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
-                      Como usar
-                    </a>
-                  </div>
-                  <a href='https://cta.ifrs.edu.br' className='mt-auto mx-auto mb-2.5'>
-                    <img src={logoCTA} className='w-[180px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
+                    </div>
+                  )}
+                  <a href='#' onClick={startTour} className={`py-2 -mx-4 px-4 border-l-2 border-transparent ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
+                    Como usar
                   </a>
                 </div>
+                <a href='https://cta.ifrs.edu.br' className='mt-auto mx-auto mb-2.5'>
+                  <img src={logoCTA} className='w-[180px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
+                </a>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </header>

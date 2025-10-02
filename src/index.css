@@ -30,6 +30,13 @@
   --color-sepia: #E0C074;
   --color-sepia2: #f4ecd8;
   --color-fundo-modal: rgba(33, 37, 41, 0.5);
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
 }
 
 .h1,

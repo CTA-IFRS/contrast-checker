@@ -13,7 +13,7 @@ export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tam
 
     const tamanhoBotao = {
         sm: 'text-sm px-5 py-1.5 min-h-9',
-        md: 'text-base px-6 py-2.5 min-h-12',
+        md: 'text-sm px-5 py-2 min-h-9 md:text-base md:px-6 md:py-2.5 md:min-h-12',
         lg: 'text-base px-7.5 py-3 min-h-15',
         iconOnly: 'text-base px-0.5 py-0.5 min-w-8.5 min-h-8.5'
     };
