@@ -170,14 +170,6 @@ function App() {
   const getIndicador = (value, threshold) =>
     value >= threshold ? <FontAwesomeIcon icon={faSquareCheck} className='text-xl text-success bg-white' /> : <FontAwesomeIcon icon={faSquareXmark} className='text-xl text-danger bg-white' />;
 
-  const calculoGauge = (contrastRatio) => {
-    return ((contrastRatio - 1) * 100) / 20;
-  };
-
-  const percent = calculoGauge(contrastRatio).toFixed(2);
-
-  const turn = (1 - percent / 100) / 2;
-
   const [tituloRelatorio, setTituloRelatorio] = React.useState(dateTitles[selectedDate] || selectedDate || '');
 
   React.useEffect(() => {
@@ -199,12 +191,33 @@ function App() {
     navigate(`/${text}/${bg}`, { replace: true });
   }, [textColor, backgroundColor]);
 
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+  const calculoGauge = (contrastRatio) => {
+    if (!isFinite(contrastRatio)) return 0.5;
+
+    const lo = 1;
+    const mid = 3.1;
+    const hi = 21;
+    const c = clamp(contrastRatio, lo, hi);
+
+    if (c <= mid) {
+      const t = (c - lo) / (mid - lo);
+      return 0.5 - t * 0.25;
+    } else {
+      const t = (c - mid) / (hi - mid);
+      return 0.25 - t * 0.25;
+    }
+  };
+
+  const turn = calculoGauge(contrastRatio);
+
   return (
     <>
       <div className={`min-h-[100vh] body print:bg-white ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
         <Header modo={modo} setModo={setModo} selectedDate={selectedDate} groupedHistory={groupedHistory}/>
-        <main className={`sm:pb-6 ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'}`}>
-          <div className='max-w-full sm:max-w-[calc(100%-40px)] md:max-w-[calc(100%-80px)] lg:max-w-[930px] mx-auto'>
+        <main className={`sm:pb-6 ${{ sepia: 'bg-sepia2', altoContraste: 'bg-black', }[modo] || 'bg-gray100'} print:bg-white`}>
+          <div className='max-w-full sm:max-w-[calc(100%-40px)] md:max-w-[calc(100%-80px)] lg:max-w-[930px] print:max-w-full mx-auto'>
             <section className={`sm:my-6 sm:rounded-xl shadow-md p-6 pb-8 print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
               <div className='flex justify-between pb-4 sm:pb-6'>
                 <h2 className={`h5 sm:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Verificar Contraste</h2>
@@ -310,7 +323,7 @@ function App() {
                 </div>
               </form>
             </section>
-            <section className={`border-t border-gray-400 sm:border-0 sm:mt-6 sm:rounded-xl shadow-md px-6 py-8 historico print:shadow-none print:w-[755px] print:mx-auto ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
+            <section className={`border-t border-gray-400 sm:border-0 sm:mt-6 sm:rounded-xl shadow-md px-6 print:px-0 print:pt-0 py-8 historico print:shadow-none print:w-[755px] print:mx-auto ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
               <div className='flex justify-between print:hidden'>
                 <h2 className={`h5 sm:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Histórico</h2>
                 <CustomBtn className='excluirHistorico' onClick={() => { if (window.confirm('Tem certeza de que deseja excluir todo o histórico? Esta ação é irreversível.')) { setHistory([]); } }} tamanho='sm' estado={modo === 'altoContraste' ? 'outlineWhite' : 'outlineDanger'}>Excluir tudo<FontAwesomeIcon icon={faTrashCan} className='ml-2' /></CustomBtn>
@@ -383,7 +396,7 @@ function App() {
                   <h2 className='hidden print:block h5 pt-2.5 pb-1.5'>{tituloRelatorio}</h2>
                   <p className='hidden print:block font-secondary font-normal text-[13px]'>{observacoesRelatorio}</p>
                 </ul>
-                <div className={`font-primary font-bold text-base px-6 hidden lg:grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center gap-8 mb-1.5 print:grid-cols-[84px_88px_1fr_140px_68px] print:text-[13px] print:pt-4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+                <div className={`font-primary font-bold text-base px-6 hidden print:grid lg:grid grid-cols-[100px_105px_1fr_90px_90px_80px] items-center gap-8 mb-1.5 print:grid-cols-[84px_88px_1fr_140px_68px] print:text-[13px] print:pt-4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
                   <div>Cor do Texto</div>
                   <div>Cor de Fundo</div>
                   <div>Amostra</div>
@@ -394,9 +407,9 @@ function App() {
                 <div className='rounded-2xl overflow-hidden print:mt-[13px]'>
                   {selectedDate && groupedHistory[selectedDate] && groupedHistory[selectedDate].length > 0 ? (
                     groupedHistory[selectedDate].map((item, index) => (
-                      <div key={index} className={`border-b border-gray500 last:border-0 grid grid-cols-4 sm:grid-cols-[1fr_1fr_1fr_1fr_34px] lg:grid-cols-[100px_105px_1fr_90px_90px_80px] pt-4 lg:pt-0 items-baseline lg:items-center px-6 gap-x-4 sm:gap-x-8 gap-y-4 print:grid-cols-[84px_88px_1fr_140px_68px] ${{ sepia: 'odd:bg-sepia2', altoContraste: 'odd:bg-gray900', }[modo] || 'odd:bg-gray100'}`}>
-                        <div className={`col-span-2 sm:col-span-1  font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
-                          <strong className='font-primary text-gray800 lg:hidden'>Cor do Texto</strong>
+                      <div key={index} className={`border-b border-gray500 last:border-0 grid grid-cols-4 sm:grid-cols-[1fr_1fr_1fr_1fr_34px] lg:grid-cols-[100px_105px_1fr_90px_90px_80px] pt-4 lg:pt-0 items-baseline print:items-center lg:items-center px-6 gap-x-4 sm:gap-x-8 gap-y-4 print:grid-cols-[84px_88px_1fr_140px_68px] ${{ sepia: 'odd:bg-sepia2', altoContraste: 'odd:bg-gray900', }[modo] || 'odd:bg-gray100'}`}>
+                        <div className={`col-span-2 sm:col-span-1 print:col-span-1 font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
+                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Cor do Texto</strong>
                           <div>
                             {item.textColor}
                             <button
@@ -410,8 +423,8 @@ function App() {
                             </button>
                           </div>
                         </div>
-                        <div className={`col-span-2 sm:col-span-1  font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
-                          <strong className='font-primary text-gray800 lg:hidden'>Cor do Texto</strong>
+                        <div className={`col-span-2 sm:col-span-1 print:col-span-1 font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
+                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Cor do Texto</strong>
                           <div>
                             {item.backgroundColor}
                             <button
@@ -425,20 +438,20 @@ function App() {
                             </button>
                           </div>
                         </div>
-                        <div className='flex flex-col gap-2 pb-5 lg:py-3 col-span-3 sm:col-span-5 row-3 sm:row-2 lg:col-span-1 lg:row-auto'>
-                          <strong className='font-primary text-gray800 lg:hidden'>Amostra</strong>
-                          <div className='w-full font-primary text-xs/4.5 lg:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[10px]/3.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
+                        <div className='flex flex-col gap-2 pb-5 lg:py-3 col-span-3 sm:col-span-5 row-3 sm:row-2 print:col-span-1 print:col-start-3 print:row-1 lg:col-span-1 lg:row-auto'>
+                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Amostra</strong>
+                          <div className='w-full font-primary text-xs/4.5 lg:w-fit print:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[10px]/3.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                             <p>exemplo de texto</p>
                             <p>EXEMPLO DE TEXTO</p>
                           </div>
-                          <div className='w-full font-primary text-lg/6.5 lg:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[13px]/5 print:pt-0.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
+                          <div className='w-full font-primary text-lg/6.5 lg:w-fit print:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[13px]/5 print:pt-0.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                             <p>exemplo de texto</p>
                             <p>EXEMPLO DE TEXTO</p>
                           </div>
                         </div>
-                        <div className={`col-span-2 sm:col-span-1 flex flex-col font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong className='font-primary text-gray800 lg:hidden'>Relação de Contraste</strong>{item.contrastRatio}</div>
+                        <div className={`col-span-2 sm:col-span-1 flex flex-col font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong className='font-primary text-gray800 lg:hidden print:hidden'>Relação de Contraste</strong>{item.contrastRatio}</div>
                         <div className='col-span-2 sm:col-span-1'>
-                          <strong className='font-primary text-gray800 lg:hidden'>Status</strong>
+                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Status</strong>
                           <p className='sr-only'>{item.status}</p>
                           {item.badges}
                         </div>

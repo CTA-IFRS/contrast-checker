@@ -106,7 +106,8 @@
 }
 
 .bgGauge {
-  background: linear-gradient(90deg, #FF0000 0%, #FFA500 30%, #BFFF00 45%, #28A745 70%);
+  background: url(../src/assets/bgGauge.jpg) center no-repeat;
+  background-size: cover;
 }
 
 .formato {
@@ -146,4 +147,11 @@
 .tooltip-right {
   background: url(../src/assets/tooltip_right.png) center left no-repeat;
   background-size: 16px;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
