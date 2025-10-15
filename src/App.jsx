@@ -79,8 +79,17 @@ function App() {
   const [modalImprimir, setModalImprimir] = useState(false);
 
   useEffect(() => {
-    setBackgroundColor('#ffffff');
-    setTextColor('#000000');
+    const pathname = window.location.pathname;
+    const hostname = window.location.hostname;
+    const protocol = window.location.protocol;
+    
+    if (
+      (pathname === '/' || pathname.endsWith('index.html') || pathname === '') &&
+      (protocol === 'file:' || hostname === 'localhost' || hostname.endsWith('.com') || hostname.endsWith('.com.br'))
+    ) {
+      setBackgroundColor('#ffffff');
+      setTextColor('#000000');
+    }
   }, []);
 
   useEffect(() => {
