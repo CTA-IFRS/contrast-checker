@@ -79,6 +79,11 @@ function App() {
   const [modalImprimir, setModalImprimir] = useState(false);
 
   useEffect(() => {
+    setBackgroundColor('#ffffff');
+    setTextColor('#000000');
+  }, []);
+
+  useEffect(() => {
     const bg = hexToRgb(backgroundColor);
     const txt = hexToRgb(textColor);
     if (bg && txt) {
