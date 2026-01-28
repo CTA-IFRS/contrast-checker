@@ -203,7 +203,7 @@ function App() {
     const text = textColor.replace('#', '');
     const bg = backgroundColor.replace('#', '');
     navigate(`/${text}/${bg}`, { replace: true });
-  }, [textColor, backgroundColor]);
+  }, [textColor, backgroundColor, navigate]);
 
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
