@@ -3,7 +3,7 @@
 @theme {
   --font-primary: "Atkinson Hyperlegible", sans-serif;
   --font-secondary: "Nunito", sans-serif;
-
+  --font-tertiary: "Montserrat", sans-serif;
   --color-success: #28A745;
   --color-danger: #DC3545;
   --color-warning: #FFC107;
@@ -78,6 +78,13 @@
   line-height: 28px;
 }
 
+.base-text2 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+}
+
 .lead-text {
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 400;
@@ -88,6 +95,13 @@
 .lead-text2 {
   font-family: "Nunito", sans-serif;
   font-weight: 500;
+  font-size: 19px;
+  line-height: 34px;
+}
+
+.lead-text3 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
   font-size: 19px;
   line-height: 34px;
 }
@@ -154,4 +168,46 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+}
+
+.nav-link {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.badge-dark {
+  color: var(--color-white);
+  background-color: var(--color-gray800);
+}
+
+.badge {
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  border-radius: .25rem;
+  margin-left: 4px;
+}
+
+#homepage p {
+  line-height: 1.7rem !important;
+}
+
+.bg-light {
+  background-color: var(--color-white);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.small, small {
+  font-weight: 400;
+}
+
+#btn-back-to-top {
+  padding: 15px 16px !important;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }

@@ -1,4 +1,4 @@
-export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tamanho = 'md', type = 'button', title, className }) => {
+export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tamanho = 'md', type = 'button', title, className, id }) => {
     const estadoBotao = {
         primary: 'bg-co4 text-white hover:bg-co5 active:bg-co5',
         secondary: 'bg-co1 text-co6 hover:bg-co4 hover:text-white active:bg-co4 active:text-white',
@@ -20,6 +20,7 @@ export const CustomBtn = ({ children, onClick, disabled, estado = 'primary', tam
 
     return (
         <button
+            id={id}
             onClick={onClick}
             disabled={disabled}
             type={type}

@@ -64,12 +64,12 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
   return (
     <header className={`relative z-999 shadow-md print:hidden ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
       <div className='px-6 py-3 flex items-center justify-between'>
-        <div className='flex items-center gap-3 md:gap-6'>
+        <a href='/' className='flex items-center gap-3 md:gap-6'>
           <img src={modo === 'altoContraste' ? logoAltoContraste : logo} alt='Logotipo Contrast Checker' className='w-16 md:w-20' />
           <h1 className={`font-atkinson h6 sm:h5 md:h4 ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
             Contrast Checker
           </h1>
-        </div>
+        </a>
         <div className='botoes flex gap-3'>
           <button onClick={() => setIsConfigOpen(!isConfigOpen)} type='button' aria-expanded={isConfigOpen} className={`text-dark-color border border-gray-400 flex items-center justify-center w-[48px] md:w-[60px] h-[48px] md:h-[60px] rounded-md cursor-pointer ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
             <span className='sr-only'>Configurações</span>
