@@ -46,6 +46,7 @@
 .h5,
 .h6 {
   font-weight: 700;
+  line-height: 1.2;
 }
 
 .h1 {
@@ -210,4 +211,13 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
+}
+
+.altoContraste .bg-light {
+  background-color: #111111 !important;
+}
+
+.altoContraste .badge {
+  background-color: #ffffff !important;
+  color: #000000 !important;
 }
