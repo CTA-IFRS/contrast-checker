@@ -120,7 +120,7 @@ function Homepage() {
           )}
         </nav>
         
-        <a href='#' id='menu-principal' className='sr-only'>Início do menu principal</a>
+        <HashLink to="#menu-principal" id='menu-principal' className='sronly'>Início do menu principal</HashLink>
         
         <nav className={`${{ altoContraste: 'bg-black border-t border-b border-white', }[modo] || 'bg-light'}`}>
           <div className='max-w-[1140px] mx-auto lg:flex items-center py-8.5 grid grid-cols-[1fr_52px] p-4'>
@@ -148,7 +148,7 @@ function Homepage() {
           </div>
         </nav>
         
-        <a href='#' id='conteudo-principal' className='sr-only'>Início do conteúdo</a>
+        <HashLink to="#conteudo-principal" id='conteudo-principal' className='sronly'>Início do conteúdo</HashLink>
 
         <div className='max-w-[1140px] mx-auto px-[15px] pt-12 pb-20 sm:pb-40 border-b-1 border-gray300' id='main'>
           <div className='grid md:grid-cols-2 items-center'>

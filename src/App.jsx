@@ -379,14 +379,14 @@ function App() {
                           <CustomBtn onClick={() => { setEditingDate(null); }} estado={modo === 'altoContraste' ? 'outlineWhite' : 'outlineGray'} tamanho='sm'>Cancelar</CustomBtn>
                         </form>
                       ) : (
-                        <a href='#'
+                        <button
                           onClick={(e) => {
                             e.preventDefault();
                             setSelectedDate(date);
                           }}
-                          className={`px-4.5 pb-2.5 print:hidden ${selectedDate === date ? 'pt-2.5 abaSelecionada' : 'pt-1.5'} ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
+                          className={`px-4.5 pb-2.5 print:hidden cursor-pointer ${selectedDate === date ? 'pt-2.5 abaSelecionada' : 'pt-1.5'} ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
                           {dateTitles[date] || date}
-                        </a>
+                        </button>
                       )}
                       <div className={`${selectedDate === date ? 'flex gap-2 pr-3 -ml-1' : 'hidden'}`}>
                         <button

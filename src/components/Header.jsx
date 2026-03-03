@@ -115,9 +115,9 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
                   </button>
                 </div>
                 <div className='flex flex-col gap-3 mt-4.5'>
-                  <a href='#' onClick={() => setModalSobre(true)} className={`py-2 -mx-4 px-4 border-l-2 border-transparent ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
+                  <button onClick={() => setModalSobre(true)} className={`py-2 -mx-4 px-4 border-l-2 border-transparent text-left cursor-pointer ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
                     Sobre
-                  </a>
+                  </button>
                   {modalSobre && (
                     <div className='fixed inset-0 w-full h-full bg-fundo-modal z-999 flex items-center justify-center'>
                       <div className={`w-[588px] p-5.5 rounded-xl ${{ sepia: 'bg-sepia2', altoContraste: 'bg-gray900', }[modo] || 'bg-white'}`}>
@@ -141,9 +141,9 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
                       </div>
                     </div>
                   )}
-                  <a href='#' onClick={startTour} className={`py-2 -mx-4 px-4 border-l-2 border-transparent ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
+                  <button onClick={startTour} className={`py-2 -mx-4 px-4 border-l-2 border-transparent text-left cursor-pointer ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
                     Como usar
-                  </a>
+                  </button>
                 </div>
                 <a href='https://cta.ifrs.edu.br' className='mt-auto mx-auto mb-2.5'>
                   <img src={logoCTA} className='w-[180px] bg-white p-2.5 rounded' alt='Logo do CTA - Centro Tecnológico de Acessibilidade do IFRS'></img>
