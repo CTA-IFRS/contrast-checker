@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CustomBtn } from './components/botoes';
 import { useNavigate } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 // icones
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -44,14 +45,18 @@ function Homepage() {
       <>
         <ul className='flex flex-col md:flex-row'>
           <li>
-            <a className={`nav-link px-2 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`} href='#conteudo-principal'><small>Ir para o conteúdo
-              <span className='badge badge-dark'>1</span></small>
-            </a>
+            <HashLink to="#conteudo-principal" className={`nav-link px-2 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+              <small>Ir para o conteúdo
+                <span className='badge badge-dark'>1</span>
+              </small>
+            </HashLink>
           </li>
           <li>
-            <a className={`nav-link px-2 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`} href='#menu-principal'><small>Ir para o menu
-              <span className='badge badge-dark'>2</span></small>
-            </a>
+            <HashLink to="#menu-principal" className={`nav-link px-2 ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>
+              <small>Ir para o menu
+                <span className='badge badge-dark'>2</span>
+              </small>
+            </HashLink>
           </li>
         </ul>
         <ul className='flex md:ml-auto mt-2 md:mt-0'>
@@ -76,19 +81,19 @@ function Homepage() {
     return (
       <ul className={`flex flex-col lg:flex-row gap-y-[15px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>
         <li>
-          <a className='nav-link px-6' href='#about'>Sobre</a>
+          <HashLink to="#about" className='nav-link px-6'>Sobre</HashLink>
+        </li>
+        {/*<li>
+          <HashLink to="#manuals" className='nav-link px-6'>Manuais</HashLink>
+        </li>*/}
+        <li>
+          <HashLink to="#feedback" className='nav-link px-6'>Feedback</HashLink>
         </li>
         <li>
-          <a className='nav-link px-6' href='#manuals'>Manuais</a>
+          <HashLink to="#contribute" className='nav-link px-6'>Contribua</HashLink>
         </li>
         <li>
-          <a className='nav-link px-6' href='#feedback'>Feedback</a>
-        </li>
-        <li>
-          <a className='nav-link px-6' href='#contribute'>Contribua</a>
-        </li>
-        <li>
-          <a className='nav-link pl-6' href='#contact'>Contato</a>
+          <HashLink to="#contact" className='nav-link px-6'>Contato</HashLink>
         </li>
       </ul>
     )
@@ -115,7 +120,7 @@ function Homepage() {
           )}
         </nav>
         
-        <a href='#menu-principal' id='menu-principal' className='sr-only'>Início do menu principal</a>
+        <a href='#' id='menu-principal' className='sr-only'>Início do menu principal</a>
         
         <nav className={`${{ altoContraste: 'bg-black border-t border-b border-white', }[modo] || 'bg-light'}`}>
           <div className='max-w-[1140px] mx-auto lg:flex items-center py-8.5 grid grid-cols-[1fr_52px] p-4'>
@@ -143,27 +148,27 @@ function Homepage() {
           </div>
         </nav>
         
-        <a href='#conteudo-principal' id='conteudo-principal' className='sr-only'>Início do conteúdo</a>
+        <a href='#' id='conteudo-principal' className='sr-only'>Início do conteúdo</a>
 
         <div className='max-w-[1140px] mx-auto px-[15px] pt-12 pb-20 sm:pb-40 border-b-1 border-gray300' id='main'>
           <div className='grid md:grid-cols-2 items-center'>
             <div>
               <h2 className={`font-bold text-[2.5rem]/[3rem] sm:text-[3.5rem]/[4.2rem] mb-4 text-center sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong>Avaliador de contraste</strong></h2>
-              <p className={`lead-text2 sm:pr-6 mb-12 text-justify sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray600'}`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam placeat dolore debitis vero necessitatibus quae sunt minima ad at, quisquam dolores</p>
+              <p className={`lead-text2 sm:pr-6 mb-12 text-justify sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam placeat dolore debitis vero necessitatibus quae sunt minima ad at, quisquam dolores</p>
               <CustomBtn onClick={() => { goToAvaliador(); }} estado={modo === 'altoContraste' ? 'fillWhite' : 'primary'} className='w-full sm:w-fit'>
                 ACESSAR O AVALIADOR
                 <FontAwesomeIcon icon={faArrowRight} className='ml-2' />
               </CustomBtn>
             </div>
             <div className='px-[15px]'>
-              <img className='w-full max-w-[540px] ml-auto' src={smartmockup} alt='' />
+              <img className='w-full max-w-[540px] ml-auto' src={smartmockup} alt='Mockup do aplicativo Contrast Checker exibido em smartphone, tablet e desktop' />
             </div>
           </div>
         </div>
 
         <div className='max-w-[1140px] mx-auto py-12 px-[15px]' id='about'>
           <h2 className={`h1 text-center ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>Conheça mais sobre o Contrast Checker</h2>
-          <p className={`text-center lead-text2 py-6 ${{ altoContraste: 'text-white', }[modo] || 'text-gray600'}`}>Avaliador de Contraste</p>
+          <p className={`text-center lead-text2 py-6 ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Avaliador de Contraste</p>
           <div className='grid md:grid-cols-[1fr_475px]'>
             <div className={`text-justify sm:text-left px-[15px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>
               <p className='base-text2 mb-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia, quo cum aliquid minus inventore commodi consectetur fugit aut perferendis aspernatur, minima velit vel. Error at officiis debitis exercitationem eveniet illo</p>
@@ -180,21 +185,27 @@ function Homepage() {
           </div>
           <ul className={`grid sm:grid-cols-2 gap-x-7.5 gap-y-6 mb-10 text-justify sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
             <li className='grid grid-cols-[95px_1fr] gap-4'>
-              <img className='max-w-[95px] p-[5px] border-1 border-gray300 rounded-full' src={bulletNoAds} alt='' />
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletNoAds})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
               <div>
                 <h4 className='h6 uppercase mb-2 text-left'>Gratuito e sem propagandas</h4>
                 <small className='font-tertiary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit adipisci cumque fugiat nisi placeat ducimus maxime a quia, repellat praesentium consectetur.</small>
               </div>
             </li>
             <li className='grid grid-cols-[95px_1fr] gap-4'>
-              <img className='max-w-[95px] p-[5px] border-1 border-gray300 rounded-full' src={bulletContrast} alt='' />
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletContrast})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
               <div>
                 <h4 className='h6 uppercase mb-2 text-left'>Modo escuro</h4>
                 <small className='font-tertiary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit adipisci cumque fugiat nisi placeat ducimus maxime a quia, repellat praesentium consectetur.</small>
               </div>
             </li>
             <li className='grid grid-cols-[95px_1fr] gap-4'>
-              <img className='max-w-[95px] p-[5px] border-1 border-gray300 rounded-full' src={bulletMulti} alt='' />
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletMulti})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
               <div>
                 <h4 className='h6 uppercase mb-2 text-left'>Online ou instalado</h4>
                 <small className='font-tertiary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit adipisci cumque fugiat nisi placeat ducimus maxime a quia, repellat praesentium consectetur.</small>
@@ -233,7 +244,7 @@ function Homepage() {
                 </a>
               </div>
               <div>
-                <img src={imgContribute} className='w-100' />
+                <img src={imgContribute} className='w-100' alt=''/>
               </div>
             </div>
           </div>
@@ -286,11 +297,11 @@ function Homepage() {
               
               <div className='grid grid-cols-[2fr_1fr] gap-7.5 mt-18'>
                 <div>
-                  <img className='w-100 rounded p-4 bg-white' src={logoCTA} />
+                  <img className='w-100 rounded p-4 bg-white' src={logoCTA} alt='Logotipo do CTA' />
                 </div>
                 <div>
-                  <img className='w-100 rounded p-4 mb-6 bg-white' src={logoPROEN} />
-                  <img className='w-100 rounded p-4 bg-white' src={logoIFRS} />
+                  <img className='w-100 rounded p-4 mb-6 bg-white' src={logoPROEN} alt='Logotipo do PROEN' />
+                  <img className='w-100 rounded p-4 bg-white' src={logoIFRS} alt='Logotipo do IFRS' />
                 </div>
               </div>
             </div>
