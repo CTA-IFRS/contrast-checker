@@ -33,6 +33,10 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
   const startTour = () => {
     const driverObj = driver({
       showProgress: true,
+      nextBtnText: "Próximo",
+      prevBtnText: "Anterior",
+      doneBtnText: "Concluir",
+      progressText: "{{current}} de {{total}}",
       steps: [
         { element: '.cor-texto', popover: { title: 'Cor do texto', description: 'Neste campo deve ser inserida a cor do texto.' } },
         { element: '.cor-fundo', popover: { title: 'Cor do fundo', description: 'E neste, a cor do fundo.' } },
