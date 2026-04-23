@@ -423,7 +423,7 @@ function App() {
                     groupedHistory[selectedDate].map((item, index) => (
                       <div key={index} className={`border-b border-gray500 last:border-0 grid grid-cols-4 sm:grid-cols-[1fr_1fr_1fr_1fr_34px] lg:grid-cols-[100px_105px_1fr_90px_90px_80px] pt-4 lg:pt-0 items-baseline print:items-center lg:items-center px-6 gap-x-4 sm:gap-x-8 gap-y-4 print:grid-cols-[84px_88px_1fr_140px_68px] ${{ sepia: 'odd:bg-sepia2', altoContraste: 'odd:bg-gray900', }[modo] || 'odd:bg-gray100'}`}>
                         <div className={`col-span-2 sm:col-span-1 print:col-span-1 font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
-                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Cor do Texto</strong>
+                          <strong className={`font-primary lg:hidden print:hidden ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Cor do Texto</strong>
                           <div>
                             {item.textColor}
                             <button
@@ -438,7 +438,7 @@ function App() {
                           </div>
                         </div>
                         <div className={`col-span-2 sm:col-span-1 print:col-span-1 font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
-                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Cor do Texto</strong>
+                          <strong className={`font-primary lg:hidden print:hidden ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Cor do Fundo</strong>
                           <div>
                             {item.backgroundColor}
                             <button
@@ -453,7 +453,7 @@ function App() {
                           </div>
                         </div>
                         <div className='flex flex-col gap-2 pb-5 lg:py-3 col-span-3 sm:col-span-5 row-3 sm:row-2 print:col-span-1 print:col-start-3 print:row-1 lg:col-span-1 lg:row-auto'>
-                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Amostra</strong>
+                          <strong className={`font-primary lg:hidden print:hidden ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Amostra</strong>
                           <div className='w-full font-primary text-xs/4.5 lg:w-fit print:w-fit rounded-lg border px-3 pt-1 pb-2 border-gray600 print:px-[7px] print:text-[10px]/3.5 print:pb-1' style={{ background: `${item.backgroundColor}`, color: `${item.textColor}` }}>
                             <p>exemplo de texto</p>
                             <p>EXEMPLO DE TEXTO</p>
@@ -463,9 +463,9 @@ function App() {
                             <p>EXEMPLO DE TEXTO</p>
                           </div>
                         </div>
-                        <div className={`col-span-2 sm:col-span-1 flex flex-col font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong className='font-primary text-gray800 lg:hidden print:hidden'>Relação de Contraste</strong>{item.contrastRatio}</div>
+                        <div className={`col-span-2 sm:col-span-1 flex flex-col font-secondary font-normal text-[16px] print:text-[13px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong className={`font-primary lg:hidden print:hidden ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Relação de Contraste</strong>{item.contrastRatio}</div>
                         <div className='col-span-2 sm:col-span-1'>
-                          <strong className='font-primary text-gray800 lg:hidden print:hidden'>Status</strong>
+                          <strong className={`font-primary lg:hidden print:hidden ${{ altoContraste: 'text-white', }[modo] || 'text-gray800'}`}>Status</strong>
                           <p className='sr-only'>{item.status}</p>
                           {item.badges}
                         </div>
