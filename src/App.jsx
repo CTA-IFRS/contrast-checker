@@ -470,7 +470,7 @@ function App() {
                           {item.badges}
                         </div>
                         <div className='print:hidden my-auto ml-auto sm:mt-auto sm:ml-0 lg:mb-auto'>
-                          <div className='flex flex-col lg:flex-row gap-2 lg:gap-3 max-w-[34px]'>
+                          <div className='flex flex-col lg:flex-row gap-2 lg:gap-3 max-w-[34px] lg:max-w-[100%]'>
                             <CustomBtn
                               onClick={() => {
                                 setBackgroundColor(item.backgroundColor);

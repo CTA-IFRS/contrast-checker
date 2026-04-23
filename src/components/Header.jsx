@@ -145,7 +145,7 @@ const Header = ({ modo, setModo, selectedDate, groupedHistory }) => {
                       </div>
                     </div>
                   )}
-                  <button onClick={startTour} className={`py-2 -mx-4 px-4 border-l-2 border-transparent text-left cursor-pointer ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
+                  <button onClick={() => { setIsMenuOpen(false); startTour();}} className={`py-2 -mx-4 px-4 border-l-2 border-transparent text-left cursor-pointer ${{ altoContraste: 'text-white hover:bg-black hover:border-white focus:bg-black focus:border-white', }[modo] || 'text-gray800 hover:bg-co1 hover:border-co4 focus:bg-co1 focus:border-co4'}`}>
                     Como usar
                   </button>
                 </div>

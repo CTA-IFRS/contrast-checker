@@ -18,6 +18,10 @@ import imgContribute from './assets/contribute.png';
 import bulletNoAds from './assets/bullet-no-ads.png';
 import bulletContrast from './assets/bullet-contrast.png';
 import bulletMulti from './assets/bullet-multi.png';
+import bulletShare from './assets/bullet-share.png';
+import bulletHistory from './assets/bullet-history.png';
+import bulletDownload from './assets/bullet-download.png';
+import bulletCheck from './assets/bullet-check.png';
 import logoCTA from './assets/logo-cta2.png';
 import logoPROEN from './assets/logo-proen.png';
 import logoIFRS from './assets/logo-ifrs2.png';
@@ -154,7 +158,7 @@ function Homepage() {
           <div className='grid md:grid-cols-2 items-center'>
             <div>
               <h2 className={`font-bold text-[2.5rem]/[3rem] sm:text-[3.5rem]/[4.2rem] mb-4 text-center sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}><strong>Avaliador de contraste</strong></h2>
-              <p className={`lead-text2 sm:pr-6 mb-12 text-justify sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam placeat dolore debitis vero necessitatibus quae sunt minima ad at, quisquam dolores</p>
+              <p className={`lead-text2 sm:pr-6 mb-12 text-justify sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Teste o contraste de cores e verifique a conformidade com as diretrizes da WCAG, garantindo combinações acessíveis nos seus projetos de forma simples e rápida.</p>
               <CustomBtn onClick={() => { goToAvaliador(); }} estado={modo === 'altoContraste' ? 'fillWhite' : 'primary'} className='w-full sm:w-fit'>
                 ACESSAR O AVALIADOR
                 <FontAwesomeIcon icon={faArrowRight} className='ml-2' />
@@ -171,9 +175,10 @@ function Homepage() {
           <p className={`text-center lead-text2 py-6 ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>Avaliador de Contraste</p>
           <div className='grid md:grid-cols-[1fr_475px]'>
             <div className={`text-justify sm:text-left px-[15px] ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}>
-              <p className='base-text2 mb-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia, quo cum aliquid minus inventore commodi consectetur fugit aut perferendis aspernatur, minima velit vel. Error at officiis debitis exercitationem eveniet illo</p>
-              <p className='base-text2 mb-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia, quo cum aliquid minus inventore commodi consectetur fugit aut perferendis aspernatur, minima velit vel. Error at officiis debitis exercitationem eveniet illo</p>
-              <p className='base-text2 mb-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia, quo cum aliquid minus inventore commodi consectetur fugit aut perferendis aspernatur, minima velit vel. Error at officiis debitis exercitationem eveniet illo</p>
+              <p className='base-text2 mb-4'>O Contrast Checker é uma ferramenta online e gratuita desenvolvida para ajudar designers e desenvolvedores a verificar se combinações de cores atendem às Diretrizes de Acessibilidade para Conteúdo Web (WCAG), definidas pelo W3C.</p>
+              <p className='base-text2 mb-4'>Com a ferramenta, é possível selecionar a cor do texto e a cor de fundo e visualizar imediatamente a relação de contraste entre elas. O resultado é apresentado de forma clara, incluindo o valor numérico do contraste e a indicação de conformidade com os níveis de acessibilidade.</p>
+              <p className='base-text2 mb-4'>Além do cálculo, o Contrast Checker exibe exemplos práticos de como o contraste se comporta em diferentes tamanhos de texto, facilitando a análise em contextos reais de uso.</p>
+              <p className='base-text2 mb-4'>Também é possível salvar combinações testadas, compartilhar links com os resultados e gerar relatórios com o histórico de verificações realizadas.</p>
             </div>
             <div className='px-[15px]'>
               <img src={about1} alt='Printscreen do avaliador de contraste com texto em cor preta e fundo em cor branca, resultando em 21.00 de relação de contraste' className='border-1 border-gray300 rounded-[0.25rem] mb-6 p-1' />
@@ -186,20 +191,47 @@ function Homepage() {
           <ul className={`grid sm:grid-cols-2 gap-x-7.5 gap-y-6 mb-10 text-justify sm:text-left ${{ altoContraste: 'text-white', }[modo] || 'text-gray900'}`}>
             <li className='grid grid-cols-[95px_1fr] gap-4'>
               <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
-                <span style={{ backgroundImage: `url(${bulletNoAds})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+                <span style={{ backgroundImage: `url(${bulletCheck})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
               </div>
               <div>
-                <h4 className='h6 uppercase mb-2 text-left'>Gratuito e sem propagandas</h4>
-                <small className='font-tertiary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit adipisci cumque fugiat nisi placeat ducimus maxime a quia, repellat praesentium consectetur.</small>
+                <h4 className='h6 uppercase mb-2 text-left'>Conformidade com WCAG (AA e AAA)</h4>
+                <small className='font-tertiary'>Verifique se as combinações de cores atendem aos níveis de acessibilidade.</small>
               </div>
             </li>
             <li className='grid grid-cols-[95px_1fr] gap-4'>
               <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
-                <span style={{ backgroundImage: `url(${bulletContrast})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+                <span style={{ backgroundImage: `url(${bulletHistory})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
               </div>
               <div>
-                <h4 className='h6 uppercase mb-2 text-left'>Modo escuro</h4>
-                <small className='font-tertiary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit adipisci cumque fugiat nisi placeat ducimus maxime a quia, repellat praesentium consectetur.</small>
+                <h4 className='h6 uppercase mb-2 text-left'>Histórico de avaliações</h4>
+                <small className='font-tertiary'>Salve e gerencie todas as relações de contraste testadas.</small>
+              </div>
+            </li>
+            <li className='grid grid-cols-[95px_1fr] gap-4'>
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletDownload})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
+              <div>
+                <h4 className='h6 uppercase mb-2 text-left'>Geração de relatório</h4>
+                <small className='font-tertiary'>Exporte o histórico em formato de relatório, com título personalizado.</small>
+              </div>
+            </li>
+            <li className='grid grid-cols-[95px_1fr] gap-4'>
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletShare})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
+              <div>
+                <h4 className='h6 uppercase mb-2 text-left'>Link compartilhável</h4>
+                <small className='font-tertiary'>Compartilhe resultados facilmente por link, sem precisar de capturas de tela.</small>
+              </div>
+            </li>
+            <li className='grid grid-cols-[95px_1fr] gap-4'>
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletNoAds})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
+              <div>
+                <h4 className='h6 uppercase mb-2 text-left'>Gratuito e sem anúncios</h4>
+                <small className='font-tertiary'>Utilize a ferramenta sem custos e sem distrações.</small>
               </div>
             </li>
             <li className='grid grid-cols-[95px_1fr] gap-4'>
@@ -207,8 +239,17 @@ function Homepage() {
                 <span style={{ backgroundImage: `url(${bulletMulti})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
               </div>
               <div>
-                <h4 className='h6 uppercase mb-2 text-left'>Online ou instalado</h4>
-                <small className='font-tertiary'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit adipisci cumque fugiat nisi placeat ducimus maxime a quia, repellat praesentium consectetur.</small>
+                <h4 className='h6 uppercase mb-2 text-left'>Uso direto no navegador</h4>
+                <small className='font-tertiary'>Acesse de qualquer dispositivo, sem necessidade de instalação.</small>
+              </div>
+            </li>
+            <li className='grid grid-cols-[95px_1fr] gap-4'>
+              <div className='min-w-[95px] h-[95px] border-1 border-gray300 rounded-full flex items-center justify-center'>
+                <span style={{ backgroundImage: `url(${bulletContrast})` }} className='flex min-w-[90px] h-[90px] bg-contain bg-no-repeat rounded-full border-5 border-transparent'></span>
+              </div>
+              <div>
+                <h4 className='h6 uppercase mb-2 text-left'>Modo de visualização</h4>
+                <small className='font-tertiary'>Alterne entre modos como padrão, sépia e alto contraste.</small>
               </div>
             </li>
           </ul>
@@ -310,7 +351,7 @@ function Homepage() {
 
         <div className='bg-light px-[15px]' id='developed-by'>
           <div className='py-6 d-flex justify-content-center' id='footer'>
-            <p className={`lead-text3 text-center ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}><small>Desenvolvido por CTA - IFRS. Aplicativo sob a licença...............</small></p>
+            <p className={`lead-text3 text-center ${{ altoContraste: 'text-white', }[modo] || 'text-gray700'}`}><small>Desenvolvido por CTA - IFRS. Aplicativo sob a licença GPLv3 e Creative Commons NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0).</small></p>
           </div>
         </div>
         
