@@ -1,0 +1,11 @@
+services:
+  contrast-checker:
+    image: docker.io/library/node:22-slim
+    container_name: contrast-checker
+    working_dir: /app
+    command: ["sh", "-c", "if [ ! -d node_modules ]; then  npm install; fi; npm run dev"]
+    volumes:
+      - ..:/app
+    ports:
+      - 8888:5173
+
